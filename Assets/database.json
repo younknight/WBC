@@ -1,0 +1,317 @@
+{
+    "itemInfo": [
+        {
+            "item": {
+                "instanceID": 24890
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24944
+            },
+            "num": 104
+        },
+        {
+            "item": {
+                "instanceID": 25000
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24962
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24866
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24966
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24914
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24898
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24946
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24934
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24900
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24950
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24878
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24948
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24882
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24972
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24894
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24984
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24978
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24860
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24852
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24938
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24922
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24928
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24936
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24870
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 25002
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24916
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24954
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24912
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24982
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24896
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24858
+            },
+            "num": 99
+        },
+        {
+            "item": {
+                "instanceID": 24970
+            },
+            "num": 99
+        }
+    ],
+    "chestInfo": [
+        {
+            "chest": {
+                "instanceID": 24976
+            },
+            "num": 99
+        },
+        {
+            "chest": {
+                "instanceID": 24952
+            },
+            "num": 99
+        },
+        {
+            "chest": {
+                "instanceID": 24960
+            },
+            "num": 99
+        },
+        {
+            "chest": {
+                "instanceID": 24874
+            },
+            "num": 99
+        },
+        {
+            "chest": {
+                "instanceID": 24992
+            },
+            "num": 102
+        },
+        {
+            "chest": {
+                "instanceID": 24994
+            },
+            "num": 103
+        },
+        {
+            "chest": {
+                "instanceID": 24980
+            },
+            "num": 99
+        },
+        {
+            "chest": {
+                "instanceID": 24958
+            },
+            "num": 99
+        }
+    ],
+    "weaponInfo": [
+        {
+            "weapon": {
+                "instanceID": -110738
+            },
+            "num": 99
+        },
+        {
+            "weapon": {
+                "instanceID": 308094
+            },
+            "num": 99
+        },
+        {
+            "weapon": {
+                "instanceID": 308098
+            },
+            "num": 99
+        },
+        {
+            "weapon": {
+                "instanceID": 308102
+            },
+            "num": 99
+        },
+        {
+            "weapon": {
+                "instanceID": 308106
+            },
+            "num": 99
+        },
+        {
+            "weapon": {
+                "instanceID": 308110
+            },
+            "num": 99
+        }
+    ],
+    "equipWeapons": [
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        },
+        {
+            "instanceID": 0
+        }
+    ],
+    "gold": 98765
+}
