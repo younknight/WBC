@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
+    [SerializeField] EquipmentManager equipmentManager;
     Status defaultStatus = new Status();//default
     static Weapon[] weapons = new Weapon[6];
 
@@ -17,7 +18,7 @@ public class Equipment : MonoBehaviour
         {
             if (weapons[i] != null)
             {
-                EquipmentManager.instance.Slots[i].SetWeapon(true, weapons[i]);
+                equipmentManager.Slots[i].SetWeapon(true, weapons[i]);
                 Weapon weapon = weapons[i];
                 defaultStatus.PlusStatus(weapon.hp, weapon.attack, weapon.defence, weapon.criDamage, weapon.criRate);
             }

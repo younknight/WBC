@@ -215,7 +215,7 @@ MonoBehaviour:
   slotPrefap: {fileID: 5223337116432813893, guid: a39cd1aaddcf6854a96843a022465a9a, type: 3}
   inventoryType: 0
   isDraggble: 0
-  popupType: 0
+  openPopupType: 0
   isShowCount: 1
   equipmentSlot: {fileID: 0}
   slotParent: {fileID: 5994695350833438964}

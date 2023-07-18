@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public struct itemInfo
 {
     public Item item;
@@ -14,7 +13,6 @@ public struct itemInfo
         this.num = num;
     }
 }
-[System.Serializable]
 public struct chestInfo
 {
     public Chest chest;
@@ -25,7 +23,6 @@ public struct chestInfo
         this.num = num;
     }
 }
-[System.Serializable]
 public struct weaponInfo
 {
     public Weapon weapon;
@@ -38,8 +35,10 @@ public struct weaponInfo
 }
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] EquipmentManager equipmentManager;
+    [SerializeField] InventoryManager inventoryManager;
     public static GameManager instance;
-    [SerializeField] List<chestInfo> firstChest = new List<chestInfo>();
+    [SerializeField] Chest firstChest;
     [SerializeField] List<Item> itemDatas = new List<Item>();
     [SerializeField] List<Chest> chestDatas = new List<Chest>();
     [SerializeField] List<Weapon> weaponDatas = new List<Weapon>();
@@ -49,6 +48,9 @@ public class GameManager : MonoBehaviour
     static int gold;
     #region getter, setter
     public static int Gold { get => gold; set => gold = value; }
+    public List<Item> ItemDatas { get => itemDatas; set => itemDatas = value; }
+    public List<Chest> ChestDatas { get => chestDatas; set => chestDatas = value; }
+    public List<Weapon> WeaponDatas { get => weaponDatas; set => weaponDatas = value; }
     #endregion
     private void Awake()
     {
@@ -59,17 +61,17 @@ public class GameManager : MonoBehaviour
         fullItems = new List<itemInfo>();
         fullChests = new List<chestInfo>();
         fullWeapons = new List<weaponInfo>();
-        for (int i = 0; i < itemDatas.Count; i++)
+        for (int i = 0; i < ItemDatas.Count; i++)
         {
-            fullItems.Add(new itemInfo(itemDatas[i], 99));
+            fullItems.Add(new itemInfo(ItemDatas[i], 99));
         }
-        for (int i = 0; i < chestDatas.Count; i++)
+        for (int i = 0; i < ChestDatas.Count; i++)
         {
-            fullChests.Add(new chestInfo(chestDatas[i], 99));
+            fullChests.Add(new chestInfo(ChestDatas[i], 99));
         }
-        for (int i = 0; i < weaponDatas.Count; i++)
+        for (int i = 0; i < WeaponDatas.Count; i++)
         {
-            fullWeapons.Add(new weaponInfo(weaponDatas[i], 99));
+            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 99));
         }
     }
     public static int GetCount(inventoryType inventoryType)
@@ -81,30 +83,30 @@ public class GameManager : MonoBehaviour
     }
     public void ResetPlayer()//ÃÊ±âÈ­
     {
-        Inventory.items = new List<itemInfo>();
-        Inventory.chests = firstChest;
-        Inventory.weapons = new List<weaponInfo>();
+        Inventory.Items = new List<itemInfo>();
+        Inventory.Chests = new List<chestInfo>();
+        Inventory.Chests.Add(new chestInfo(firstChest, 1));
+        Inventory.Weapons = new List<weaponInfo>();
         gold = 0;
         SetData();
     }
     public void GetAllItems()
     {
-        Inventory.items = fullItems;
-        Inventory.chests = fullChests;
-        Inventory.weapons = fullWeapons;
+        Inventory.Items = fullItems;
+        Inventory.Chests = fullChests;
+        Inventory.Weapons = fullWeapons;
         gold = 98765;
         SetData();
     }
     void SetData()
     {
-
-        EquipmentManager.instance.Equipment.DefaultStatus = new Status();
+        equipmentManager.Equipment.DefaultStatus = new Status();
         Equipment.Weapons = new Weapon[6];
-        for (int i = 0; i < EquipmentManager.instance.Slots.Length; i++)
+        for (int i = 0; i < equipmentManager.Slots.Length; i++)
         {
-            EquipmentManager.instance.Slots[i].ClearSlot();
+            equipmentManager.Slots[i].ClearSlot();
         }
         TextManager.instance.SetGold();
-        InventoryManager.instance.Initalize();
+        inventoryManager.Initalize();
     }
 }

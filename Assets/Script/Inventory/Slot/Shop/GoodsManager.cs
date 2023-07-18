@@ -23,20 +23,19 @@ public class GoodsManager : MonoBehaviour
     }
     public void Setting(int isChest)//1 아이템, 0 상자
     {
-        Debug.Log("-----------------");
         int index = 0;
         int count = 0;
         List<int> indexs = new List<int>();
         if (isChest == 1)
         {
-            for (int j = 0; j < Inventory.items.Count; j++)
+            for (int j = 0; j < Inventory.Items.Count; j++)
             {
                 indexs.Add(j);
             }
         }
         if(isChest == 0)
         {
-            for (int j = 0; j < Inventory.chests.Count; j++)
+            for (int j = 0; j < Inventory.Chests.Count; j++)
             {
                 indexs.Add(j);
             }
@@ -54,7 +53,7 @@ public class GoodsManager : MonoBehaviour
             {
                 slots[i].gameObject.SetActive(true);
                 index = Random.Range(0, indexs.Count);
-                slots[i].SetItem(Inventory.items[indexs[index]].item, count);
+                slots[i].SetItem(Inventory.Items[indexs[index]].item, count);
                 indexs.Remove(indexs[index]);
             }
             if (isChest == 0)//상자
@@ -63,7 +62,7 @@ public class GoodsManager : MonoBehaviour
                 {
                     slots[i].gameObject.SetActive(true);
                     index = Random.Range(1, indexs.Count);
-                    slots[i].SetChest(Inventory.chests[indexs[index]].chest, count);
+                    slots[i].SetChest(Inventory.Chests[indexs[index]].chest, count);
                     indexs.Remove(indexs[index]);
                 }
             }
