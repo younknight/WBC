@@ -23,10 +23,10 @@ public class EquipmentManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-    }
-    void Start()
-    {
-        FreshSlot();
+        for(int i =0;i< slots.Length; i++)
+        {
+            slots[i].ClearSlot();
+        }
     }
     public void AddWeapon(Weapon weapon,int id)
     {

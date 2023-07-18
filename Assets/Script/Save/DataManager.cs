@@ -2,19 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
-[System.Serializable]
+public class hasItem
+{
+    public int id;
+    public int count;
+
+    public hasItem(int id, int count)
+    {
+        this.id = id;
+        this.count = count;
+    }
+}
+
 public class SaveData
 {
-    public List<itemInfo> itemInfo = new List<itemInfo>();
-    public List<chestInfo> chestInfo = new List<chestInfo>();
-    public List<weaponInfo> weaponInfo = new List<weaponInfo>();
-    public Weapon[] equipWeapons = new Weapon[6];
+    public List<hasItem> items = new List<hasItem>();
+    public List<hasItem> chests = new List<hasItem>();
+    public List<hasItem> weapons = new List<hasItem>();
+    public int[] equipWeapons = new int[6];
     public int gold = 0;
 }
 
 public class DataManager : MonoBehaviour
 {
+    [SerializeField] EquipmentManager equipmentManager;
+    [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] GameManager gameManager;
     public static DataManager instance;
     string path;
 
@@ -26,33 +41,11 @@ public class DataManager : MonoBehaviour
     }
     private void Start()
     {
-        SetLoad();
+        inventoryManager.Initalize();
+        equipmentManager.FreshSlot();
+        equipmentManager.Equipment.ResetStatus();
+        SetData();
     }
-    void SetLoad()
-    {
-        SaveData saveData = new SaveData();
-        if (!File.Exists(path))
-        {
-            //경로가 존재 안함
-            Debug.Log("경로가 존재 안함");
-            //GameManager.instance.ResetPlayer();
-            //JsonSave();
-        }
-        else
-        {
-            string loadJson = File.ReadAllText(path);
-            saveData = JsonUtility.FromJson<SaveData>(loadJson);
-
-            if (saveData != null)
-            {
-                //불러오기
-                EquipmentManager.instance.Equipment.ResetStatus();
-                InventoryManager.instance.Initalize();
-                SetData();
-            }
-        }
-    }
-
     public void JsonLoad()
     {
 
@@ -61,22 +54,46 @@ public class DataManager : MonoBehaviour
         {
             //경로가 존재 안함
             Debug.Log("경로가 존재 안함");
-            //GameManager.instance.ResetPlayer();
-            //JsonSave();
+            gameManager.ResetPlayer();
+            JsonSave();
         }
         else
         {
             string loadJson = File.ReadAllText(path);
-            saveData = JsonUtility.FromJson<SaveData>(loadJson);
+            saveData = JsonToOject<SaveData>(loadJson);
+            // saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
             if (saveData != null)
             {
+                saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
+
                 //불러오기
                 GameManager.Gold = saveData.gold;
-                Inventory.items = saveData.itemInfo;
-                Inventory.chests = saveData.chestInfo;
-                Inventory.weapons = saveData.weaponInfo;
-                Equipment.Weapons = saveData.equipWeapons;
+                List<itemInfo> itemInfos = new List<itemInfo>();
+                for (int i = 0; i < saveData.items.Count; i++)
+                {
+                    itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].id], saveData.items[i].count));
+                }
+                List<chestInfo> chestInfos = new List<chestInfo>();
+                for (int i = 0; i < saveData.chests.Count; i++)
+                {
+                    chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].id], saveData.chests[i].count));
+                }
+                List<weaponInfo> weaponInfos = new List<weaponInfo>();
+                for (int i = 0; i < saveData.weapons.Count; i++)
+                {
+                    weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].id], saveData.weapons[i].count));
+                }
+                Inventory.Items = itemInfos;
+                Inventory.Chests = chestInfos;
+                Inventory.Weapons = weaponInfos;
+                Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
+                for(int i = 0; i < saveData.equipWeapons.Length; i++)
+                {
+                    if (saveData.equipWeapons[i] != -1) weapons[i] = gameManager.WeaponDatas[saveData.equipWeapons[i]];
+                    else weapons[i] = null;
+                }
+                Equipment.Weapons = weapons;
             }
         }
     }
@@ -89,15 +106,44 @@ public class DataManager : MonoBehaviour
         SaveData saveData = new SaveData();
 
         #region json파일에 저장
-        saveData.itemInfo = Inventory.items;
-        saveData.chestInfo = Inventory.chests;
-        saveData.weaponInfo = Inventory.weapons;
+        List<hasItem> items = new List<hasItem>();
+        for (int i = 0; i < Inventory.Items.Count; i++)
+        {
+            items.Add(new hasItem(Inventory.Items[i].item.id, Inventory.Items[i].num));
+        }
+        List<hasItem> chests = new List<hasItem>();
+        for (int i = 0; i < Inventory.Chests.Count; i++)
+        {
+            chests.Add(new hasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num));
+        }
+        List<hasItem> weapons = new List<hasItem>();
+        for (int i = 0; i < Inventory.Weapons.Count; i++)
+        {
+            weapons.Add(new hasItem(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num));
+        }
+        saveData.items = items;
+        saveData.chests = chests;
+        saveData.weapons = weapons;
         saveData.gold = GameManager.Gold;
-        saveData.equipWeapons = Equipment.Weapons;
+        int[] equip = new int[6];
+        for(int i=0;i< equip.Length; i++)
+        {
+            if (Equipment.Weapons[i] != null) equip[i] = Equipment.Weapons[i].id;
+            else equip[i] = -1;
+        }
+        saveData.equipWeapons = equip;
         #endregion
 
-        string json = JsonUtility.ToJson(saveData, true);
+        string jsonData = ObjectToJson(saveData);
 
-        File.WriteAllText(path, json);
+        File.WriteAllText(path, jsonData);
+    }
+    string ObjectToJson(object obj)
+    {
+        return JsonConvert.SerializeObject(obj);
+    }
+    T JsonToOject<T>(string jsonData)
+    {
+        return JsonConvert.DeserializeObject<T>(jsonData);
     }
 }
