@@ -31,9 +31,15 @@ public class Inventory : MonoBehaviour
     public static List<itemInfo> Items { get => items; set => items = value; }
     public static List<chestInfo> Chests { get => chests; set => chests = value; }
     public static List<weaponInfo> Weapons { get => weapons; set => weapons = value; }
-
+    private void OnDestroy()
+    {
+        items = null;
+        chests = null;
+        weapons = null;
+    }
     private void Awake()
     {
+        
         int count = GameManager.GetCount(inventoryType);
         Transform cavas = GameObject.Find("Canvas").transform;
         for(int i = 0; i < count; i++)

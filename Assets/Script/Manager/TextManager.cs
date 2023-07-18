@@ -6,6 +6,8 @@ public class TextManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI goldText;
     public static TextManager instance;
+
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -17,5 +19,9 @@ public class TextManager : MonoBehaviour
     public void SetGold()
     {
         goldText.text = GameManager.Gold.ToString();
+    }
+    private void OnDestroy()
+    {
+        instance = null;
     }
 }

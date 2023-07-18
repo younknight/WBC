@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour
     public List<Chest> ChestDatas { get => chestDatas; set => chestDatas = value; }
     public List<Weapon> WeaponDatas { get => weaponDatas; set => weaponDatas = value; }
     #endregion
+    private void OnDestroy()
+    {
+        instance = null;
+        fullItems = null;
+        fullChests = null;
+        fullWeapons = null;
+    }
     private void Awake()
     {
         if (instance == null) instance = this;

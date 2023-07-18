@@ -44,11 +44,11 @@ public class OpenSlot : MonoBehaviour
         if (chest != null && timer.canOpen)
         {
             int min = 0;
-            int percent = Random.Range(0, 100);
+            int percent = Random.Range(1, 100 + 1);
             for (int i = 0; i < chest.dropItems.Count; i++)
             {
                 if (i != 0) min = chest.dropItems[i - 1].percent;
-                if (min < percent && percent < chest.dropItems[i].percent)
+                if (min < percent && percent <= chest.dropItems[i].percent)
                 {
                     //실제 오픈 부
 
@@ -57,9 +57,9 @@ public class OpenSlot : MonoBehaviour
                     PopupManager.instance.OpenGetItemPopup(item.itemName, "x" + count.ToString(), item.itemImage, Inventory.CheckNewItem(item), item.ranking);//////isNew확인바람
 
                     InventoryManager.instance.AddItem(item, count);
+                    RemoveSlot();
                 }
             }
-            RemoveSlot();
         }
         else
         {

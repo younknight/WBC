@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    public static EquipmentManager instance;
     [SerializeField] Equipment equipment;//
     [SerializeField] Transform slotParent;
     [SerializeField] EquipmentSlot[] slots;
@@ -22,7 +21,6 @@ public class EquipmentManager : MonoBehaviour
     }
     private void Awake()
     {
-        if (instance == null) instance = this;
         for(int i =0;i< slots.Length; i++)
         {
             slots[i].ClearSlot();

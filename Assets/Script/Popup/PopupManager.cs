@@ -11,7 +11,10 @@ public class PopupManager : MonoBehaviour
     Dictionary<popupType, Popup> popups = new Dictionary<popupType, Popup>();
 
     public Dictionary<popupType, Popup> Popups { get => popups; set => popups = value; }
-
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     // Start is called before the first frame update
     void Awake()
     {

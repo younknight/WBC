@@ -22,7 +22,10 @@ public class CraftDatabase : MonoBehaviour
 
     [SerializeField] List<Recipe> SettingRecipes = new List<Recipe>();
     List<craftRecipe> recipes = new List<craftRecipe>();
-
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     private void Awake()
     {
         List<craftRecipe> newRecipeList = new List<craftRecipe>();

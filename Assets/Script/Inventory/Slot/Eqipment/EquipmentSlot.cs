@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EquipmentSlot : MonoBehaviour
 {
+    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] int id;//
     [SerializeField] Image image;
     [SerializeField] weaponType weaponType;
     [SerializeField] Sprite typeAccessary;
     [SerializeField] Sprite typeWeapon;
-    Weapon weapon;
+    [field: SerializeField]  Weapon weapon;
 
     public Weapon Weapon { get => weapon; set => weapon = value; }
     public weaponType WeaponType { get => weaponType; set => weaponType = value; }
     public int Id { get => id; set => id = value; }
+    public EquipmentManager EquipmentManager { get => equipmentManager; set => equipmentManager = value; }
 
     public void OpenPopup()
     {
@@ -27,7 +29,7 @@ public class EquipmentSlot : MonoBehaviour
     }
     public void DeleteWeapon()
     {
-        EquipmentManager.instance.DeleteWeapon(weapon,id);
+        EquipmentManager.DeleteWeapon(weapon,id);
         ClearSlot();
     }
     public void ClearSlot()
@@ -39,7 +41,7 @@ public class EquipmentSlot : MonoBehaviour
     public void SetWeapon(bool isReset, Weapon weapon)
     {
         this.weapon = weapon;
-        if(!isReset)EquipmentManager.instance.AddWeapon(weapon,id);
+        if(!isReset) EquipmentManager.AddWeapon(weapon,id);
         image.color = new Color(1, 1, 1, 1);
         image.sprite = weapon.weaponImage;
     }

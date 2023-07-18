@@ -7,7 +7,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] List<Inventory> inventories = new List<Inventory>();
 
     public static InventoryManager instance;
-
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     private void Awake()
     {
         if (instance == null) instance = this;

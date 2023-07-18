@@ -11,7 +11,10 @@ public class Equipment : MonoBehaviour
 
     public Status DefaultStatus { get => defaultStatus; set => defaultStatus = value; }
     public static Weapon[] Weapons { get => weapons; set => weapons = value; }
-
+    //private void OnDestroy()
+    //{
+    //    weapons = null;
+    //}
     public void ResetStatus()
     {
         for(int i=0;i< Weapons.Length; i++)

@@ -32,7 +32,10 @@ public class DataManager : MonoBehaviour
     [SerializeField] GameManager gameManager;
     public static DataManager instance;
     string path;
-
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     void Awake()
     {
         if (instance == null) instance = this;

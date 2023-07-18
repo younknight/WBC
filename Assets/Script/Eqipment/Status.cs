@@ -1,14 +1,15 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Status
 {
-    float hp = 10;
-    float attack = 1;
-    float defence = 0;
-    float criDamage = 0;
-    float criRate = 0;
+    [SerializeField] float hp = 10;//
+    [SerializeField] float attack = 1;//
+    [SerializeField] float defence = 0;//
+    [SerializeField] float criDamage = 0;//
+    [SerializeField] float criRate = 0;//
     #region getter
     public float Hp { get => hp; set => hp = value; }
     public float Attack { get => attack; set => attack = value; }

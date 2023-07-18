@@ -47,6 +47,7 @@ public class Popup : MonoBehaviour
     [SerializeField] TextMeshProUGUI defence;
     [SerializeField] TextMeshProUGUI criDamage;
     [SerializeField] TextMeshProUGUI criRate;
+    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] Inventory inventory;
     [Space(10f)]
     [Header("purchase")]
@@ -84,11 +85,11 @@ public class Popup : MonoBehaviour
     #region 팝업 설정해주기
     public void SetStatus()
     {
-        hp.text = EquipmentManager.instance.GetStatus().Hp.ToString();
-        attack.text = EquipmentManager.instance.GetStatus().Attack.ToString();
-        defence.text = EquipmentManager.instance.GetStatus().Defence.ToString();
-        criDamage.text = EquipmentManager.instance.GetStatus().CriDamage.ToString();
-        criRate.text = EquipmentManager.instance.GetStatus().CriRate.ToString();
+        hp.text = equipmentManager.GetStatus().Hp.ToString();
+        attack.text = equipmentManager.GetStatus().Attack.ToString();
+        defence.text = equipmentManager.GetStatus().Defence.ToString();
+        criDamage.text = equipmentManager.GetStatus().CriDamage.ToString();
+        criRate.text = equipmentManager.GetStatus().CriRate.ToString();
     }
     public void SetPurchase(GoodsSlot goodsSlot, string name, string ranking, Sprite sprite, int price, int count, int id)
     {
