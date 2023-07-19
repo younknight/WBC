@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            inventories[i].FreshSlot();
+            inventories[i].FreshSlot(true);
         }
     }
     #region 아이템 추가 및 사용

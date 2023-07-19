@@ -35,6 +35,7 @@ public struct weaponInfo
 }
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] Opener opener;
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] InventoryManager inventoryManager;
     public static GameManager instance;
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         Inventory.Chests = new List<chestInfo>();
         Inventory.Chests.Add(new chestInfo(firstChest, 1));
         Inventory.Weapons = new List<weaponInfo>();
+        inventoryManager.Initalize();
         gold = 0;
         SetData();
     }

@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    public void FreshSlot()
+    public void FreshSlot(bool isTrue)
     {
         for(int i = 0; i< slots.Length; i++)
         {
@@ -95,6 +95,7 @@ public class Inventory : MonoBehaviour
         {
             for(int i=0; i < Items.Count; i++)
             {
+                slots[Items[i].item.id].isSet = true;
                 slots[Items[i].item.id].gameObject.SetActive(true);
                 slots[Items[i].item.id].AddItem(Items[i].item, Items[i].num);
             }
@@ -103,7 +104,8 @@ public class Inventory : MonoBehaviour
         {
             for (int i = 0; i < Chests.Count; i++)
             {
-                if(Chests[i].num <= 0 && Chests[i].chest.id == 0) continue;
+                slots[Chests[i].chest.id].isSet = true;
+                if (Chests[i].num <= 0 && Chests[i].chest.id == 0) continue;
                 slots[Chests[i].chest.id].gameObject.SetActive(true);
                 slots[Chests[i].chest.id].AddChest(Chests[i].chest, Chests[i].num);
             }
@@ -112,6 +114,7 @@ public class Inventory : MonoBehaviour
         {
             for (int i = 0; i < Weapons.Count; i++)//무기 초기화
             {
+                slots[Weapons[i].weapon.id].isSet = true;
                 slots[Weapons[i].weapon.id].gameObject.SetActive(true);
                 slots[Weapons[i].weapon.id].AddWeapon(Weapons[i].weapon, Weapons[i].num);
             }
@@ -122,13 +125,15 @@ public class Inventory : MonoBehaviour
     //item-----------------------------------------
     public void AddItem(Item _item, int num)
     {
-        if (slots[_item.id].IsActive)
+        Debug.Log(_item.id + "/ "+ Items.FindIndex(x => x.item == _item) + "/" + slots[_item.id].IsActive);
+        if (slots[_item.id].isSet)
         {
             slots[_item.id].AddItem(_item, num); 
             Items[Items.FindIndex(x => x.item == _item)] = new itemInfo(_item, slots[_item.id].number);
             DataManager.instance.JsonSave();
             return;
         }
+        slots[_item.id].isSet = true;
         slots[_item.id].gameObject.SetActive(true);
         Items.Add(new itemInfo(_item, num));
         slots[_item.id].AddItem(_item, num);
@@ -136,7 +141,7 @@ public class Inventory : MonoBehaviour
     }
     public void DropItem(Item _item, int num)
     {
-        if(slots[_item.id].IsActive && slots[_item.id].Item == _item)
+        if(slots[_item.id].isSet && slots[_item.id].Item == _item)
         {
             slots[_item.id].Drop(num);
             Items[Items.FindIndex(x => x.item == _item)] = new itemInfo(_item, slots[_item.id].number);
@@ -147,13 +152,14 @@ public class Inventory : MonoBehaviour
     //chest----------------------------------------
     public void AddChest(Chest _chest, int num)
     {
-        if (slots[_chest.id].IsActive)
+        if (slots[_chest.id].isSet)
         {
             slots[_chest.id].AddChest(_chest, num);
             Chests[Chests.FindIndex(x => x.chest == _chest)] = new chestInfo(_chest, slots[_chest.id].number);
             DataManager.instance.JsonSave();
             return;
         }
+        slots[_chest.id].isSet = true;
         slots[_chest.id].gameObject.SetActive(true);
         Chests.Add(new chestInfo(_chest, num));
         slots[_chest.id].AddChest(_chest, num);
@@ -161,7 +167,7 @@ public class Inventory : MonoBehaviour
     }
     public void DropChest(Chest _chest, int num)
     {
-        if (slots[_chest.id].IsActive && slots[_chest.id].Chest == _chest)
+        if (slots[_chest.id].isSet && slots[_chest.id].Chest == _chest)
         {
             slots[_chest.id].Drop(num);
             Chests[Chests.FindIndex(x => x.chest == _chest)] = new chestInfo(_chest, slots[_chest.id].number);
@@ -172,7 +178,7 @@ public class Inventory : MonoBehaviour
     //weapon---------------------------------------
     public void AddWeapon(Weapon _weapon, int num)
     {
-        if (slots[_weapon.id].IsActive)
+        if (slots[_weapon.id].isSet)
         {
             slots[_weapon.id].AddWeapon(_weapon, num);
             Weapons[Weapons.FindIndex(x => x.weapon == _weapon)] = new weaponInfo(_weapon, slots[_weapon.id].number);
@@ -180,13 +186,14 @@ public class Inventory : MonoBehaviour
             return;
         }
         slots[_weapon.id].gameObject.SetActive(true);
+        slots[_weapon.id].isSet = true;
         Weapons.Add(new weaponInfo(_weapon, num));
         slots[_weapon.id].AddWeapon(_weapon, num);
         DataManager.instance.JsonSave();
     }
     public void DropWeapon(Weapon _weapon, int num)
     {
-        if (slots[_weapon.id].IsActive && slots[_weapon.id].Weapon == _weapon)
+        if (slots[_weapon.id].isSet && slots[_weapon.id].Weapon == _weapon)
         {
             slots[_weapon.id].Drop(num);
             Weapons[Weapons.FindIndex(x => x.weapon == _weapon)] = new weaponInfo(_weapon, slots[_weapon.id].number);

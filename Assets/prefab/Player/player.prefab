@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 5947594767441282488}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b24cee07a6836b340bae1f99aa97ac7f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7bb6ae771a03e674482703b5d15e7b40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -144,6 +144,8 @@ MonoBehaviour:
     defence: 0
     criDamage: 0
     criRate: 0
+  equipment: {fileID: 0}
+  hp: {fileID: 0}
 --- !u!114 &6667583778001645511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +190,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 8692764649963636260}
   attackRate: 1
   attackRange: 2
+  weaponState: 0
   attackTarget: {fileID: 0}
 --- !u!114 &2719068444432674754
 MonoBehaviour:
@@ -206,6 +209,7 @@ MonoBehaviour:
   defence: 0
   criDamage: 0
   criRate: 0
+  hp: 0
 --- !u!58 &5433348934844141522
 CircleCollider2D:
   m_ObjectHideFlags: 0

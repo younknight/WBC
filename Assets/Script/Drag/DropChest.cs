@@ -20,7 +20,7 @@ public class DropChest : MonoBehaviour, IDropHandler
                 if (openSlot.IsNull())
                 {
                     {
-                        openSlot.SetChest(slot.Chest);
+                        openSlot.SetChest(slot.Chest, 0);
                         InventoryManager.instance.DropChest(slot.Chest, 1);
                     }
 

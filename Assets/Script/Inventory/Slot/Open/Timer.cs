@@ -18,12 +18,16 @@ public class Timer : MonoBehaviour
         slTimer = GetComponent<Slider>();
     }
 
-    public void StartTimer(float time)
+    public void StartTimer(float maxValue, float current)
     {
         canOpen = false;
-        slTimer.maxValue = time;
-        slTimer.value = 0;
-        StartCoroutine("startSlider");
+        slTimer.maxValue = maxValue;
+        slTimer.value = current;
+        if(maxValue <= current)
+        {
+            CanOpenChest();
+        }
+        else StartCoroutine("startSlider");
     }
     IEnumerator startSlider()
     {
@@ -34,10 +38,15 @@ public class Timer : MonoBehaviour
             yield return null;
             if (slTimer.value >= slTimer.maxValue)
             {
-                Animator.SetBool("ready", true);
-                fill.color = Color.green;
-                canOpen = true;
+                CanOpenChest();
             }
         }
+    }
+    void CanOpenChest()
+    {
+        Animator.SetBool("ready", true);
+        fill.color = Color.green;
+        canOpen = true;
+
     }
 }

@@ -49,6 +49,7 @@ public class Popup : MonoBehaviour
     [SerializeField] TextMeshProUGUI criRate;
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] Inventory inventory;
+    [SerializeField] Player player;
     [Space(10f)]
     [Header("purchase")]
     [SerializeField] TextMeshProUGUI countText;
@@ -90,6 +91,14 @@ public class Popup : MonoBehaviour
         defence.text = equipmentManager.GetStatus().Defence.ToString();
         criDamage.text = equipmentManager.GetStatus().CriDamage.ToString();
         criRate.text = equipmentManager.GetStatus().CriRate.ToString();
+        if (player != null)
+        {
+            hp.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.maxHp, player.Unit.GetStatus(statusType.maxHp)) + ")";
+            attack.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.attack, player.Unit.GetStatus(statusType.attack)) + ")";
+            defence.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.defence, player.Unit.GetStatus(statusType.defence)) + ")";
+            criDamage.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criDamage, player.Unit.GetStatus(statusType.criDamage)) + ")";
+            criRate.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criRate, player.Unit.GetStatus(statusType.criRate)) + ")";
+        }
     }
     public void SetPurchase(GoodsSlot goodsSlot, string name, string ranking, Sprite sprite, int price, int count, int id)
     {

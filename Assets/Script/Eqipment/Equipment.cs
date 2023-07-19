@@ -15,6 +15,19 @@ public class Equipment : MonoBehaviour
     //{
     //    weapons = null;
     //}
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        var obj = FindObjectsOfType<Equipment>();
+        if (obj.Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public void ResetStatus()
     {
         for(int i=0;i< Weapons.Length; i++)
@@ -36,5 +49,22 @@ public class Equipment : MonoBehaviour
     {
         Weapons[index] = null;
         defaultStatus.MinusStatus(weapon.hp, weapon.attack, weapon.defence, weapon.criDamage, weapon.criRate);
+    }
+    public float GetDifferce(statusType statusType, float cuurentStatus)
+    {
+        switch (statusType)
+        {
+            case statusType.maxHp:
+                return cuurentStatus - defaultStatus.Hp;
+            case statusType.attack:
+                return cuurentStatus - defaultStatus.Attack;
+            case statusType.defence:
+                return cuurentStatus - defaultStatus.Defence;
+            case statusType.criDamage:
+                return cuurentStatus - defaultStatus.CriDamage;
+            case statusType.criRate:
+                return cuurentStatus - defaultStatus.CriRate;
+        }
+        return 0;
     }
 }

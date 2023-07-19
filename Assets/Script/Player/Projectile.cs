@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     Movement2D movement2D;
     Transform target;
-    float damage;
+    [SerializeField] float damage;//
     [SerializeField] bool isPlayer;//
     public void Setup(Transform target, float damage, bool isPlayer)
     {
@@ -29,16 +29,26 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("asd");
+       // Debug.Log("충돌");
         if (isPlayer)
         {
-            if (!collision.CompareTag("Enemy")) return;
+            if (!collision.CompareTag("Enemy"))
+            {
+                //Debug.Log("적이 아니다");
+                return;
+            }
         }
         else
         {
-            if (!collision.CompareTag("Player")) return;
+            if (!collision.CompareTag("Player"))
+            {
+
+               // Debug.Log("플레이어가 아니다");
+                return;
+            }
         }
         if (collision.transform != target) return;
+       // Debug.Log(damage);
         Destroy(gameObject);
         collision.GetComponent<Unit>().Damaged(damage);
     }

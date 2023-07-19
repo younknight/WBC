@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -15,12 +15,23 @@ public class hasItem
         this.count = count;
     }
 }
-
+[System.Serializable]
+public class openingChest
+{
+    public int id;
+    public DateTime openTime;
+    public openingChest(int id, DateTime openTime)
+    {
+        this.id = id;
+        this.openTime = openTime;
+    }
+}
 public class SaveData
 {
     public List<hasItem> items = new List<hasItem>();
     public List<hasItem> chests = new List<hasItem>();
     public List<hasItem> weapons = new List<hasItem>();
+    public openingChest[] openingChests = new openingChest[16];
     public int[] equipWeapons = new int[6];
     public int gold = 0;
 }
@@ -87,6 +98,7 @@ public class DataManager : MonoBehaviour
                 {
                     weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].id], saveData.weapons[i].count));
                 }
+                Opener.OpeningChests = saveData.openingChests;
                 Inventory.Items = itemInfos;
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
@@ -135,10 +147,10 @@ public class DataManager : MonoBehaviour
             else equip[i] = -1;
         }
         saveData.equipWeapons = equip;
+        saveData.openingChests = Opener.OpeningChests;
         #endregion
 
         string jsonData = ObjectToJson(saveData);
-
         File.WriteAllText(path, jsonData);
     }
     string ObjectToJson(object obj)

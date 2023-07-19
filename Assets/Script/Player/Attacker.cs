@@ -9,7 +9,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] float attackRate = 1f;
     [SerializeField] float attackRange = 2f;
-    WeaponState weaponState = WeaponState.SearchTarget;
+    [SerializeField] WeaponState weaponState = WeaponState.SearchTarget;
     public Transform attackTarget = null;
     Unit unit;
     bool isPlayer;
@@ -33,42 +33,45 @@ public class Attacker : MonoBehaviour
     }
     public IEnumerator SearchTarget()
     {
-        if (isPlayer)
+        while (true)
         {
-            float closestDisSqr = Mathf.Infinity;
-            for (int i = 0; i < EnemySpawner.Instance.Enemies.Count; i++)
+            if (isPlayer)
             {
-                for (int j = 0; j < EnemySpawner.Instance.Enemies[i].Count; j++)
+                float closestDisSqr = Mathf.Infinity;
+                for (int i = 0; i < EnemySpawner.Instance.Enemies.Count; i++)
                 {
-                    float distance = Vector3.Distance(EnemySpawner.Instance.Enemies[i][j].transform.position, transform.position);
-                    Debug.Log(EnemySpawner.Instance.Enemies[i][j]);
-                    if (distance <= attackRange && distance <= closestDisSqr)
+                    for (int j = 0; j < EnemySpawner.Instance.Enemies[i].Count; j++)
                     {
-                        closestDisSqr = distance;
-                        attackTarget = EnemySpawner.Instance.Enemies[i][j].transform;
+                        float distance = Vector3.Distance(EnemySpawner.Instance.Enemies[i][j].transform.position, transform.position);
+                       // Debug.Log(EnemySpawner.Instance.Enemies[i][j]);
+                        if (distance <= attackRange && distance <= closestDisSqr)
+                        {
+                            closestDisSqr = distance;
+                            attackTarget = EnemySpawner.Instance.Enemies[i][j].transform;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            if (!isPlayer && GameObject.FindWithTag("Player") != null)
+            else
             {
-                Transform player = GameObject.FindWithTag("Player").transform;
-                float distance = Vector3.Distance(player.position, transform.position);
-
-                if (distance <= attackRange)
+                if (!isPlayer && GameObject.FindWithTag("Player") != null)
                 {
-                    attackTarget = player;
+                    Transform player = GameObject.FindWithTag("Player").transform;
+                    float distance = Vector3.Distance(player.position, transform.position);
+
+                    if (distance <= attackRange)
+                    {
+                        attackTarget = player;
+                    }
                 }
             }
-        }
 
-        if (attackTarget != null)
-        {
-            ChangeState(WeaponState.AttackToTarget);
+            if (attackTarget != null)
+            {
+                ChangeState(WeaponState.AttackToTarget);
+            }
+            yield return null;
         }
-        yield return null;
     }
     IEnumerator AttackToTarget()
     {

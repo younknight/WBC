@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Slot : MonoBehaviour
 {
+    public bool isSet = false;
     [SerializeField] int id;//
     [SerializeField] popupType popupType;
     [SerializeField] bool isShowCount = true;
@@ -90,6 +91,7 @@ public class Slot : MonoBehaviour
     #region ½½·Ô ¼¼ÆÃ
     public void FreshSlot(bool isFresh)
     {
+        isSet = false;
         _item = null;
         _chest = null;
         _weapon = null;

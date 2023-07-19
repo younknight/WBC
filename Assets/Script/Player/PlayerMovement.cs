@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void GO()
     {
-        animationContoler.SetAnimation("Attack", false);
-        animationContoler.SetAnimation("Move", true);
+        animationContoler.SetAnimation("attack", false);
+        animationContoler.SetAnimation("move", true);
         StartCoroutine("OnMove");
     }
     IEnumerator OnMove()
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isArrive = true;
                 Arrive();
-                animationContoler.SetAnimation("Move", false);
+                animationContoler.SetAnimation("move", false);
                 //animationContoler.SetAnimation("Attack", true);
                 //도착 공격개시
             }

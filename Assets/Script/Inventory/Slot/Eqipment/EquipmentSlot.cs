@@ -10,6 +10,7 @@ public class EquipmentSlot : MonoBehaviour
     [SerializeField] weaponType weaponType;
     [SerializeField] Sprite typeAccessary;
     [SerializeField] Sprite typeWeapon;
+    [SerializeField] CircleTimer cool;
     [field: SerializeField]  Weapon weapon;
 
     public Weapon Weapon { get => weapon; set => weapon = value; }

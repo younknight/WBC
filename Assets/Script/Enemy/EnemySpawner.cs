@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     static EnemySpawner instance;
+    [SerializeField] GameObject enemyHp;
+    [SerializeField] Transform canvasTransform;
     [SerializeField] MapInfo mapInfo;
     [SerializeField] Transform[] wayPoints;
     [SerializeField] PlayerMovement player;
@@ -38,14 +40,24 @@ public class EnemySpawner : MonoBehaviour
                 var newEnemy = Instantiate(mapInfo.enenmies[roundIndex].enemyInfos[j], wayPoints[roundIndex].position, Quaternion.identity).GetComponent<Unit>();
                 newEnemy.RoundIndex = roundIndex;
                 enemieyList.Add(newEnemy);
+                SpawnHp(newEnemy.gameObject);
             }
             enemies.Add(enemieyList);
         }
     }
+    void SpawnHp(GameObject enemy)
+    {
+        //Debug.Log("ASdasd");
+        GameObject sliderClone = Instantiate(enemyHp);
+        sliderClone.transform.SetParent(canvasTransform);
+        sliderClone.transform.localScale = Vector3.one;
+        sliderClone.GetComponent<HpPositionSetter>().Setup(enemy.transform);
+        sliderClone.GetComponent<HpManager>().Setup(enemy.GetComponent<Unit>());
+    }
     public void DestroyEnemy(Unit enemy, int round)
     {
         enemies[round].Remove(enemy);
-        if(enemies.Count == 0)
+        if(enemies[round].Count == 0)
         {
             player.GO();
             //전부 처리완료
