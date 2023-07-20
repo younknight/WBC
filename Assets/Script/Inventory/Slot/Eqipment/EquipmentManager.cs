@@ -4,45 +4,46 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    [SerializeField] Equipment equipment;//
-    [SerializeField] Transform slotParent;
-    [SerializeField] EquipmentSlot[] slots;
+    public static EquipmentManager instance;
+    public static Weapon[] EquipWeapon = new Weapon[6];
+    [SerializeField] EquipmentSlot[] slots = new EquipmentSlot[6];//
+    [SerializeField] Unit unit;
 
-    public Equipment Equipment { get => equipment; set => equipment = value; }
-    public EquipmentSlot[] Slots { get => slots; set => slots = value; }
+    public Unit Unit { get => unit; set => unit = value; }
 
-    private void OnValidate()
+    private void Start()
     {
-        slots = slotParent.GetComponentsInChildren<EquipmentSlot>();
-        for(int i=0;i< slots.Length; i++)
+        if (null == instance)
         {
-            slots[i].Id = i;
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-    }
-    private void Awake()
-    {
-        for(int i =0;i< slots.Length; i++)
-        {
-            slots[i].ClearSlot();
-        }
-    }
-    public void AddWeapon(Weapon weapon,int id)
-    {
-        equipment.AddWeapon(weapon, id);
-    }
-    public void DeleteWeapon(Weapon weapon,int id)
-    {
-        equipment.DeleteWeapon(weapon,id);
-    }
-    public Status GetStatus()
-    {
-        return equipment.DefaultStatus;
-    }
-    public void FreshSlot()
-    {
+        else Destroy(this.gameObject);
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].ClearSlot();
+            if (EquipWeapon[i] != null)
+            {
+                unit.BuffStatusWithWeapon(true, EquipWeapon[i]);
+            }
+        }
+        SetEquipManager();
+    }
+    public void SetEquipManager()
+    {
+        slots = GameObject.Find("equipmentSlotsParents").GetComponentsInChildren<EquipmentSlot>();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].Id = i;
+            slots[i].FreashSlot();
+        }
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (EquipWeapon[i] != null)
+            {
+                slots[i].SetWeapon(EquipWeapon[i]);
+            }
         }
     }
+
 }

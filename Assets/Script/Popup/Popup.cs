@@ -48,7 +48,6 @@ public class Popup : MonoBehaviour
     [SerializeField] TextMeshProUGUI defence;
     [SerializeField] TextMeshProUGUI criDamage;
     [SerializeField] TextMeshProUGUI criRate;
-    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] Inventory inventory;
     [SerializeField] Player player;
     [Space(10f)]
@@ -56,7 +55,7 @@ public class Popup : MonoBehaviour
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] GoodsSlot goods;
-
+    
     public popupType PopupType { get => popupType; set => popupType = value; }
 
     private void Start()
@@ -64,20 +63,21 @@ public class Popup : MonoBehaviour
         animator = GetComponent<Animator>();
         PopupObj.SetActive(false);
     }
-    public void SetSlot(EquipmentSlot equipmentSlot)
-    {
-        inventory.EquipmentSlot = equipmentSlot;
-    }
     #region 액티브 버튼
-    public void FreshSlot()//장비 해제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ
+    public void EquipRemove()//장비 해제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ
     {
-        if (inventory.EquipmentSlot.Weapon != null)
+
+        if (EquipmentSlot.currentSelectedSlot.Weapon != null)
         {
-            InventoryManager.instance.AddItems<Weapon>(inventory.EquipmentSlot.Weapon, 1);
-            inventory.EquipmentSlot.DeleteWeapon();
+
+            InventoryManager.instance.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
+            EquipmentManager.instance.Unit.BuffStatusWithWeapon(false, EquipmentSlot.currentSelectedSlot.Weapon);
+            EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = null;
+            EquipmentSlot.currentSelectedSlot.FreashSlot();
+            DataManager.instance.JsonSave();
+
         }
         PopupManager.instance.CloesPopup(popupType.weapon);
-        DataManager.instance.JsonSave();
     }
     public void Purchase()
     {
@@ -85,21 +85,21 @@ public class Popup : MonoBehaviour
     }
     #endregion
     #region 팝업 설정해주기
-    public void SetStatus()
+    public void SetStatus(Unit unit)
     {
-        hp.text = equipmentManager.GetStatus().Hp.ToString();
-        attack.text = equipmentManager.GetStatus().Attack.ToString();
-        defence.text = equipmentManager.GetStatus().Defence.ToString();
-        criDamage.text = equipmentManager.GetStatus().CriDamage.ToString();
-        criRate.text = equipmentManager.GetStatus().CriRate.ToString();
-        if (player != null)
-        {
-            hp.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.maxHp, player.Unit.GetStatus(statusType.maxHp)) + ")";
-            attack.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.attack, player.Unit.GetStatus(statusType.attack)) + ")";
-            defence.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.defence, player.Unit.GetStatus(statusType.defence)) + ")";
-            criDamage.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criDamage, player.Unit.GetStatus(statusType.criDamage)) + ")";
-            criRate.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criRate, player.Unit.GetStatus(statusType.criRate)) + ")";
-        }
+        hp.text = "" + unit.GetStatus(statusType.maxHp);
+        attack.text = "" + unit.GetStatus(statusType.attack);
+        defence.text = "" + unit.GetStatus(statusType.defence);
+        criDamage.text = "" + unit.GetStatus(statusType.criDamage);
+        criRate.text = "" + unit.GetStatus(statusType.criRate);
+        //if (player != null)
+        //{
+        //    hp.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.maxHp, player.Unit.GetStatus(statusType.maxHp)) + ")";
+        //    attack.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.attack, player.Unit.GetStatus(statusType.attack)) + ")";
+        //    defence.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.defence, player.Unit.GetStatus(statusType.defence)) + ")";
+        //    criDamage.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criDamage, player.Unit.GetStatus(statusType.criDamage)) + ")";
+        //    criRate.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.criRate, player.Unit.GetStatus(statusType.criRate)) + ")";
+        //}
     }
     public void SetPurchase(GoodsSlot goodsSlot, string name, string ranking, Sprite sprite, int price, int count, int id)
     {
@@ -143,7 +143,7 @@ public class Popup : MonoBehaviour
         image.sprite = sprite;
         isNewFrame.SetActive(isNew);
     }
-    public void SetExplain(string name, string explain, Sprite sprite, int id, string ranking)
+    public void SetExplain(string name, string explain, Sprite sprite, int id, string ranking, int sellPrice)
     {
         nameText.text = name;
         explainText.text = explain;
@@ -151,6 +151,7 @@ public class Popup : MonoBehaviour
         if (id == 0) id = 0;
         idText.text = "No." + id;
         rankingText.text = ranking;
+        priceText.text = sellPrice.ToString();
     }
     #endregion
     #region 팝업 끄고 닫기

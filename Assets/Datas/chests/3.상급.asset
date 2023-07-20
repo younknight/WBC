@@ -22,15 +22,15 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: f50d4f9fefe92114a87838fd68409f42, type: 2}
   dropItems:
-  - dropItems: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
+  - drop: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
     maxDrop: 2
     minDrop: 1
     percent: 10
-  - dropItems: {fileID: 11400000, guid: 75af4e559882b9b4bbdc80a450913f37, type: 2}
+  - drop: {fileID: 11400000, guid: 75af4e559882b9b4bbdc80a450913f37, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 55
-  - dropItems: {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
+  - drop: {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 100

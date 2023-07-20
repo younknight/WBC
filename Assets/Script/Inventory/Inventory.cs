@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] popupType openPopupType;
     [SerializeField] bool isShowCount = true;
 
-    [SerializeField] EquipmentSlot equipmentSlot;//
 
     private static List<itemInfo> items = new List<itemInfo>();
     private static List<chestInfo> chests = new List<chestInfo>();
@@ -27,7 +26,6 @@ public class Inventory : MonoBehaviour
     private Slot[] slots;
 
     public inventoryType InventoryType { get => inventoryType; }
-    public EquipmentSlot EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
     public static List<itemInfo> Items { get => items; set => items = value; }
     public static List<chestInfo> Chests { get => chests; set => chests = value; }
     public static List<weaponInfo> Weapons { get => weapons; set => weapons = value; }
@@ -80,6 +78,14 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < Items.Count; i++)
         {
             if (item == Items[i].item) return false;
+        }
+        return true;
+    }
+    public static bool CheckNewWeapon(Weapon weapon)
+    {
+        for (int i = 0; i < Items.Count; i++)
+        {
+            if (weapon == weapons[i].weapon) return false;
         }
         return true;
     }

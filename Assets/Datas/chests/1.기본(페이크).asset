@@ -23,7 +23,7 @@ MonoBehaviour:
   chetImage: {fileID: -336927171, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes: []
   dropItems:
-  - dropItems: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
+  - drop: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
     maxDrop: 20
     minDrop: 20
     percent: 100

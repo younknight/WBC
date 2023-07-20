@@ -36,7 +36,6 @@ public struct weaponInfo
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Opener opener;
-    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] CraftDatabase craftDatabase;
     public static GameManager instance;
@@ -112,12 +111,12 @@ public class GameManager : MonoBehaviour
     }
     void SetData()
     {
-        equipmentManager.Equipment.DefaultStatus = new Status();
-        Equipment.Weapons = new Weapon[6];
-        for (int i = 0; i < equipmentManager.Slots.Length; i++)
-        {
-            equipmentManager.Slots[i].ClearSlot();
-        }
+        //equipmentManager.Equipment.DefaultStatus = new Status();
+        //Equipment.Weapons = new Weapon[6];
+        //for (int i = 0; i < equipmentManager.Slots.Length; i++)
+        //{
+        //    equipmentManager.Slots[i].ClearSlot();
+        //}
         TextManager.instance.SetGold();
         inventoryManager.Initalize();
     }

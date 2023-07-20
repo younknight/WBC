@@ -35,15 +35,17 @@ public class Slot : MonoBehaviour
     }
     void SetEquipment()//舌搾びびびびびびびびびびびびびびびびびびびびび
     {
-        if(number > 0 && ((Weapon)itemInformation).weaponType == inventory.EquipmentSlot.WeaponType)
+        if (number > 0 && ((Weapon)itemInformation).weaponType == EquipmentSlot.currentSelectedSlot.WeaponType)
         {
             InventoryManager.instance.DropItems<Weapon>((Weapon)itemInformation, 1);
-            if (!inventory.EquipmentSlot.isNull())
+            if(EquipmentSlot.currentSelectedSlot.Weapon != null)
             {
-                InventoryManager.instance.AddItems<Weapon>(inventory.EquipmentSlot.Weapon, 1);
-                inventory.EquipmentSlot.DeleteWeapon();
+                InventoryManager.instance.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
+                EquipmentManager.instance.Unit.BuffStatusWithWeapon(false, EquipmentSlot.currentSelectedSlot.Weapon);
             }
-            inventory.EquipmentSlot.SetWeapon(false, (Weapon)itemInformation);
+            EquipmentSlot.currentSelectedSlot.SetWeapon((Weapon)itemInformation);
+            EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = (Weapon)itemInformation;
+            EquipmentManager.instance.Unit.BuffStatusWithWeapon(true, (Weapon)itemInformation);
         }
         PopupManager.instance.CloesPopup(popupType.weapon);
         DataManager.instance.JsonSave();
@@ -55,7 +57,8 @@ public class Slot : MonoBehaviour
         Sprite sprite = itemInformation.GetSprite();
         string ranking = itemInformation.GetRanking();
         int id = itemInformation.GetId();
-        PopupManager.instance.OpenExplainPopup(name, explain, sprite, id, ranking);
+        int sellPrice = itemInformation.GetSellPrice();
+        PopupManager.instance.OpenExplainPopup(name, explain, sprite, id, ranking, sellPrice);
     }
     void ShowRecipe()
     {

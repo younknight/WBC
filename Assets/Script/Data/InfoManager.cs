@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 public interface IInformation
 {
+    public int GetSellPrice();
     public int GetId();
     public string GetName();
     public string GetExplain();
@@ -27,5 +28,11 @@ public class InfoManager : MonoBehaviour
 
         Debug.LogError("Character not found!");
         return default(T); // 또는 null을 반환할 수도 있습니다. (T가 클래스 타입일 때)
+    }
+    static public string CheckInterfaceType(IInformation obj)
+    {
+        if (obj is Item) return "item";
+        else if (obj is Weapon) return "weapon";
+        else return "Unknown";
     }
 }

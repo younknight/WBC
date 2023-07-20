@@ -65,23 +65,23 @@ public class OpenSlot : MonoBehaviour
         animator.SetBool("ready", false);
         if (isOpening && timer.canOpen)
         {
-            int min = 0;
-            int percent = UnityEngine.Random.Range(1, 100 + 1);
-            for (int i = 0; i < chest.dropItems.Count; i++)
+            DeleteOpenChest();
+            IInformation newItem = chest.GetRandomDrop();
+            int count = chest.GetRandomCount(newItem);
+            bool isNew = false;
+            if (InfoManager.CheckInterfaceType(newItem) == "item")
             {
-                if (i != 0) min = chest.dropItems[i - 1].percent;
-                if (min < percent && percent <= chest.dropItems[i].percent)
-                {
-                    DeleteOpenChest();
-                    //½ÇÁ¦ ¿ÀÇÂ ºÎ
-                    int count = UnityEngine.Random.Range(chest.dropItems[i].minDrop, chest.dropItems[i].maxDrop + 1);
-                    Item item = chest.dropItems[i].dropItems;
-                    PopupManager.instance.OpenGetItemPopup(item.itemName, "x" + count.ToString(), item.itemImage, Inventory.CheckNewItem(item), item.ranking);
-                    InventoryManager.instance.AddItems<Item>(item, count);
-                    SoundEffecter.Instance.PlayEffect(soundEffectType.chestOpen);
-                    RemoveSlot();
-                }
+                isNew = Inventory.CheckNewItem((Item)newItem);
+                InventoryManager.instance.AddItems<Item>((Item)newItem, count);
             }
+            if (InfoManager.CheckInterfaceType(newItem) == "weapon")
+            {
+                isNew = Inventory.CheckNewWeapon((Weapon)newItem);
+                InventoryManager.instance.AddItems<Weapon>((Weapon)newItem, count);
+            }
+            PopupManager.instance.OpenGetItemPopup(newItem.GetName(), "x" + count.ToString(), newItem.GetSprite(), isNew, newItem.GetRanking()); ;
+            SoundEffecter.Instance.PlayEffect(soundEffectType.chestOpen);
+            RemoveSlot();
         }
         else
         {

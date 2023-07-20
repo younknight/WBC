@@ -4,7 +4,7 @@ using UnityEngine;
 public enum statusType { maxHp, hp, attack, defence, criDamage, criRate}
 public class Unit : MonoBehaviour
 {
-    [SerializeField] float maxHp = 1;
+    [SerializeField] float maxHp = 10;
     [SerializeField] float attack = 1;//
     [SerializeField] float defence = 0;//
     [SerializeField] float criDamage = 0;//
@@ -39,6 +39,35 @@ public class Unit : MonoBehaviour
         }
         return 0;
     }
+    public void BuffStatusWithWeapon(bool isBuff, Weapon weapon)
+    {
+        BuffStatus(isBuff, statusType.maxHp, weapon.hp);
+        BuffStatus(isBuff, statusType.attack, weapon.attack);
+        BuffStatus(isBuff, statusType.defence, weapon.defence);
+        BuffStatus(isBuff, statusType.criDamage, weapon.criDamage);
+        BuffStatus(isBuff, statusType.criRate, weapon.criRate);
+    }
+    public void BuffStatus(bool isBuff, statusType status, float value)
+    {
+        switch (status)
+        {
+            case statusType.maxHp:
+                maxHp += isBuff ? value : -value;
+                break;
+            case statusType.attack:
+                attack += isBuff ? value : -value;
+                break;
+            case statusType.defence:
+                defence += isBuff ? value : -value;
+                break;
+            case statusType.criDamage:
+                criDamage += isBuff ? value : -value;
+                break;
+            case statusType.criRate:
+                criRate += isBuff ? value : -value;
+                break;
+        }
+    }
     public void SetStatus(statusType status, float value)
     {
         switch (status)
@@ -62,16 +91,6 @@ public class Unit : MonoBehaviour
                 criRate = value;
                 break;
         }
-    }
-    public void Setup(Status status)
-    {
-        maxHp = status.Hp;
-        attack = status.Attack;
-        defence = status.Defence;
-        criDamage = status.CriDamage;
-        criRate = status.CriRate;
-        Hp = maxHp;
-
     }
     public void Damaged(float damage)
     {

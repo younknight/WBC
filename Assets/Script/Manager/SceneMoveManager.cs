@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneMoveManager : MonoBehaviour
 {
+
     public void GoDungeon()
     {
         SceneManager.LoadScene("Dungeon");

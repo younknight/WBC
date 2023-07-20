@@ -6,28 +6,30 @@ using UnityEngine.UI;
 
 public class CircleTimer : MonoBehaviour
 {
-    bool isEnd = true;
     float currentValue;//
+    [SerializeField] Button button;//
     [SerializeField] Image LoadingBar;//
     [SerializeField] float coolTimeValue;//
 
     public float CoolTimeValue { get => coolTimeValue; set => coolTimeValue = value; }
-    public bool IsEnd { get => isEnd; set => isEnd = value; }
 
     private void Start()
     {
+        button = GetComponent<Button>();
         LoadingBar.gameObject.SetActive(false);
     }
-    void TimerStart()
+    public void TimerStart(float value)
     {
+        currentValue = 0;
+        coolTimeValue = value;
         LoadingBar.gameObject.SetActive(true);
-        IsEnd = false;
+        button.interactable = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!IsEnd)
+        if (!button.interactable)
         {
             if (currentValue < coolTimeValue)
             {
@@ -35,11 +37,11 @@ public class CircleTimer : MonoBehaviour
             }
             else
             {
-                IsEnd = true;
+                button.interactable = true;
                 LoadingBar.gameObject.SetActive(false);
             }
 
-            LoadingBar.fillAmount = (coolTimeValue - currentValue) / 100;
+            LoadingBar.fillAmount = (coolTimeValue - currentValue) / coolTimeValue;
         }
     }
 }

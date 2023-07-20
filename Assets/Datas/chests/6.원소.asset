@@ -23,23 +23,23 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: 2b52dfcd39d757d4d873a9fb61eb3f03, type: 2}
   dropItems:
-  - dropItems: {fileID: 11400000, guid: 687e2755a63bf3744a71c68b428ed3e5, type: 2}
+  - drop: {fileID: 11400000, guid: 687e2755a63bf3744a71c68b428ed3e5, type: 2}
     maxDrop: 2
     minDrop: 1
     percent: 15
-  - dropItems: {fileID: 11400000, guid: 538f7f04641a4de4195ae9d23845e94c, type: 2}
+  - drop: {fileID: 11400000, guid: 538f7f04641a4de4195ae9d23845e94c, type: 2}
     maxDrop: 2
     minDrop: 1
     percent: 30
-  - dropItems: {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
+  - drop: {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
     maxDrop: 2
     minDrop: 1
     percent: 45
-  - dropItems: {fileID: 11400000, guid: 8c3b91254f4c4214da9c84e95917b4eb, type: 2}
+  - drop: {fileID: 11400000, guid: 8c3b91254f4c4214da9c84e95917b4eb, type: 2}
     maxDrop: 2
     minDrop: 1
     percent: 60
-  - dropItems: {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
+  - drop: {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 100

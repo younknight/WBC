@@ -12,6 +12,7 @@ public class Weapon : ScriptableObject, IInformation
     [Multiline(5)]
     public string weapomExplain;
     public string ranking;
+    public int sellPrice;
 
     [Space(10f)]
     [Header("Sprite")]
@@ -24,7 +25,13 @@ public class Weapon : ScriptableObject, IInformation
     public float defence = 0;
     public float criDamage = 0;
     public float criRate = 0;
+
+    [Space(10f)]
+    [Header("skill")]
+    public float coolTime = 5f;
+    public List<Skill> skills;
     #region Getter
+    public int GetSellPrice() { return sellPrice; }
     public int GetId() { return id; }
     public string GetName() { return weaponName; }
     public string GetExplain() { return weapomExplain; }
@@ -33,8 +40,8 @@ public class Weapon : ScriptableObject, IInformation
     #endregion
     private void OnValidate()
     {
-        string[] idNum = name.Split('.');
-        weaponName = idNum[1];
-        id = Convert.ToInt32(idNum[0]);
+        string[] nameValue = name.Split('.');
+        weaponName = nameValue[1];
+        id = Convert.ToInt32(nameValue[0]);
     }
 }

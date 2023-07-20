@@ -50,6 +50,7 @@ public class Projectile : MonoBehaviour
         if (collision.transform != target) return;
        // Debug.Log(damage);
         Destroy(gameObject);
-        collision.GetComponent<Unit>().Damaged(damage);
+        if (isPlayer) collision.GetComponent<Unit>().Damaged(damage);
+        if (!isPlayer) collision.GetComponent<Player>().Unit.Damaged(damage);
     }
 }

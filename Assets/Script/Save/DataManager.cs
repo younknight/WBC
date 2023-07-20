@@ -40,7 +40,6 @@ public class SaveData
 public class DataManager : MonoBehaviour
 {
     [SerializeField] CraftDatabase craftDatabase;
-    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] GameManager gameManager;
     public static DataManager instance;
@@ -63,8 +62,6 @@ public class DataManager : MonoBehaviour
     void JsonLateLoad()
     {
         inventoryManager.Initalize();
-        equipmentManager.FreshSlot();
-        equipmentManager.Equipment.ResetStatus();
     }
     public void JsonLoad()
     {
@@ -109,14 +106,14 @@ public class DataManager : MonoBehaviour
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
                 craftDatabase.WeirdRecipe = saveData.weirdRecipe;
-                        //¿Â∫Ò ¿Â¬¯
-                        Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
-                for(int i = 0; i < saveData.equipWeapons.Length; i++)
+                //¿Â∫Ò ¿Â¬¯
+                Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
+                for (int i = 0; i < saveData.equipWeapons.Length; i++)
                 {
                     if (saveData.equipWeapons[i] != -1) weapons[i] = gameManager.WeaponDatas[saveData.equipWeapons[i]];
                     else weapons[i] = null;
                 }
-                Equipment.Weapons = weapons;
+                EquipmentManager.EquipWeapon = weapons;
             }
         }
     }
@@ -149,9 +146,9 @@ public class DataManager : MonoBehaviour
         saveData.weapons = weapons;
         saveData.gold = GameManager.Gold;
         int[] equip = new int[6];
-        for(int i=0;i< equip.Length; i++)
+        for (int i = 0; i < equip.Length; i++)
         {
-            if (Equipment.Weapons[i] != null) equip[i] = Equipment.Weapons[i].id;
+            if (EquipmentManager.EquipWeapon[i] != null) equip[i] = EquipmentManager.EquipWeapon[i].id;
             else equip[i] = -1;
         }
         saveData.equipWeapons = equip;

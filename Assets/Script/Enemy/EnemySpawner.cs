@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] PlayerMovement player;
     List<List<Unit>> enemies = new List<List<Unit>>();
     int maxRound;
+    int currentRound = 0;
 
     public MapInfo MapInfo { get => mapInfo; set => mapInfo = value; }
     public static EnemySpawner Instance { get => instance; }
@@ -26,7 +27,11 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        if(MapManager.selectedMap) SetUp(MapManager.selectedMap);
+        if (MapManager.selectedMap) SetUp(MapManager.selectedMap);
+    }
+    public List<Unit> GetEnemyList()
+    {
+        return enemies[currentRound];
     }
     public void SetUp(MapInfo mapInfo)
     {
@@ -61,6 +66,7 @@ public class EnemySpawner : MonoBehaviour
         if(enemies[round].Count == 0)
         {
             player.GO();
+            currentRound++;
             //전부 처리완료
         }
     }
