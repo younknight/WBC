@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: "0.\uC774\uC0C1\uD55C"
   m_EditorClassIdentifier: 
   id: 0
-  chestName: "\uC774\uC0C1\uD55C\uC0C1\uC790"
+  chestName: "\uC774\uC0C1\uD55C"
   price: 0
   chestExplain: "\uC870\uD569\uC744 \uC798 \uBABB\uD55C \uC774\uC0C1\uD55C \uC0C1\uC790"
   ranking: N
   openTime: 5
   chetImage: {fileID: -168348195, guid: ff07e56084a3fe441adc9a55f5282a1f, type: 3}
-  chetOpenImage: {fileID: -1623292676, guid: ff07e56084a3fe441adc9a55f5282a1f, type: 3}
   recipes: []
   dropItems:
-  - item: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
+  - dropItems: {fileID: 11400000, guid: 390d0c08b821fd04fbd4674736bcaae4, type: 2}
     maxDrop: 1
     minDrop: 1
     percent: 100
+  dropWeapons: []

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum weaponType { weapon, accessory }
 [CreateAssetMenu]
-public class Weapon : ScriptableObject
+public class Weapon : ScriptableObject, IInformation
 {
     [Header("Information")]
     public int id;
@@ -24,7 +24,13 @@ public class Weapon : ScriptableObject
     public float defence = 0;
     public float criDamage = 0;
     public float criRate = 0;
-
+    #region Getter
+    public int GetId() { return id; }
+    public string GetName() { return weaponName; }
+    public string GetExplain() { return weapomExplain; }
+    public string GetRanking() { return ranking; }
+    public Sprite GetSprite() { return weaponImage; }
+    #endregion
     private void OnValidate()
     {
         string[] idNum = name.Split('.');

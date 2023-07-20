@@ -14,19 +14,17 @@ public class Slot : MonoBehaviour
     [SerializeField] TextMeshProUGUI numberText;
 
     bool isActive = false;
-    public int number = 0;//
-    [SerializeField] private Item _item;//
-    [SerializeField] private Chest _chest;//
-    [SerializeField] private Weapon _weapon;//
+    int number = 0;
+
+    [SerializeField] IInformation itemInformation;
     Inventory inventory;
-    public Chest Chest { get => _chest; }
-    public Item Item { get => _item; }
-    public Weapon Weapon { get => _weapon; }
     public int Id { get => id; set => id = value; }
     public popupType PopupType { get => popupType; set => popupType = value; }
     public bool IsShowCount { get => isShowCount; set => isShowCount = value; }
     public Inventory Inventory { get => inventory; set => inventory = value; }
     public bool IsActive { get => isActive; set => isActive = value; }
+    public IInformation ItemInformation { get => itemInformation; set => itemInformation = value; }
+    public int Number { get => number; set => number = value; }
 
     #region 팝업
     public void ShowPopup()
@@ -37,111 +35,63 @@ public class Slot : MonoBehaviour
     }
     void SetEquipment()//장비ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
     {
-        if(number > 0 && _weapon.weaponType == inventory.EquipmentSlot.WeaponType)
+        if(number > 0 && ((Weapon)itemInformation).weaponType == inventory.EquipmentSlot.WeaponType)
         {
-            InventoryManager.instance.DropWeapon(_weapon, 1);
+            InventoryManager.instance.DropItems<Weapon>((Weapon)itemInformation, 1);
             if (!inventory.EquipmentSlot.isNull())
             {
-                InventoryManager.instance.AddWeapon(inventory.EquipmentSlot.Weapon, 1);
+                InventoryManager.instance.AddItems<Weapon>(inventory.EquipmentSlot.Weapon, 1);
                 inventory.EquipmentSlot.DeleteWeapon();
             }
-            inventory.EquipmentSlot.SetWeapon(false, _weapon);
+            inventory.EquipmentSlot.SetWeapon(false, (Weapon)itemInformation);
         }
         PopupManager.instance.CloesPopup(popupType.weapon);
         DataManager.instance.JsonSave();
     }
     void ShowInfo()
     {
-        string name = "";
-        string explain = "";
-        Sprite sprite = null;
-        string ranking = "None";
-        int id = 0;
-        if (_item != null)
-        {
-            name = _item.itemName;
-            explain = _item.itemExplain;
-            sprite = _item.itemImage;
-            ranking = _item.ranking;
-            id = _item.id;
-        }
-        if (_chest != null)
-        {
-            name = _chest.chestName + " 상자";
-            explain = _chest.chestExplain;
-            sprite = _chest.chetImage;
-            ranking = _chest.ranking;
-            id = _chest.id;
-        }
-        if (_weapon != null)
-        {
-            name = _weapon.weaponName;
-            explain = _weapon.weapomExplain;
-            sprite = _weapon.weaponImage;
-            ranking = _weapon.ranking;
-            id = _weapon.id;
-        }
+        string name = itemInformation.GetName();
+        string explain = itemInformation.GetExplain();
+        Sprite sprite = itemInformation.GetSprite();
+        string ranking = itemInformation.GetRanking();
+        int id = itemInformation.GetId();
         PopupManager.instance.OpenExplainPopup(name, explain, sprite, id, ranking);
     }
     void ShowRecipe()
     {
-        if(_chest != null) PopupManager.instance.OpenRecipePopup(_chest);
+        if((Chest)itemInformation != null) PopupManager.instance.OpenRecipePopup((Chest)itemInformation);
     }
     #endregion
     #region 슬롯 세팅
     public void FreshSlot(bool isFresh)
     {
         isSet = false;
-        _item = null;
-        _chest = null;
-        _weapon = null;
         number = 0;
         gameObject.SetActive(!isFresh);
     }
-    public void Drop(int num)
+    public void NewAddItemInfo<T>(T item, int num) where T : IInformation
+    {
+        isActive = true;
+        if (!IsShowCount) numberFrame.gameObject.SetActive(false);
+        itemInformation = item;
+        number += num;
+        numberText.text = number.ToString();
+        image.sprite = item.GetSprite();
+        numberFrame.color = new Color(1, 1, 1, 1);
+        image.color = new Color(1, 1, 1, 1);
+    }
+    public void NewDrop(int num)
     {
         number -= num;
         numberText.text = number.ToString();
         //시작 아이템
-        if(number <= 0 && _chest != null)
+        if (number <= 0 && itemInformation != null)
         {
-            if(_chest.id == 1)
+            if (itemInformation.GetId() == 1 && InfoManager.GetClassName(itemInformation) == "Chest")
             {
                 gameObject.SetActive(false);
             }
         }
-    }
-    public void AddItem(Item item, int num)
-    {
-        isActive = true;
-        if (!IsShowCount) numberFrame.gameObject.SetActive(false);
-        _item = item;
-        number += num;
-        numberText.text = number.ToString();
-        image.sprite = item.itemImage;
-        numberFrame.color = new Color(1, 1, 1, 1);
-        image.color = new Color(1, 1, 1, 1);
-    }
-    public void AddChest(Chest chest, int num)
-    {
-        isActive = true;
-        if (!IsShowCount) numberFrame.gameObject.SetActive(false);
-        _chest = chest;
-        number += num;
-        numberText.text = number.ToString();
-        image.sprite = chest.chetImage;
-        numberFrame.color = new Color(1, 1, 1, 1);
-        image.color = new Color(1, 1, 1, 1);
-    }
-    public void AddWeapon(Weapon weapon, int num)
-    {
-        isActive = true;
-        _weapon = weapon;
-        number += num;
-        numberText.text = number.ToString();
-        image.sprite = weapon.weaponImage;
-        numberFrame.color = new Color(1, 1, 1, 1);
-        image.color = new Color(1, 1, 1, 1);
     }
     #endregion
 }

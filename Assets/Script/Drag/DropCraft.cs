@@ -16,23 +16,23 @@ public class DropCraft : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag.GetComponent<Drag>() != null)//들고 있는 녀석
         {
             originalSlot = eventData.pointerDrag.transform.GetComponent<Drag>().slot;
-            if(originalSlot.number > 0)
+            if(originalSlot.Number > 0)
             {
                 SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
                 if (craftSlot.IsNull())
                 {
-                    craftSlot.SetItem(originalSlot.Item);
-                    InventoryManager.instance.DropItem(originalSlot.Item, 1);
+                    craftSlot.SetItem((Item)originalSlot.ItemInformation);
+                    InventoryManager.instance.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
                     craftSlot.AddResource(craftSlot.Item.id);
                 }
                 else
                 {
                     //스왑부
-                    InventoryManager.instance.AddItem(craftSlot.Item, 1);
+                    InventoryManager.instance.AddItems<Item>(craftSlot.Item, 1);
                     craftSlot.RemoveResource(craftSlot.Item.id);
-                    craftSlot.SetItem(originalSlot.Item);
+                    craftSlot.SetItem((Item)originalSlot.ItemInformation);
                     craftSlot.AddResource(craftSlot.Item.id);
-                    InventoryManager.instance.DropItem(originalSlot.Item, 1);
+                    InventoryManager.instance.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
                 }
             }
         }

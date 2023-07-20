@@ -15,14 +15,14 @@ public class DropChest : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag.GetComponent<Drag>() != null)//들고 있는 녀석
         {
             Slot slot = eventData.pointerDrag.transform.GetComponent<Drag>().slot;
-            if(slot.number > 0)
+            if(slot.Number > 0)
             {
                 if (openSlot.IsNull())
                 {
                     {
                         SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
-                        openSlot.SetChest(slot.Chest, 0);
-                        InventoryManager.instance.DropChest(slot.Chest, 1);
+                        openSlot.SetChest((Chest)slot.ItemInformation, 0);
+                        InventoryManager.instance.DropItems<Chest>((Chest)slot.ItemInformation, 1);
                     }
 
                 }

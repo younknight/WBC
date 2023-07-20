@@ -38,6 +38,7 @@ public class Popup : MonoBehaviour
     [Space(10f)]
     [Header("recipe")]
     [SerializeField] List<Slot> resources;
+    [SerializeField] GameObject weirdRecipe;
     //status
     [Space(10f)]
     [Header("status")]
@@ -72,7 +73,7 @@ public class Popup : MonoBehaviour
     {
         if (inventory.EquipmentSlot.Weapon != null)
         {
-            InventoryManager.instance.AddWeapon(inventory.EquipmentSlot.Weapon, 1);
+            InventoryManager.instance.AddItems<Weapon>(inventory.EquipmentSlot.Weapon, 1);
             inventory.EquipmentSlot.DeleteWeapon();
         }
         PopupManager.instance.CloesPopup(popupType.weapon);
@@ -115,12 +116,18 @@ public class Popup : MonoBehaviour
         nameText.text = chest.chestName;
         rankingText.text = chest.ranking;
         image.sprite = chest.chetImage;
+        weirdRecipe.SetActive(false);
+        if (chest.id == 0)
+        {
+            weirdRecipe.SetActive(true);
+            return;
+        }
         for (int i = 0; i < chest.recipes.Count; i++)//만일 제조법이 여러개라면
         {
             int index = 0;
             for(;index < chest.recipes[i].items.Count; index++)
             {
-                resources[index].AddItem(chest.recipes[i].items[index], 0);
+                resources[index].NewAddItemInfo<Item>(chest.recipes[i].items[index], 0);
             }
             for (; index < resources.Count; index++)
             {

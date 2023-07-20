@@ -23,71 +23,42 @@ public class InventoryManager : MonoBehaviour
         }
     }
     #region 아이템 추가 및 사용
-    public void AddItem(Item item, int num)
+    public void AddItems<T>(T item, int num) where T : IInformation
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            if (inventories[i].InventoryType == inventoryType.item)
+            if (inventories[i].InventoryType == GetInventoryType<T>(item))
             {
-                inventories[i].AddItem(item, num);
+                inventories[i].AddItems<T>(item, num);
                 Initalize();
                 return;
             }
         }
     }
-    public void DropItem(Item item, int num)
+    public void DropItems<T>(T item, int num) where T : IInformation
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            if (inventories[i].InventoryType == inventoryType.item)
+            if (inventories[i].InventoryType == GetInventoryType<T>(item))
             {
-                inventories[i].DropItem(item, num);
+                inventories[i].DropItems<T>(item, num);
             }
         }
     }
-    public void AddChest(Chest chest, int num)
+    inventoryType GetInventoryType<T>(T item) where T : IInformation
     {
-        for (int i = 0; i < inventories.Count; i++)
+        string type = InfoManager.GetClassName(item);
+        //Debug.Log(type);
+        switch (type)
         {
-            if (inventories[i].InventoryType == inventoryType.chest)
-            {
-                inventories[i].AddChest(chest, num);
-                Initalize();
-                return;
-            }
+            case "Item":
+                return inventoryType.item;
+            case "Chest":
+                return inventoryType.chest;
+            case "Weapon":
+                return inventoryType.weapon;
         }
-    }
-    public void DropChest(Chest chest, int num)
-    {
-        for (int i = 0; i < inventories.Count; i++)
-        {
-            if (inventories[i].InventoryType == inventoryType.chest)
-            {
-                inventories[i].DropChest(chest, num);
-            }
-        }
-    }
-    public void AddWeapon(Weapon weapon, int num)
-    {
-        for (int i = 0; i < inventories.Count; i++)
-        {
-            if (inventories[i].InventoryType == inventoryType.weapon)
-            {
-                inventories[i].AddWeapon(weapon, num);
-                Initalize();
-                return;
-            }
-        }
-    }
-    public void DropWeapon(Weapon weapon, int num)
-    {
-        for (int i = 0; i < inventories.Count; i++)
-        {
-            if (inventories[i].InventoryType == inventoryType.weapon)
-            {
-                inventories[i].DropWeapon(weapon, num);
-            }
-        }
+        return inventoryType.item;
     }
     #endregion
 }

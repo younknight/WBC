@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bc3fa6d61ea8542a0307a837b147ab, type: 3}
   m_Name: "1.\uAE30\uBCF8(\uD398\uC774\uD06C)"
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1
   chestName: "\uAE30\uBCF8(\uD398\uC774\uD06C)"
+  price: 0
   chestExplain: "\uC0AC\uC2E4 \uC81C\uC791\uC790\uAC00 \uAF3C\uC218\uB85C \uB123\uC5B4\uB454
     \uC0C1\uC790\uB2E4.\n\uBE4C\uB4DC\uD560\uB54C \uC6D0\uB798\uB300\uB85C \uB3CC\uB824
     \uB193\uB294\uAC70 \uC78A\uC9C0 \uB9D0\uC790."
   ranking: N
   openTime: 5
   chetImage: {fileID: -336927171, guid: b2cac2974c63539489ec1959991177af, type: 3}
-  chetOpenImage: {fileID: 1680472317, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes: []
   dropItems:
-  - item: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
+  - dropItems: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
     maxDrop: 20
     minDrop: 20
     percent: 100
+  dropWeapons: []

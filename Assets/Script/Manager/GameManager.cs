@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Opener opener;
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] CraftDatabase craftDatabase;
     public static GameManager instance;
     [SerializeField] Chest firstChest;
     [SerializeField] List<Item> itemDatas = new List<Item>();
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
         Inventory.Chests = new List<chestInfo>();
         Inventory.Chests.Add(new chestInfo(firstChest, 1));
         Inventory.Weapons = new List<weaponInfo>();
+        craftDatabase.WeirdRecipe = new List<List<int>>();
         inventoryManager.Initalize();
         gold = 0;
         SetData();
@@ -104,6 +106,7 @@ public class GameManager : MonoBehaviour
         Inventory.Items = fullItems;
         Inventory.Chests = fullChests;
         Inventory.Weapons = fullWeapons;
+        craftDatabase.WeirdRecipe = new List<List<int>>();
         gold = 98765;
         SetData();
     }

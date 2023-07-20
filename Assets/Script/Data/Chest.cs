@@ -13,7 +13,7 @@ public struct DropItem<T>
 }
 
 [CreateAssetMenu]
-public class Chest : ScriptableObject
+public class Chest : ScriptableObject, IInformation
 {
     [Header ("Information")]
     public int id;
@@ -36,6 +36,16 @@ public class Chest : ScriptableObject
     [Header("DropItem")]
     public List<DropItem<Item>> dropItems;
     public List<DropItem<Weapon>> dropWeapons;
+
+
+
+    #region Getter
+    public int GetId() { return id; }
+    public string GetName() { return chestName; }
+    public string GetExplain() { return chestExplain; }
+    public string GetRanking() { return ranking; }
+    public Sprite GetSprite() { return chetImage; }
+    #endregion
     private void OnValidate()
     {
         string[] idNum = name.Split('.');

@@ -52,7 +52,8 @@ public class ResultSlot : MonoBehaviour
         if(chest.id == 0) SoundEffecter.Instance.PlayEffect(soundEffectType.getNegative);
         else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);
         PopupManager.instance.OpenGetItemPopup(chest.chestName + " 상자", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
-        InventoryManager.instance.AddChest(chest,1);
+        //Debug.Log(chest.ToString() + "/메이크 체스트/" + 1);
+        InventoryManager.instance.AddItems<Chest>(chest,1);
         ClearChest();
         crafter.FreshSlot();
 

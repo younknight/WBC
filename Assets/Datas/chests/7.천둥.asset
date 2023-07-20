@@ -12,31 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bc3fa6d61ea8542a0307a837b147ab, type: 3}
   m_Name: "7.\uCC9C\uB465"
   m_EditorClassIdentifier: 
-  id: 6
+  id: 7
   chestName: "\uCC9C\uB465"
+  price: 0
   chestExplain: "\uCC9C\uB465\uC758 \uD798\uC774 \uAE43\uB4E0 \uC0C1\uC790.\n\uCC0C\uB9BF\uD558\uB2E4.
     \uBCC0\uD0DC\uAC00 \uC544\uB2CC \uC774\uC0C1 \n\uADF8\uB0E5 \uCD5C\uB300\uD55C
     \uB9CC\uC9C0\uC9C0 \uB9D0\uC790."
   ranking: N
   openTime: 10
   chetImage: {fileID: 1885681820, guid: b2cac2974c63539489ec1959991177af, type: 3}
-  chetOpenImage: {fileID: 1852135380, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes:
   - {fileID: 11400000, guid: cddd4f18bbf74dc4fb3a65900a10aa18, type: 2}
   dropItems:
-  - item: {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
+  - dropItems: {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 50
-  - item: {fileID: 11400000, guid: 77777dfa371f44543bfd06be2f87509a, type: 2}
+  - dropItems: {fileID: 11400000, guid: 77777dfa371f44543bfd06be2f87509a, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 65
-  - item: {fileID: 11400000, guid: c7a8af9b2c5be464fa39b4c72d9c60fb, type: 2}
+  - dropItems: {fileID: 11400000, guid: c7a8af9b2c5be464fa39b4c72d9c60fb, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 80
-  - item: {fileID: 11400000, guid: eefe7903d76c2b74ebf44dec7ccb6dbd, type: 2}
+  - dropItems: {fileID: 11400000, guid: eefe7903d76c2b74ebf44dec7ccb6dbd, type: 2}
     maxDrop: 3
     minDrop: 1
     percent: 100
+  dropWeapons: []

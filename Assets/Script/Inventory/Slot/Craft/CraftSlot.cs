@@ -43,7 +43,7 @@ public class CraftSlot : MonoBehaviour
     }
     public void Cancel()
     {
-        InventoryManager.instance.AddItem(item,1);
+        InventoryManager.instance.AddItems<Item>(item,1);
         RemoveSlot();
     }
 }

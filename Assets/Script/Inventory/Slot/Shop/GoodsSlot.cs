@@ -22,7 +22,7 @@ public class GoodsSlot : MonoBehaviour
         {
             if (GameManager.Gold >= chest.price)
             {
-                InventoryManager.instance.AddChest(chest,count);
+                InventoryManager.instance.AddItems<Chest>(chest,count);
                 GameManager.Gold -= chest.price;
                 button.interactable = false;
             }
@@ -35,7 +35,7 @@ public class GoodsSlot : MonoBehaviour
         {
             if (GameManager.Gold >= item.price)
             {
-                InventoryManager.instance.AddItem(item, count);
+                InventoryManager.instance.AddItems<Item>(item, count);
                 GameManager.Gold -= item.price;
                 button.interactable = false;
             }
