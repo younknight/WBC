@@ -53,6 +53,7 @@ public class EnemySpawner : MonoBehaviour
         sliderClone.transform.localScale = Vector3.one;
         sliderClone.GetComponent<HpPositionSetter>().Setup(enemy.transform);
         sliderClone.GetComponent<HpManager>().Setup(enemy.GetComponent<Unit>());
+        sliderClone.transform.SetAsFirstSibling();
     }
     public void DestroyEnemy(Unit enemy, int round)
     {

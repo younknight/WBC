@@ -18,6 +18,7 @@ public class DropCraft : MonoBehaviour, IDropHandler
             originalSlot = eventData.pointerDrag.transform.GetComponent<Drag>().slot;
             if(originalSlot.number > 0)
             {
+                SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
                 if (craftSlot.IsNull())
                 {
                     craftSlot.SetItem(originalSlot.Item);
@@ -26,7 +27,7 @@ public class DropCraft : MonoBehaviour, IDropHandler
                 }
                 else
                 {
-                    Debug.Log("swap");
+                    //½º¿ÒºÎ
                     InventoryManager.instance.AddItem(craftSlot.Item, 1);
                     craftSlot.RemoveResource(craftSlot.Item.id);
                     craftSlot.SetItem(originalSlot.Item);

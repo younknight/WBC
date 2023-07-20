@@ -32,13 +32,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5947594767441282488}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.25, y: -1.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2423365737361187628
 SpriteRenderer:
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9f60fc535391d4b802de467f47af71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1865815778406024289}
   attackPrefap: {fileID: 1902671026812846797, guid: b055ee39457f575488dcd87d0fdc582c, type: 3}
   spawnPoint: {fileID: 8692764649963636260}
   attackRate: 1

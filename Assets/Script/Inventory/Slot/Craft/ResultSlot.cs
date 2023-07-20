@@ -10,8 +10,10 @@ public class ResultSlot : MonoBehaviour
     [SerializeField] Sprite unknownChest;
     [SerializeField] Sprite questionMark;
     Crafter crafter;
-    Chest chest;
+    [SerializeField] Chest chest;//
+    [SerializeField] List<int> weirdRecipe = new List<int>();
     public Chest Chest { get => chest; set => chest = value; }
+    public List<int> WeirdRecipe { get => weirdRecipe; set => weirdRecipe = value; }
 
     private void Start()
     {
@@ -19,11 +21,11 @@ public class ResultSlot : MonoBehaviour
         crafter = transform.parent.GetComponent<Crafter>();
         button.interactable = false;
     }
-    public void SetChest(Chest chest)
+    public void SetChest(Chest chest, bool isNew)
     {
         button.interactable = true;
         this.chest = chest;
-        if (Inventory.CheckNewChest(chest))//만약 새로운 상자라면
+        if (Inventory.CheckNewChest(chest) || isNew)//만약 새로운 상자라면
         {
             image.sprite = unknownChest;
             questioImage.color = new Color(1, 1, 1, 1);
@@ -43,8 +45,16 @@ public class ResultSlot : MonoBehaviour
     }
     public void OpenChest()
     {
+        if (weirdRecipe != null)
+        {
+            CraftDatabase.instance.AddWierd(weirdRecipe);
+        }
+        if(chest.id == 0) SoundEffecter.Instance.PlayEffect(soundEffectType.getNegative);
+        else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);
         PopupManager.instance.OpenGetItemPopup(chest.chestName + " 상자", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
         InventoryManager.instance.AddChest(chest,1);
+        ClearChest();
         crafter.FreshSlot();
+
     }
 }

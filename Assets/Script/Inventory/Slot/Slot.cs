@@ -105,7 +105,7 @@ public class Slot : MonoBehaviour
         //시작 아이템
         if(number <= 0 && _chest != null)
         {
-            if(_chest.id == 0)
+            if(_chest.id == 1)
             {
                 gameObject.SetActive(false);
             }

@@ -32,12 +32,14 @@ public class SaveData
     public List<hasItem> chests = new List<hasItem>();
     public List<hasItem> weapons = new List<hasItem>();
     public openingChest[] openingChests = new openingChest[16];
+    public List<List<int>> weirdRecipe = new List<List<int>>();
     public int[] equipWeapons = new int[6];
     public int gold = 0;
 }
 
 public class DataManager : MonoBehaviour
 {
+    [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] GameManager gameManager;
@@ -55,10 +57,14 @@ public class DataManager : MonoBehaviour
     }
     private void Start()
     {
+        JsonLateLoad();
+        SetData();
+    }
+    void JsonLateLoad()
+    {
         inventoryManager.Initalize();
         equipmentManager.FreshSlot();
         equipmentManager.Equipment.ResetStatus();
-        SetData();
     }
     public void JsonLoad()
     {
@@ -102,7 +108,9 @@ public class DataManager : MonoBehaviour
                 Inventory.Items = itemInfos;
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
-                Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
+                craftDatabase.WeirdRecipe = saveData.weirdRecipe;
+                        //¿Â∫Ò ¿Â¬¯
+                        Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
                 for(int i = 0; i < saveData.equipWeapons.Length; i++)
                 {
                     if (saveData.equipWeapons[i] != -1) weapons[i] = gameManager.WeaponDatas[saveData.equipWeapons[i]];
@@ -148,6 +156,7 @@ public class DataManager : MonoBehaviour
         }
         saveData.equipWeapons = equip;
         saveData.openingChests = Opener.OpeningChests;
+        saveData.weirdRecipe = craftDatabase.WeirdRecipe;
         #endregion
 
         string jsonData = ObjectToJson(saveData);

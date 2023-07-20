@@ -25,7 +25,6 @@ public class Crafter : MonoBehaviour
 
     public void FreshSlot()
     {
-        slot.ClearChest();
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].RemoveSlot();
@@ -44,11 +43,20 @@ public class Crafter : MonoBehaviour
     }
     void CheckRecipe()
     {
-        Chest chest = CraftDatabase.instance.CheckRecipe(resourceList);
-        slot.ClearChest();
-        if (chest != null)
+        if(resourceList.Count >= 2)
         {
-            slot.SetChest(chest);
+            Chest chest = CraftDatabase.instance.CheckRecipe(resourceList);
+            bool isNewWeird = false;
+            if (chest.id == 0)
+            {
+                isNewWeird = CraftDatabase.instance.isNewWeirdChest(resourceList);
+                if(isNewWeird) slot.WeirdRecipe = resourceList;
+            }
+            else slot.WeirdRecipe = null;
+            slot.ClearChest();
+            slot.SetChest(chest, isNewWeird);
+            return;
         }
+        slot.ClearChest();
     }
 }

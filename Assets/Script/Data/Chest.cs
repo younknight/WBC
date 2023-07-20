@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct DropItem
+public struct DropItem<T>
 {
-    public Item item;
+    public T dropItems;
     public int maxDrop;
     public int minDrop;
     public int percent;
 }
+
 [CreateAssetMenu]
 public class Chest : ScriptableObject
 {
@@ -26,7 +27,6 @@ public class Chest : ScriptableObject
     [Space(10f)]
     [Header("Sprite")]
     public Sprite chetImage;
-    public Sprite chetOpenImage;
 
     [Space(10f)]
     [Header("Recipe")]
@@ -34,7 +34,8 @@ public class Chest : ScriptableObject
 
     [Space(10f)]
     [Header("DropItem")]
-    public List<DropItem> dropItems;
+    public List<DropItem<Item>> dropItems;
+    public List<DropItem<Weapon>> dropWeapons;
     private void OnValidate()
     {
         string[] idNum = name.Split('.');

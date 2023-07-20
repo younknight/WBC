@@ -5,6 +5,7 @@ public enum WeaponState { SearchTarget = 0, AttackToTarget }
 
 public class Attacker : MonoBehaviour
 {
+    [SerializeField] AnimationContol animator;
     [SerializeField] GameObject attackPrefap;
     [SerializeField] Transform spawnPoint;
     [SerializeField] float attackRate = 1f;
@@ -75,6 +76,7 @@ public class Attacker : MonoBehaviour
     }
     IEnumerator AttackToTarget()
     {
+        if(isPlayer) animator.SetAnimation("attack", true);
         while (true)
         {
             if (attackTarget == null)

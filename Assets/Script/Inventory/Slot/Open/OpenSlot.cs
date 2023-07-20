@@ -75,11 +75,12 @@ public class OpenSlot : MonoBehaviour
                     DeleteOpenChest();
                     //실제 오픈 부
                     int count = UnityEngine.Random.Range(chest.dropItems[i].minDrop, chest.dropItems[i].maxDrop + 1);
-                    Item item = chest.dropItems[i].item;
+
+                    Item item = chest.dropItems[i].dropItems;
                     PopupManager.instance.OpenGetItemPopup(item.itemName, "x" + count.ToString(), item.itemImage, Inventory.CheckNewItem(item), item.ranking);//////isNew확인바람
                     InventoryManager.instance.AddItem(item, count);
+                    SoundEffecter.Instance.PlayEffect(soundEffectType.chestOpen);
                     RemoveSlot();
-
                 }
             }
         }

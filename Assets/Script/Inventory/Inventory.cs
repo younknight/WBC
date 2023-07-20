@@ -105,7 +105,7 @@ public class Inventory : MonoBehaviour
             for (int i = 0; i < Chests.Count; i++)
             {
                 slots[Chests[i].chest.id].isSet = true;
-                if (Chests[i].num <= 0 && Chests[i].chest.id == 0) continue;
+                if (Chests[i].num <= 0 && Chests[i].chest.id == 1) continue;
                 slots[Chests[i].chest.id].gameObject.SetActive(true);
                 slots[Chests[i].chest.id].AddChest(Chests[i].chest, Chests[i].num);
             }
@@ -125,7 +125,7 @@ public class Inventory : MonoBehaviour
     //item-----------------------------------------
     public void AddItem(Item _item, int num)
     {
-        Debug.Log(_item.id + "/ "+ Items.FindIndex(x => x.item == _item) + "/" + slots[_item.id].IsActive);
+        //Debug.Log(_item.id + "/ "+ Items.FindIndex(x => x.item == _item) + "/" + slots[_item.id].IsActive);
         if (slots[_item.id].isSet)
         {
             slots[_item.id].AddItem(_item, num); 

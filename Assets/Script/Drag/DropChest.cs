@@ -20,6 +20,7 @@ public class DropChest : MonoBehaviour, IDropHandler
                 if (openSlot.IsNull())
                 {
                     {
+                        SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
                         openSlot.SetChest(slot.Chest, 0);
                         InventoryManager.instance.DropChest(slot.Chest, 1);
                     }

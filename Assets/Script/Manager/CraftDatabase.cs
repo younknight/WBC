@@ -22,6 +22,10 @@ public class CraftDatabase : MonoBehaviour
 
     [SerializeField] List<Recipe> SettingRecipes = new List<Recipe>();
     List<craftRecipe> recipes = new List<craftRecipe>();
+    List<List<int>> weirdRecipe = new List<List<int>>();
+
+    public List<List<int>> WeirdRecipe { get => weirdRecipe; set => weirdRecipe = value; }
+
     private void OnDestroy()
     {
         instance = null;
@@ -40,12 +44,12 @@ public class CraftDatabase : MonoBehaviour
     public void ShowDIc()
     {
 
-        for (int i = 0; i < recipes.Count; i++)
+        for (int i = 0; i < weirdRecipe.Count; i++)
         {
-            Debug.Log(i + "===========");
-            for(int j = 0; j < recipes[i].recipe.Count; j++)
+            Debug.Log(i+"==================" + weirdRecipe.Count);
+            for (int k = 0; k < weirdRecipe[i].Count; k++)
             {
-                Debug.Log(SettingRecipes[i].recipe[j]);
+                Debug.Log(weirdRecipe[i][k]);
             }
         }
     }
@@ -55,7 +59,22 @@ public class CraftDatabase : MonoBehaviour
         {
             if (Match(grid, recipes[i].recipe)) return recipes[i].chest;
         }
-        return null;
+        return GameManager.instance.ChestDatas[0];//이상한상자
+    }
+    public bool isNewWeirdChest(List<int> grid)
+    {
+        for (int i = 0; i < weirdRecipe.Count; i++)
+        {
+            bool flag = Match(weirdRecipe[i], grid);
+            if (flag) return false;
+        }
+        return true;
+    }
+    public void AddWierd(List<int> grid)
+    {
+        List<int> newRecipe = new List<int>();
+        newRecipe = grid.ToList();
+        weirdRecipe.Add(newRecipe);
     }
     bool Match(List<int> grid, List<int> recipe)
     {
