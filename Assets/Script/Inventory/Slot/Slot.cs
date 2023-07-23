@@ -26,13 +26,19 @@ public class Slot : MonoBehaviour
     public IInformation ItemInformation { get => itemInformation; set => itemInformation = value; }
     public int Number { get => number; set => number = value; }
 
-    #region で機
     public void ActivateSlot()
     {
         if (PopupType == popupType.explain) ShowInfo();
         else if (PopupType == popupType.recipe) ShowRecipe();
         else if (PopupType == popupType.weapon) SetEquipment();
         else if (PopupType == popupType.enforce) SetEnforceTarget();
+        else if (PopupType == popupType.autoCraft) SetAutoCraft();
+    }
+    #region 蝸煜 贗葛 檜漸お
+    void SetAutoCraft()
+    {
+        AutoCrafter.Instance.Slot.SetChest((Chest)itemInformation);
+        ChestPopup.Instance.CloseStart();
     }
     void SetEquipment()//濰綠太太太太太太太太太太太太太太太太太太太太太
     {
@@ -62,6 +68,7 @@ public class Slot : MonoBehaviour
     void ShowInfo()
     {
         string name = itemInformation.GetName();
+        if (InfoManager.CheckInterfaceType(itemInformation) == "chest") name += " 鼻濠";
         string explain = itemInformation.GetExplain();
         Sprite sprite = itemInformation.GetSprite();
         string ranking = itemInformation.GetRanking();

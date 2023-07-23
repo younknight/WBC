@@ -40,23 +40,39 @@ public class LockInfo
 public class OpeningChest
 {
     public int chestId;
-    public int count;
     public DateTime openTime;
-    public OpeningChest(int id, int count, DateTime openTime)
+    public OpeningChest(int id, DateTime openTime)
     {
         this.chestId = id;
-        this.count = count;
         this.openTime = openTime;
+    }
+}
+public class AutoCraftMaxCounter
+{
+    public float coolTime;
+    public int maxCount;
+    public int currentCount;
+    public DateTime lastTime;
+
+    public AutoCraftMaxCounter(float coolTime, int maxCount, int currentCount, DateTime lastTime)
+    {
+        this.coolTime = coolTime;
+        this.maxCount = maxCount;
+        this.currentCount = currentCount;
+        this.lastTime = lastTime;
     }
 }
 #endregion
 public class SaveData
 {
+    //아이템들
     public List<HasItem> items = new List<HasItem>();
     public List<HasItem> chests = new List<HasItem>();
     public List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
+
     public OpeningChest[] openingChests = new OpeningChest[16];//열고 있는 상자 정보
     public List<List<int>> weirdRecipe = new List<List<int>>();//이상한 상자 레시피
+    public AutoCraftMaxCounter autoCounter;
     public LockInfo lockInfo;
     public int[] equipWeapons = new int[6];//장착한 장비
     public int gold = 0;
@@ -84,17 +100,12 @@ public class DataManager : MonoBehaviour
         JsonLateLoad();
         SetData();
     }
-    void JsonLateLoad()
-    {
-        inventoryManager.Initalize();
-    }
+    void JsonLateLoad() { inventoryManager.Initalize(); }
     public void JsonLoad()
     {
-
         SaveData saveData = new SaveData();
         if (!File.Exists(path))
         {
-            //경로가 존재 안함
             Debug.Log("경로가 존재 안함");
             gameManager.ResetPlayer();
             JsonSave();
@@ -103,8 +114,6 @@ public class DataManager : MonoBehaviour
         {
             string loadJson = File.ReadAllText(path);
             saveData = JsonToOject<SaveData>(loadJson);
-            // saveData = JsonUtility.FromJson<SaveData>(loadJson);
-
             if (saveData != null)
             {
                 saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
@@ -112,24 +121,16 @@ public class DataManager : MonoBehaviour
                 //불러오기
                 GameManager.Gold = saveData.gold;
                 List<itemInfo> itemInfos = new List<itemInfo>();
-                for (int i = 0; i < saveData.items.Count; i++)
-                {
-                    itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count));
-                }
+                for (int i = 0; i < saveData.items.Count; i++) { itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count)); }
                 List<chestInfo> chestInfos = new List<chestInfo>();
-                for (int i = 0; i < saveData.chests.Count; i++)
-                {
-                    chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].itemId], saveData.chests[i].count));
-                }
+                for (int i = 0; i < saveData.chests.Count; i++) { chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].itemId], saveData.chests[i].count)); }
                 List<weaponInfo> weaponInfos = new List<weaponInfo>();
-                for (int i = 0; i < saveData.weapons.Count; i++)
-                {
-                    weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].weaponId], saveData.weapons[i].count, saveData.weapons[i].level, saveData.weapons[i].enforceGauge));
-                }
+                for (int i = 0; i < saveData.weapons.Count; i++) { weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].weaponId], saveData.weapons[i].count, saveData.weapons[i].level, saveData.weapons[i].enforceGauge)); }
                 Opener.OpeningChests = saveData.openingChests;
                 Inventory.Items = itemInfos;
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
+                AutoCrafter.AutoCounter = saveData.autoCounter;
                 craftDatabase.WeirdRecipe = saveData.weirdRecipe;
                 //장비 장착
                 Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
@@ -142,30 +143,17 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    void SetData()
-    {
-        TextManager.instance.SetGold();
-    }
+    void SetData() { TextManager.instance.SetGold(); }
     public void JsonSave()
     {
         SaveData saveData = new SaveData();
-
         #region json파일에 저장
         List<HasItem> items = new List<HasItem>();
-        for (int i = 0; i < Inventory.Items.Count; i++)
-        {
-            items.Add(new HasItem(Inventory.Items[i].item.id, Inventory.Items[i].num));
-        }
+        for (int i = 0; i < Inventory.Items.Count; i++) { items.Add(new HasItem(Inventory.Items[i].item.id, Inventory.Items[i].num)); }
         List<HasItem> chests = new List<HasItem>();
-        for (int i = 0; i < Inventory.Chests.Count; i++)
-        {
-            chests.Add(new HasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num));
-        }
+        for (int i = 0; i < Inventory.Chests.Count; i++) { chests.Add(new HasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num)); }
         List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
-        for (int i = 0; i < Inventory.Weapons.Count; i++)
-        {
-            weapons.Add(new HasWeaponWithLevel(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num, Inventory.Weapons[i].level, Inventory.Weapons[i].enforceGauge));
-        }
+        for (int i = 0; i < Inventory.Weapons.Count; i++) { weapons.Add(new HasWeaponWithLevel(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num, Inventory.Weapons[i].level, Inventory.Weapons[i].enforceGauge)); }
         saveData.items = items;
         saveData.chests = chests;
         saveData.weapons = weapons;
@@ -179,17 +167,11 @@ public class DataManager : MonoBehaviour
         saveData.equipWeapons = equip;
         saveData.openingChests = Opener.OpeningChests;
         saveData.weirdRecipe = craftDatabase.WeirdRecipe;
+        saveData.autoCounter = AutoCrafter.AutoCounter;
         #endregion
-
         string jsonData = ObjectToJson(saveData);
         File.WriteAllText(path, jsonData);
     }
-    string ObjectToJson(object obj)
-    {
-        return JsonConvert.SerializeObject(obj);
-    }
-    T JsonToOject<T>(string jsonData)
-    {
-        return JsonConvert.DeserializeObject<T>(jsonData);
-    }
+    string ObjectToJson(object obj) { return JsonConvert.SerializeObject(obj); }
+    T JsonToOject<T>(string jsonData) { return JsonConvert.DeserializeObject<T>(jsonData); }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
         Inventory.Chests = new List<chestInfo>();
         Inventory.Chests.Add(new chestInfo(firstChest, 1));
         Inventory.Weapons = new List<weaponInfo>();
-        craftDatabase.WeirdRecipe = new List<List<int>>();
         inventoryManager.Initalize();
         gold = 0;
+        CommonData();
         SetData();
     }
     public void GetAllItems()
@@ -111,18 +111,17 @@ public class GameManager : MonoBehaviour
         Inventory.Items = fullItems;
         Inventory.Chests = fullChests;
         Inventory.Weapons = fullWeapons;
-        craftDatabase.WeirdRecipe = new List<List<int>>();
         gold = 98765;
+        CommonData();
         SetData();
+    }
+    void CommonData()
+    {
+        craftDatabase.WeirdRecipe = new List<List<int>>();
+        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(10 ,10, 10, DateTime.Now);
     }
     void SetData()
     {
-        //equipmentManager.Equipment.DefaultStatus = new Status();
-        //Equipment.Weapons = new Weapon[6];
-        //for (int i = 0; i < equipmentManager.Slots.Length; i++)
-        //{
-        //    equipmentManager.Slots[i].ClearSlot();
-        //}
         TextManager.instance.SetGold();
         inventoryManager.Initalize();
     }

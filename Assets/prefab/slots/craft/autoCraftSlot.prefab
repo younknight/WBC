@@ -591,6 +591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4795026209258233688}
   - component: {fileID: 6461070177817818048}
+  - component: {fileID: 442037927608787180}
   m_Layer: 5
   m_Name: maxCounterSlider
   m_TagString: Untagged
@@ -670,6 +671,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &442037927608787180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203014112609354785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b9558b008e7b349a56ea5bda5038c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill: {fileID: 4594795394568274510}
+  canOpen: 0
 --- !u!1 &6689227870578816242
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +696,7 @@ GameObject:
   - component: {fileID: 1056410997798554508}
   - component: {fileID: 3437781106353464515}
   - component: {fileID: 2526278045250850035}
+  - component: {fileID: 5998592375181065378}
   m_Layer: 5
   m_Name: autoCraftSlot
   m_TagString: Untagged
@@ -748,6 +764,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &5998592375181065378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689227870578816242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7c3b365f28d5345929eda446a4ac4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: {fileID: 3856231186462879025}
+  counter: {fileID: 442037927608787180}
+  counterText: {fileID: 8291669874084966423}
 --- !u!1 &7086712006364810650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1754340624886383790}
   - component: {fileID: 1681442009571715028}
+  - component: {fileID: 3856231186462879025}
   m_Layer: 5
   m_Name: timerSlider
   m_TagString: Untagged
@@ -1318,3 +1351,17 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3856231186462879025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8985066280725025684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b9558b008e7b349a56ea5bda5038c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill: {fileID: 7086079076363230641}
+  canOpen: 0

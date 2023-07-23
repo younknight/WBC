@@ -49,8 +49,6 @@ public class ResultSlot : MonoBehaviour
         {
             CraftDatabase.instance.AddWierd(weirdRecipe);
         }
-        if(chest.id == 0) SoundEffecter.Instance.PlayEffect(soundEffectType.getNegative);
-        else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);
         GetItemPopup.Instance.SetGetItem(chest.chestName + " »óÀÚ", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
         GetItemPopup.Instance.Open();
         //PopupManager.Instance.OpenGetItemPopup();-----------------------------------------------------

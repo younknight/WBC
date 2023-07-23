@@ -111,6 +111,8 @@ public class Inventory : MonoBehaviour
             {
                 slots[Chests[i].chest.id].isSet = true;
                 if (Chests[i].num <= 0 && Chests[i].chest.id == 1) continue;
+                if (openPopupType == popupType.recipe && Chests[i].chest.id == 1) continue;
+                if (openPopupType == popupType.autoCraft && (Chests[i].chest.id == 0 || Chests[i].chest.id == 1)) continue;
                 slots[Chests[i].chest.id].gameObject.SetActive(true);
                 slots[Chests[i].chest.id].NewAddItemInfo<Chest>(Chests[i].chest, Chests[i].num);
             }

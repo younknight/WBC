@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class WeaponPopup : Popup
 {
-    [SerializeField] GameObject Equip;
-    [SerializeField] GameObject Enforce;
+    #region ½Ì±ÛÅæ
     static WeaponPopup instance;
     public static WeaponPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     void Awake() { if (Instance == null) Instance = this; }
+    #endregion
+    [SerializeField] GameObject Equip;
+    [SerializeField] GameObject Enforce;
     public void OpenPopup(bool isEnforce)
     {
         Enforce.SetActive(isEnforce);

@@ -33,6 +33,7 @@ public class InfoManager : MonoBehaviour
     {
         if (obj is Item) return "item";
         else if (obj is Weapon) return "weapon";
+        else if (obj is Chest) return "chest";
         else return "Unknown";
     }
 }

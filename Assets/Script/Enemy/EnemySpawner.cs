@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        if (MapManager.selectedMap) SetUp(MapManager.selectedMap);
+        if (MapManager.SelectedMap) SetUp(MapManager.SelectedMap);
     }
     public List<Unit> GetEnemyList()
     {

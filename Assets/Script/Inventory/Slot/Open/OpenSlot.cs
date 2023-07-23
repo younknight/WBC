@@ -40,7 +40,7 @@ public class OpenSlot : MonoBehaviour
 
     void AddOpenChest()
     {
-        Opener.OpeningChests[Id] = new OpeningChest(chest.id, 1,DateTime.Now);
+        Opener.OpeningChests[Id] = new OpeningChest(chest.id, DateTime.Now);
     }
     void DeleteOpenChest()
     {
@@ -82,7 +82,6 @@ public class OpenSlot : MonoBehaviour
             GetItemPopup.Instance.SetGetItem(newItem.GetName(), "x" + count.ToString(), newItem.GetSprite(), isNew, newItem.GetRanking());
             GetItemPopup.Instance.Open();
             //PopupManager.Instance.OpenGetItemPopup(); ;-----------------------------------------------------
-            SoundEffecter.Instance.PlayEffect(soundEffectType.chestOpen);
             RemoveSlot();
         }
         else

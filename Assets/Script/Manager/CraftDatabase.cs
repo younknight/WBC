@@ -23,7 +23,6 @@ public class CraftDatabase : MonoBehaviour
     [SerializeField] List<Recipe> SettingRecipes = new List<Recipe>();
     List<craftRecipe> recipes = new List<craftRecipe>();
     List<List<int>> weirdRecipe = new List<List<int>>();
-
     public List<List<int>> WeirdRecipe { get => weirdRecipe; set => weirdRecipe = value; }
 
     private void OnDestroy()
@@ -41,21 +40,10 @@ public class CraftDatabase : MonoBehaviour
         }
         recipes = newRecipeList.Distinct().ToList();
     }
-    public void ShowDIc()
-    {
-
-        for (int i = 0; i < weirdRecipe.Count; i++)
-        {
-            Debug.Log(i+"==================" + weirdRecipe.Count);
-            for (int k = 0; k < weirdRecipe[i].Count; k++)
-            {
-                Debug.Log(weirdRecipe[i][k]);
-            }
-        }
-    }
+    #region 레시피 체크하여 확인
     public Chest CheckRecipe(List<int> grid)
     {
-        for(int i = 0; i< recipes.Count; i++)
+        for (int i = 0; i < recipes.Count; i++)
         {
             if (Match(grid, recipes[i].recipe)) return recipes[i].chest;
         }
@@ -79,9 +67,27 @@ public class CraftDatabase : MonoBehaviour
     bool Match(List<int> grid, List<int> recipe)
     {
         if (grid.Count != recipe.Count) return false;
-        for(int i=0;i< grid.Count; i++)
+        for (int i = 0; i < grid.Count; i++)
         {
             if (grid[i] != recipe[i]) return false;
+        }
+        return true;
+    }
+    #endregion
+    public bool CheckResource(Chest chest, int count)
+    {
+        Dictionary<Item, int> resources = new Dictionary<Item, int>();
+        //아이템 삽입
+        for (int i = 0; i < chest.recipes[0].items.Count; i++)
+        {
+            Item item = chest.recipes[0].items[i];
+            if (!resources.ContainsKey(item)) resources.Add(item, 1);
+            else resources[item]++;
+        }
+        //아이템 재고 체크
+        foreach (KeyValuePair<Item, int> entry in resources)
+        {
+            if (Inventory.Items.Find(x => x.item == entry.Key).num < (entry.Value * count)) return false;
         }
         return true;
     }

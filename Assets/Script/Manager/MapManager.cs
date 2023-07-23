@@ -5,13 +5,28 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     [SerializeField] List<MapInfo> maps = new List<MapInfo>();
-    public static MapInfo selectedMap;
+    private static MapInfo selectedMap;
+
+    public static MapInfo SelectedMap { get => selectedMap; set => selectedMap = value; }
+    private static MapManager instance;
+
+    public static MapManager Instance { get => instance; set => instance = value; }
+    private void Awake()
+    {
+        if (null == Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else Destroy(this.gameObject);
+    }
+
     void Start()
     {
-        selectedMap = maps[0];//defult
+        SelectedMap = maps[0];//defult
     }
     public void SelectMap(int id)
     {
-        selectedMap = maps[id];
+        SelectedMap = maps[id];
     }
 }
