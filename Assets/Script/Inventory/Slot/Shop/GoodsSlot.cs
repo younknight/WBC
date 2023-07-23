@@ -44,7 +44,7 @@ public class GoodsSlot : MonoBehaviour
                 //»à
             }
         }
-        PopupManager.instance.CloesPopup(popupType.purchase);
+        PurchasePopup.Instance.CloseStart();
     }
     public void OpenPopup()
     {
@@ -69,7 +69,8 @@ public class GoodsSlot : MonoBehaviour
             price = item.price;
             id = item.id;
         }
-        PopupManager.instance.OpenPurchasePopup(this, name, ranking, sprite, price, count, id);
+        PurchasePopup.Instance.SetPurchase(this, name, ranking, sprite, price, count, id);
+        PurchasePopup.Instance.Open();
     }
     public void ClearSlot()
     {

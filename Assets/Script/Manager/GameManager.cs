@@ -23,14 +23,20 @@ public struct chestInfo
         this.num = num;
     }
 }
+[System.Serializable]//
 public struct weaponInfo
 {
     public Weapon weapon;
     public int num;
-    public weaponInfo(Weapon weapon, int num)
+    public int level;
+    public int enforceGauge;
+
+    public weaponInfo(Weapon weapon, int num, int level, int enforceGauge)
     {
         this.weapon = weapon;
         this.num = num;
+        this.level = level;
+        this.enforceGauge = enforceGauge;
     }
 }
 public class GameManager : MonoBehaviour
@@ -79,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < WeaponDatas.Count; i++)
         {
-            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 99));
+            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 10, 1, 0));
         }
     }
     public static int GetCount(inventoryType inventoryType)

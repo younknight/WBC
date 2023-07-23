@@ -168,8 +168,12 @@ public class Inventory : MonoBehaviour
                 break;
             case "Weapon":
                 Weapon weapon = InfoManager.GetCharacter<Weapon>(_item);
-                if (isNew) Weapons.Add(new weaponInfo(weapon, num));
-                else Weapons[Weapons.FindIndex(x => x.weapon == weapon)] = new weaponInfo(weapon, slots[_item.GetId()].Number);
+                if (isNew) Weapons.Add(new weaponInfo(weapon, num, 1, 0));
+                else
+                {
+                    weaponInfo origin = Weapons[Weapons.FindIndex(x => x.weapon == weapon)];
+                    Weapons[Weapons.FindIndex(x => x.weapon == weapon)] = new weaponInfo(weapon, slots[_item.GetId()].Number, origin.level, origin.enforceGauge);
+                }
                 break;
         }
     }

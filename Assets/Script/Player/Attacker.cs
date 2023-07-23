@@ -12,8 +12,16 @@ public class Attacker : MonoBehaviour
     [SerializeField] float attackRange = 2f;
     [SerializeField] WeaponState weaponState = WeaponState.SearchTarget;
     public Transform attackTarget = null;
-    Unit unit;
+    [SerializeField] Unit unit;//
     bool isPlayer;
+
+    public Unit Unit { get => unit; set => unit = value; }
+    private void Awake()
+    {
+
+        unit = GetComponent<Unit>();
+    }
+
     private void Start()
     {
         spawnPoint = transform;
@@ -23,7 +31,6 @@ public class Attacker : MonoBehaviour
             //Debug.Log("player");
         }
         else isPlayer = false;
-        unit = GetComponent<Unit>();
         ChangeState(WeaponState.SearchTarget);
     }
     public void ChangeState(WeaponState newState)

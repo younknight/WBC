@@ -16,14 +16,16 @@ public class EquipmentSlot : MonoBehaviour
     public weaponType WeaponType { get => weaponType; set => weaponType = value; }
     public int Id { get => id; set => id = value; }
 
-    public void OpenPopup()
+    public void OpenPopup(bool isEnforcePopup)
     {
-        PopupManager.instance.OpenWeaponPopup();
+        //PopupManager.Instance.OpenWeaponPopup(isEnforcePopup);
+        WeaponPopup.Instance.OpenPopup(isEnforcePopup);
         currentSelectedSlot = this;
     }
     public void FreashSlot()
     {
         weapon = null;
+        currentSelectedSlot = null;
         weaponImage.sprite = defaultImage[(int)weaponType];
         weaponImage.color = new Color(1, 1, 1, 0.5f);
     }

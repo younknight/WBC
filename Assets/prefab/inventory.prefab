@@ -33,7 +33,6 @@ RectTransform:
   m_Children:
   - {fileID: 5994695350833438964}
   m_Father: {fileID: 8549675063364551993}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -106,7 +105,7 @@ GameObject:
   - component: {fileID: 8755462643067257888}
   m_Layer: 5
   m_Name: inventory
-  m_TagString: Untagged
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +124,6 @@ RectTransform:
   m_Children:
   - {fileID: 5425619907415772737}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -217,7 +215,6 @@ MonoBehaviour:
   isDraggble: 0
   openPopupType: 0
   isShowCount: 1
-  equipmentSlot: {fileID: 0}
   slotParent: {fileID: 5994695350833438964}
   slots: []
 --- !u!1 &5322637045710222552
@@ -251,7 +248,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5425619907415772737}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

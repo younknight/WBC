@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921757ccc67a8e44ab72ea72e1cb6b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   weapon: {fileID: 0}
   weaponImage: {fileID: 6229215503851098380}
   weaponType: 0
@@ -143,7 +144,7 @@ MonoBehaviour:
       - m_Target: {fileID: 7235206614715195413}
         m_TargetAssemblyTypeName: EquipmentSlot, Assembly-CSharp
         m_MethodName: OpenPopup
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

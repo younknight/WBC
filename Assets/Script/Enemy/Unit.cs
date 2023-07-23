@@ -68,6 +68,14 @@ public class Unit : MonoBehaviour
                 break;
         }
     }
+    public void SetDefult()
+    {
+        maxHp = 10;
+        attack = 1;
+        defence = 0;
+        criDamage = 0;
+        criRate = 0;
+    }
     public void SetStatus(statusType status, float value)
     {
         switch (status)
@@ -112,7 +120,10 @@ public class Unit : MonoBehaviour
     }
     public float GetAttackDamage()
     {
-        float totalDamgae = Random.Range(0,100) < criRate ? attack : attack + criDamage;
+        float percent = Random.Range(0, 100);
+        bool isCri = percent < criRate;
+    //    Debug.Log(isCri + " / "+ percent + " / "+ criRate);
+        float totalDamgae = isCri ? attack : attack + criDamage;
         return totalDamgae;
     }
 }

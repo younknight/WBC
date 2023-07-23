@@ -19,31 +19,29 @@ public class EquipmentManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else Destroy(this.gameObject);
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (EquipWeapon[i] != null)
-            {
-                unit.BuffStatusWithWeapon(true, EquipWeapon[i]);
-            }
-        }
         SetEquipManager();
     }
     public void SetEquipManager()
     {
         slots = GameObject.Find("equipmentSlotsParents").GetComponentsInChildren<EquipmentSlot>();
-
+        unit.Hp = unit.MaxHp;
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].Id = i;
-            slots[i].FreashSlot();
         }
+        Initalize();
+    }
+    public void Initalize()
+    {
+        Unit.SetDefult();
         for (int i = 0; i < slots.Length; i++)
         {
+            slots[i].FreashSlot();
             if (EquipWeapon[i] != null)
             {
+                unit.BuffStatusWithWeapon(true, EquipWeapon[i]);
                 slots[i].SetWeapon(EquipWeapon[i]);
             }
         }
     }
-
 }

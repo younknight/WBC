@@ -15,12 +15,12 @@ public class Player : MonoBehaviour
         if (EquipmentManager.instance != null)
         {
             unit = EquipmentManager.instance.Unit;
+            GetComponent<Attacker>().Unit = EquipmentManager.instance.Unit;
         }
         SetUp();
     }
     public void SetUp()
     {
-        Debug.Log(unit.gameObject.name);
         hpBar.Setup(unit);
     }
 }

@@ -33,7 +33,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 381087961076497820}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -138,7 +137,6 @@ RectTransform:
   - {fileID: 4347450220173861852}
   - {fileID: 8682923789259011471}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -195,16 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cf6f68dd248034c86056de867515a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSet: 0
   id: 0
   popupType: 0
   isShowCount: 1
   image: {fileID: 7429063088473291896}
   numberFrame: {fileID: 6825543455023963086}
   numberText: {fileID: 8461264485291689342}
-  number: 0
-  _item: {fileID: 0}
-  _chest: {fileID: 0}
-  _weapon: {fileID: 0}
 --- !u!114 &4337037580092746222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5283132898620648306}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: ShowPopup
+        m_MethodName: ActivateSlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -293,7 +288,6 @@ RectTransform:
   m_Children:
   - {fileID: 5279110639371652566}
   m_Father: {fileID: 381087961076497820}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -369,7 +363,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8682923789259011471}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

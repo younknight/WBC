@@ -911,9 +911,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1994950864}
-        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
-        m_MethodName: OpenSettingPopup
+      - m_Target: {fileID: 1755658774}
+        m_TargetAssemblyTypeName: Popup, Assembly-CSharp
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1593,11 +1593,11 @@ Transform:
   m_GameObject: {fileID: 452470414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -100.00002, y: -177.87462, z: 0}
-  m_LocalScale: {x: 0.6968642, y: 0.6968642, z: 0.6968642}
+  m_LocalPosition: {x: 0, y: 0.2342987, z: 0}
+  m_LocalScale: {x: 0.91289204, y: 0.91289204, z: 0.91289204}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1734753918}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &604067456
 GameObject:
@@ -3283,6 +3283,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2047055803447866298, guid: 058cb96d09cb80a4cb2843a768d6f469, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 1401942180}
+    - target: {fileID: 2047055803447866298, guid: 058cb96d09cb80a4cb2843a768d6f469, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1401942173}
@@ -3512,9 +3516,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1994950864}
-        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
-        m_MethodName: OpenStatusPopup
+      - m_Target: {fileID: 1520213955}
+        m_TargetAssemblyTypeName: StatusPopup, Assembly-CSharp
+        m_MethodName: OpenPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3842,7 +3846,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1520213951}
+      - m_Target: {fileID: 1520213955}
         m_TargetAssemblyTypeName: Popup, Assembly-CSharp
         m_MethodName: CloseStart
         m_Mode: 1
@@ -4112,8 +4116,8 @@ GameObject:
   - component: {fileID: 1520213950}
   - component: {fileID: 1520213954}
   - component: {fileID: 1520213953}
-  - component: {fileID: 1520213951}
   - component: {fileID: 1520213952}
+  - component: {fileID: 1520213955}
   m_Layer: 5
   m_Name: statusPopup
   m_TagString: Untagged
@@ -4141,38 +4145,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 356.07144}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1520213951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520213949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e95e3225263b940b725eee93aa2334, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popupType: 5
-  PopupObj: {fileID: 1520213949}
-  image: {fileID: 0}
-  nameText: {fileID: 0}
-  explainText: {fileID: 0}
-  idText: {fileID: 0}
-  isNewFrame: {fileID: 0}
-  rankingText: {fileID: 0}
-  resources: []
-  weirdRecipe: {fileID: 0}
-  hp: {fileID: 2046630486}
-  attack: {fileID: 1804627272}
-  defence: {fileID: 1512550480}
-  criDamage: {fileID: 1892566910}
-  criRate: {fileID: 1759113503}
-  inventory: {fileID: 0}
-  player: {fileID: 1401942178}
-  countText: {fileID: 0}
-  priceText: {fileID: 0}
-  goods: {fileID: 0}
 --- !u!95 &1520213952
 Animator:
   serializedVersion: 5
@@ -4232,6 +4204,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520213949}
   m_CullTransparentMesh: 1
+--- !u!114 &1520213955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520213949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3230e1074ddb9ad4d9088d31ee26ba41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupType: 5
+  hp: {fileID: 2046630486}
+  attack: {fileID: 1804627272}
+  defence: {fileID: 1512550480}
+  criDamage: {fileID: 1892566910}
+  criRate: {fileID: 1759113503}
 --- !u!1 &1528389834
 GameObject:
   m_ObjectHideFlags: 0
@@ -4373,7 +4363,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1755658770}
+      - m_Target: {fileID: 1755658774}
         m_TargetAssemblyTypeName: Popup, Assembly-CSharp
         m_MethodName: CloseStart
         m_Mode: 1
@@ -4609,7 +4599,6 @@ Transform:
   - {fileID: 1436944148}
   - {fileID: 1528389835}
   - {fileID: 98696907}
-  - {fileID: 1994950863}
   - {fileID: 1818925364}
   - {fileID: 801870594}
   m_Father: {fileID: 0}
@@ -5017,7 +5006,6 @@ RectTransform:
   m_Children:
   - {fileID: 1520213950}
   - {fileID: 1755658769}
-  - {fileID: 452470417}
   m_Father: {fileID: 82862417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5102,8 +5090,8 @@ GameObject:
   - component: {fileID: 1755658769}
   - component: {fileID: 1755658773}
   - component: {fileID: 1755658772}
-  - component: {fileID: 1755658770}
   - component: {fileID: 1755658771}
+  - component: {fileID: 1755658774}
   m_Layer: 5
   m_Name: settingPopup
   m_TagString: Untagged
@@ -5131,38 +5119,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000015258789, y: 0.000015258789}
   m_SizeDelta: {x: 200, y: 356.07144}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1755658770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755658768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e95e3225263b940b725eee93aa2334, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popupType: 2
-  PopupObj: {fileID: 1755658768}
-  image: {fileID: 0}
-  nameText: {fileID: 0}
-  explainText: {fileID: 0}
-  idText: {fileID: 0}
-  isNewFrame: {fileID: 0}
-  rankingText: {fileID: 0}
-  resources: []
-  weirdRecipe: {fileID: 0}
-  hp: {fileID: 0}
-  attack: {fileID: 0}
-  defence: {fileID: 0}
-  criDamage: {fileID: 0}
-  criRate: {fileID: 0}
-  inventory: {fileID: 0}
-  player: {fileID: 0}
-  countText: {fileID: 0}
-  priceText: {fileID: 0}
-  goods: {fileID: 0}
 --- !u!95 &1755658771
 Animator:
   serializedVersion: 5
@@ -5222,6 +5178,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755658768}
   m_CullTransparentMesh: 1
+--- !u!114 &1755658774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755658768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3da01aa0f753246850fa2f2cba78c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupType: 0
 --- !u!1 &1759113501
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,52 +8610,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1994950862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1994950863}
-  - component: {fileID: 1994950864}
-  m_Layer: 0
-  m_Name: PopupManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1994950863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994950862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1683556491}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1994950864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994950862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb25722f730de7f4180b49b5789689a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popupsParents: {fileID: 1734753918}
-  settingPopups: []
 --- !u!1 &1997605098
 GameObject:
   m_ObjectHideFlags: 0
@@ -9588,6 +9511,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 452470417}
   - {fileID: 919113857}
   - {fileID: 1683556491}
   - {fileID: 930372119}

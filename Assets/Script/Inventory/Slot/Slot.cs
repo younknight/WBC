@@ -27,11 +27,12 @@ public class Slot : MonoBehaviour
     public int Number { get => number; set => number = value; }
 
     #region 橡穣
-    public void ShowPopup()
+    public void ActivateSlot()
     {
         if (PopupType == popupType.explain) ShowInfo();
         else if (PopupType == popupType.recipe) ShowRecipe();
         else if (PopupType == popupType.weapon) SetEquipment();
+        else if (PopupType == popupType.enforce) SetEnforceTarget();
     }
     void SetEquipment()//舌搾びびびびびびびびびびびびびびびびびびびびび
     {
@@ -41,14 +42,22 @@ public class Slot : MonoBehaviour
             if(EquipmentSlot.currentSelectedSlot.Weapon != null)
             {
                 InventoryManager.instance.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
-                EquipmentManager.instance.Unit.BuffStatusWithWeapon(false, EquipmentSlot.currentSelectedSlot.Weapon);
             }
             EquipmentSlot.currentSelectedSlot.SetWeapon((Weapon)itemInformation);
             EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = (Weapon)itemInformation;
-            EquipmentManager.instance.Unit.BuffStatusWithWeapon(true, (Weapon)itemInformation);
         }
-        PopupManager.instance.CloesPopup(popupType.weapon);
+        EquipmentSlot.currentSelectedSlot.FreashSlot();
+        WeaponPopup.Instance.CloseStart();
         DataManager.instance.JsonSave();
+        EquipmentManager.instance.Initalize();
+    }
+    void SetEnforceTarget()
+    {
+        if (number > 0)
+        {
+            EnforceManager.Instance.SetWeapon((Weapon)itemInformation);
+            WeaponPopup.Instance.CloseStart();
+        }
     }
     void ShowInfo()
     {
@@ -58,11 +67,17 @@ public class Slot : MonoBehaviour
         string ranking = itemInformation.GetRanking();
         int id = itemInformation.GetId();
         int sellPrice = itemInformation.GetSellPrice();
-        PopupManager.instance.OpenExplainPopup(name, explain, sprite, id, ranking, sellPrice);
+        string type = InfoManager.CheckInterfaceType(itemInformation);
+        ExplainPopup.Instance.SetExplain(type, name, explain, sprite, id, ranking, sellPrice);
+        ExplainPopup.Instance.Open();
     }
     void ShowRecipe()
     {
-        if((Chest)itemInformation != null) PopupManager.instance.OpenRecipePopup((Chest)itemInformation);
+        if ((Chest)itemInformation != null)
+        {
+            RecipePopup.Instance.SetRecipe((Chest)itemInformation);
+            RecipePopup.Instance.Open();
+        }
     }
     #endregion
     #region 十茎 室特

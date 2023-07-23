@@ -4,36 +4,61 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 
-public class hasItem
+#region 정보 목록
+public class HasItem
 {
-    public int id;
+    public int itemId;
     public int count;
 
-    public hasItem(int id, int count)
+    public HasItem(int id, int count)
     {
-        this.id = id;
+        this.itemId = id;
         this.count = count;
     }
 }
-[System.Serializable]
-public class openingChest
+public class HasWeaponWithLevel
 {
-    public int id;
-    public DateTime openTime;
-    public openingChest(int id, DateTime openTime)
+    public int weaponId;
+    public int count;
+    public int level;
+    public int enforceGauge;
+
+    public HasWeaponWithLevel(int id, int count, int level, int enforceGauge)
     {
-        this.id = id;
+        this.weaponId = id;
+        this.count = count;
+        this.level = level;
+        this.enforceGauge = enforceGauge;
+    }
+}
+public class LockInfo
+{
+    public int maxOpenerCount = 2;
+    public int maxCraftChest = 1;
+    public int maxCraftCount = 1;
+}
+public class OpeningChest
+{
+    public int chestId;
+    public int count;
+    public DateTime openTime;
+    public OpeningChest(int id, int count, DateTime openTime)
+    {
+        this.chestId = id;
+        this.count = count;
         this.openTime = openTime;
     }
 }
+#endregion
 public class SaveData
 {
-    public List<hasItem> items = new List<hasItem>();
-    public List<hasItem> chests = new List<hasItem>();
-    public List<hasItem> weapons = new List<hasItem>();
-    public openingChest[] openingChests = new openingChest[16];
-    public List<List<int>> weirdRecipe = new List<List<int>>();
-    public int[] equipWeapons = new int[6];
+    public List<HasItem> items = new List<HasItem>();
+    public List<HasItem> chests = new List<HasItem>();
+    public List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
+    public OpeningChest[] openingChests = new OpeningChest[16];//열고 있는 상자 정보
+    public List<List<int>> weirdRecipe = new List<List<int>>();//이상한 상자 레시피
+    public LockInfo lockInfo;
+    public int[] equipWeapons = new int[6];//장착한 장비
     public int gold = 0;
 }
 
@@ -89,17 +114,17 @@ public class DataManager : MonoBehaviour
                 List<itemInfo> itemInfos = new List<itemInfo>();
                 for (int i = 0; i < saveData.items.Count; i++)
                 {
-                    itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].id], saveData.items[i].count));
+                    itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count));
                 }
                 List<chestInfo> chestInfos = new List<chestInfo>();
                 for (int i = 0; i < saveData.chests.Count; i++)
                 {
-                    chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].id], saveData.chests[i].count));
+                    chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].itemId], saveData.chests[i].count));
                 }
                 List<weaponInfo> weaponInfos = new List<weaponInfo>();
                 for (int i = 0; i < saveData.weapons.Count; i++)
                 {
-                    weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].id], saveData.weapons[i].count));
+                    weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].weaponId], saveData.weapons[i].count, saveData.weapons[i].level, saveData.weapons[i].enforceGauge));
                 }
                 Opener.OpeningChests = saveData.openingChests;
                 Inventory.Items = itemInfos;
@@ -126,20 +151,20 @@ public class DataManager : MonoBehaviour
         SaveData saveData = new SaveData();
 
         #region json파일에 저장
-        List<hasItem> items = new List<hasItem>();
+        List<HasItem> items = new List<HasItem>();
         for (int i = 0; i < Inventory.Items.Count; i++)
         {
-            items.Add(new hasItem(Inventory.Items[i].item.id, Inventory.Items[i].num));
+            items.Add(new HasItem(Inventory.Items[i].item.id, Inventory.Items[i].num));
         }
-        List<hasItem> chests = new List<hasItem>();
+        List<HasItem> chests = new List<HasItem>();
         for (int i = 0; i < Inventory.Chests.Count; i++)
         {
-            chests.Add(new hasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num));
+            chests.Add(new HasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num));
         }
-        List<hasItem> weapons = new List<hasItem>();
+        List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
         for (int i = 0; i < Inventory.Weapons.Count; i++)
         {
-            weapons.Add(new hasItem(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num));
+            weapons.Add(new HasWeaponWithLevel(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num, Inventory.Weapons[i].level, Inventory.Weapons[i].enforceGauge));
         }
         saveData.items = items;
         saveData.chests = chests;
