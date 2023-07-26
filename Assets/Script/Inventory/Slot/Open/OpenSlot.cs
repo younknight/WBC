@@ -10,6 +10,7 @@ public class OpenSlot : MonoBehaviour
     [SerializeField] int id;
     [SerializeField] Opener opener;
     bool isOpening = false;
+    [SerializeField]  bool isLock;//
     [SerializeField] Image image;
     [SerializeField] Timer timer;
     [SerializeField] Button button;
@@ -19,6 +20,7 @@ public class OpenSlot : MonoBehaviour
     public bool IsOpening { get => isOpening; set => isOpening = value; }
     public Opener Opener { get => opener; set => opener = value; }
     public int Id { get => id; set => id = value; }
+    public bool IsLock { get => isLock; set => isLock = value; }
 
     private void Start()
     {
@@ -29,11 +31,17 @@ public class OpenSlot : MonoBehaviour
     {
         return !isOpening;
     }
-    public void RemoveSlot()
+    public void RemoveSlot(bool isLock)
     {
         isOpening = false;
         button.interactable = false;
-        image.color = new Color(1, 1, 1, 0);
+        this.isLock = isLock;
+        if (!isLock) image.color = new Color(1, 1, 1, 0);
+        else
+        {
+            image.sprite = Resources.Load<Sprite>("Icon/lock");
+            image.color = new Color(1, 1, 1, 1);
+        }
         timer.gameObject.SetActive(false); 
     }
 
@@ -82,7 +90,7 @@ public class OpenSlot : MonoBehaviour
             GetItemPopup.Instance.SetGetItem(newItem.GetName(), "x" + count.ToString(), newItem.GetSprite(), isNew, newItem.GetRanking());
             GetItemPopup.Instance.Open();
             //PopupManager.Instance.OpenGetItemPopup(); ;-----------------------------------------------------
-            RemoveSlot();
+            RemoveSlot(false);
         }
         else
         {

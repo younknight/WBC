@@ -30,6 +30,6 @@ public class WeaponPopup : Popup
             DataManager.instance.JsonSave();
 
         }
-        Close();
+        CloseStart();
     }
 }

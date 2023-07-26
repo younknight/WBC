@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+public enum lockType { none, maxCraftCounter, craftCoolTime, openSlotCount}
 public class GoodsSlot : MonoBehaviour
 {
     Chest chest;
     Item item;
     int count;
+    int price;
+    [SerializeField] lockType lockType;//
+
     [SerializeField] Image image;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] TextMeshProUGUI countText;
@@ -20,7 +24,7 @@ public class GoodsSlot : MonoBehaviour
     {
         if (chest != null)
         {
-            if (GameManager.Gold >= chest.price)
+            if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Chest>(chest,count);
                 GameManager.Gold -= chest.price;
@@ -33,11 +37,41 @@ public class GoodsSlot : MonoBehaviour
         }
         if (item != null)
         {
-            if (GameManager.Gold >= item.price)
+            if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Item>(item, count);
                 GameManager.Gold -= item.price;
                 button.interactable = false;
+            }
+            else
+            {
+                //»à
+            }
+        }
+        if(lockType != lockType.none)
+        {
+            if (GameManager.Gold >= price)
+            {
+
+                GameManager.Gold -= item.price;
+                int price = -1;
+                if (lockType == lockType.craftCoolTime)
+                {
+                    LockManager.LockInfo.craftCoolTime--;
+                    price = (int)(20 - LockManager.LockInfo.craftCoolTime) * 1000;
+                }
+                if (lockType == lockType.openSlotCount)
+                {
+                    LockManager.LockInfo.maxOpenerCount++;
+                    Opener.Instance.SetUnlock();
+                    price = LockManager.LockInfo.maxOpenerCount * 1000;
+                }
+                if (lockType == lockType.maxCraftCounter)
+                {
+                    LockManager.LockInfo.maxCraftCount++;
+                    price = LockManager.LockInfo.maxCraftCount * 1000;
+                }
+                SetLock(price,lockType);
             }
             else
             {
@@ -85,6 +119,7 @@ public class GoodsSlot : MonoBehaviour
     {
         this.item = item;
         this.count = count;
+        price = item.price;
         image.sprite = item.itemImage;
         priceText.text = "" + (item.price * count);
         countText.text = "x" + count;
@@ -93,8 +128,16 @@ public class GoodsSlot : MonoBehaviour
     {
         this.chest = chest;
         this.count = count;
+        price = chest.price;
         image.sprite = chest.chetImage;
         priceText.text = "" + (chest.price * count);
         countText.text = "x" + count;
+    }
+    public void SetLock(int price, lockType lockType)
+    {
+        this.lockType = lockType;
+        this.price = price;
+        priceText.text = price.ToString();
+        countText.text = "Lv." + (price / 1000);
     }
 }

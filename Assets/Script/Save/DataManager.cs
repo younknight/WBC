@@ -34,8 +34,15 @@ public class HasWeaponWithLevel
 public class LockInfo
 {
     public int maxOpenerCount = 2;
-    public int maxCraftChest = 1;
-    public int maxCraftCount = 1;
+    public int craftCoolTime = 20;
+    public int maxCraftCount = 10;
+
+    public LockInfo(int maxOpenerCount, int craftCoolTime, int maxCraftCount)
+    {
+        this.maxOpenerCount = maxOpenerCount;
+        this.craftCoolTime = craftCoolTime;
+        this.maxCraftCount = maxCraftCount;
+    }
 }
 public class OpeningChest
 {
@@ -49,15 +56,11 @@ public class OpeningChest
 }
 public class AutoCraftMaxCounter
 {
-    public float coolTime;
-    public int maxCount;
     public int currentCount;
     public DateTime lastTime;
 
-    public AutoCraftMaxCounter(float coolTime, int maxCount, int currentCount, DateTime lastTime)
+    public AutoCraftMaxCounter(int currentCount, DateTime lastTime)
     {
-        this.coolTime = coolTime;
-        this.maxCount = maxCount;
         this.currentCount = currentCount;
         this.lastTime = lastTime;
     }
@@ -119,7 +122,6 @@ public class DataManager : MonoBehaviour
                 saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
 
                 //불러오기
-                GameManager.Gold = saveData.gold;
                 List<itemInfo> itemInfos = new List<itemInfo>();
                 for (int i = 0; i < saveData.items.Count; i++) { itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count)); }
                 List<chestInfo> chestInfos = new List<chestInfo>();
@@ -131,6 +133,8 @@ public class DataManager : MonoBehaviour
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
                 AutoCrafter.AutoCounter = saveData.autoCounter;
+                GameManager.Gold = saveData.gold;
+                LockManager.LockInfo = saveData.lockInfo;
                 craftDatabase.WeirdRecipe = saveData.weirdRecipe;
                 //장비 장착
                 Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
@@ -165,9 +169,10 @@ public class DataManager : MonoBehaviour
             else equip[i] = -1;
         }
         saveData.equipWeapons = equip;
-        saveData.openingChests = Opener.OpeningChests;
         saveData.weirdRecipe = craftDatabase.WeirdRecipe;
+        saveData.openingChests = Opener.OpeningChests;
         saveData.autoCounter = AutoCrafter.AutoCounter;
+        saveData.lockInfo = LockManager.LockInfo;
         #endregion
         string jsonData = ObjectToJson(saveData);
         File.WriteAllText(path, jsonData);

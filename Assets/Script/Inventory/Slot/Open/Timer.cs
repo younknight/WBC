@@ -19,16 +19,15 @@ public class Timer : MonoBehaviour
     {
         AutoCraftMaxCounter counter = AutoCrafter.AutoCounter;
         int count = 0;
-        while (maxValue < current && counter.currentCount + count < counter.maxCount)
+        while (maxValue < current && counter.currentCount + count < LockManager.LockInfo.maxCraftCount)
         {
             current -= maxValue;
             count++;
         }
-        Debug.Log("w" + count);
         DateTime date = count > 0 ? DateTime.Now : counter.lastTime;
-        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(counter.coolTime, counter.maxCount, counter.currentCount + count, date);
+        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(counter.currentCount + count, date);
         AutoCrafter.Instance.FreshCount();
-        if (AutoCrafter.AutoCounter.currentCount < AutoCrafter.AutoCounter.maxCount)
+        if (AutoCrafter.AutoCounter.currentCount < LockManager.LockInfo.maxCraftCount)
         {
             slTimer.maxValue = maxValue;
             slTimer.value = current;
@@ -75,12 +74,12 @@ public class Timer : MonoBehaviour
             if (slTimer.value >= slTimer.maxValue)
             {
                 AutoCraftMaxCounter counter = AutoCrafter.AutoCounter;
-                AutoCrafter.AutoCounter = new AutoCraftMaxCounter(counter.coolTime, counter.maxCount, counter.currentCount + 1, DateTime.Now);
+                AutoCrafter.AutoCounter = new AutoCraftMaxCounter(counter.currentCount + 1, DateTime.Now);
                 DataManager.instance.JsonSave();
             }
         }
         AutoCrafter.Instance.FreshCount();
-        SetReapeatTimer(AutoCrafter.AutoCounter.coolTime, 0);
+        SetReapeatTimer(LockManager.LockInfo.craftCoolTime, 0);
     }
     void CanOpenChest()
     {

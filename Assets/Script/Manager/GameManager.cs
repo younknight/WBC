@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null) instance = this;
     }
+    private void Start()
+    {
+
+        EquipmentManager.instance.SetEquipManager();//税糎失 置企稽ででででででででででで
+    }
     private void OnValidate()
     {
         fullItems = new List<itemInfo>();
@@ -101,6 +106,8 @@ public class GameManager : MonoBehaviour
         Inventory.Chests = new List<chestInfo>();
         Inventory.Chests.Add(new chestInfo(firstChest, 1));
         Inventory.Weapons = new List<weaponInfo>();
+        LockManager.LockInfo = new LockInfo(2, 20, 5);
+        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
         inventoryManager.Initalize();
         gold = 0;
         CommonData();
@@ -111,6 +118,8 @@ public class GameManager : MonoBehaviour
         Inventory.Items = fullItems;
         Inventory.Chests = fullChests;
         Inventory.Weapons = fullWeapons;
+        LockManager.LockInfo = new LockInfo(16, 1, 20);
+        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(20, DateTime.Now);
         gold = 98765;
         CommonData();
         SetData();
@@ -118,7 +127,7 @@ public class GameManager : MonoBehaviour
     void CommonData()
     {
         craftDatabase.WeirdRecipe = new List<List<int>>();
-        AutoCrafter.AutoCounter = new AutoCraftMaxCounter(10 ,10, 10, DateTime.Now);
+        Opener.Instance.SetUnlock();
     }
     void SetData()
     {

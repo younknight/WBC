@@ -12,7 +12,7 @@ public class DropChest : MonoBehaviour, IDropHandler
     }
     void IDropHandler.OnDrop(PointerEventData eventData)//드랍됬을때
     {
-        if (eventData.pointerDrag.GetComponent<Drag>() != null)//들고 있는 녀석
+        if (eventData.pointerDrag.GetComponent<Drag>() != null && !openSlot.IsLock)//들고 있는 녀석
         {
             Slot slot = eventData.pointerDrag.transform.GetComponent<Drag>().slot;
             if(slot.Number > 0)

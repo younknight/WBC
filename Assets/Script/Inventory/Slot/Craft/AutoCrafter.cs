@@ -33,17 +33,21 @@ public class AutoCrafter : MonoBehaviour
     int maxCount = 20;
     public void OpenPopup()
     {
-        timer.SetReapeatTimer(autoCounter.coolTime, timeManager.CalculaterDate(autoCounter.lastTime));
+        timer.SetReapeatTimer(LockManager.LockInfo.craftCoolTime, timeManager.CalculaterDate(autoCounter.lastTime));
         FreshCount();
+        FreshSelectedCount();
     }
     public void FreshCount()
     {
-        maxCraftCountText.text = autoCounter.maxCount.ToString();
+        maxCraftCountText.text = LockManager.LockInfo.craftCoolTime.ToString();
+        maxCraftCountText.text = autoCounter.currentCount.ToString();
+        maxGaugeBar.value = (float)autoCounter.currentCount / (float)maxCount;
+    }
+    void FreshSelectedCount()
+    {
         count = 0;
         countText.text = count.ToString();
-        maxCraftCountText.text = autoCounter.currentCount.ToString();
         gaugeBar.value = 0;
-        maxGaugeBar.value = (float)autoCounter.currentCount / (float)maxCount;
     }
     public void PlusCount(bool isPlus)
     {
@@ -68,9 +72,8 @@ public class AutoCrafter : MonoBehaviour
     {
         if(count > 0)
         {
-
-            DateTime date = autoCounter.currentCount == autoCounter.maxCount ? DateTime.Now : autoCounter.lastTime;
-            autoCounter = new AutoCraftMaxCounter(autoCounter.coolTime, autoCounter.maxCount, autoCounter.currentCount - count, date);
+            DateTime date = autoCounter.currentCount == LockManager.LockInfo.maxCraftCount ? DateTime.Now : autoCounter.lastTime;
+            autoCounter = new AutoCraftMaxCounter(autoCounter.currentCount - count, date);
             for (int j = 0; j < slot.Chest.recipes[0].items.Count; j++)
             {
                 InventoryManager.instance.DropItems<Item>(slot.Chest.recipes[0].items[j], count);
@@ -78,6 +81,7 @@ public class AutoCrafter : MonoBehaviour
             InventoryManager.instance.AddItems<Chest>(slot.Chest, count);
             GetItemPopup.Instance.SetGetItem(slot.Chest.chestName + " »óÀÚ", "x" + count, slot.Chest.chetImage, false, slot.Chest.ranking);
             GetItemPopup.Instance.Open();
+            FreshSelectedCount();
             OpenPopup();
         }
     }

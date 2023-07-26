@@ -40,6 +40,13 @@ public class GoodsManager : MonoBehaviour
                 indexs.Add(j);
             }
         }
+        if (isChest == 2)
+        {
+            slots[0].SetLock((int)(20 - LockManager.LockInfo.craftCoolTime) * 1000, lockType.craftCoolTime);
+            slots[1].SetLock(LockManager.LockInfo.maxCraftCount * 1000, lockType.maxCraftCounter);
+            slots[2].SetLock(LockManager.LockInfo.maxOpenerCount * 1000, lockType.openSlotCount);
+            return;
+        }
         int length = indexs.Count;
        
         for (int i = 0 ; i < slots.Length; i++)

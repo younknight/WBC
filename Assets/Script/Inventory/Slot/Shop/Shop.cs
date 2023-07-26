@@ -6,6 +6,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] GoodsManager itemBox;
     [SerializeField] GoodsManager chestBox;
+    [SerializeField] GoodsManager playerBox;
 
     private void Start()
     {
@@ -17,5 +18,6 @@ public class Shop : MonoBehaviour
         chestBox.FreshSlots();
         itemBox.Setting(1);
         chestBox.Setting(0);
+        playerBox.Setting(2);
     }
 }
