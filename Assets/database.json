@@ -1,1 +1,55 @@
-{"items":[],"chests":[{"itemId":1,"count":1}],"weapons":[],"openingChests":[null,{"chestId":1,"openTime":"2023-07-27T05:07:48.4796267+09:00"},null,null,null,null,null,null,null,null,null,null,null,null,null,null],"weirdRecipe":[],"autoCounter":{"currentCount":5,"lastTime":"2023-07-27T05:08:00.1551422+09:00"},"lockInfo":{"maxOpenerCount":2,"craftCoolTime":20,"maxCraftCount":5},"equipWeapons":[1,-1,-1,-1,-1,-1],"gold":0}
+{
+  "items": [],
+  "chests": [
+    {
+      "itemId": 1,
+      "count": 1
+    }
+  ],
+  "weapons": [
+    {
+      "weaponId": 0,
+      "count": 0,
+      "level": 1,
+      "enforceGauge": 0
+    }
+  ],
+  "openingChests": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "weirdRecipe": [],
+  "autoCounter": {
+    "currentCount": 5,
+    "lastTime": "2023-07-27T22:51:12.0267645+09:00"
+  },
+  "lockInfo": {
+    "maxOpenerCount": 2,
+    "craftCoolTime": 20,
+    "maxCraftCount": 5
+  },
+  "equipWeapons": [
+    0,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "gold": 0,
+  "storyProgress": 0
+}

@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneMoveManager : MonoBehaviour
 {
-
-    public void GoDungeon()
+    public void MoveStoryScene(int index)
     {
-        SceneManager.LoadScene("Dungeon");
+        string nextScene = index == StoryManager.Instance.StoryData.progress ? "Story" : "Main";
+        LoadingSceneManager.LoadScene(nextScene);
     }
-    public void GoHome()//
+    public void MoveScene(string nextScene)
     {
-        SceneManager.LoadScene("Main");
+        LoadingSceneManager.LoadScene(nextScene);
     }
 }

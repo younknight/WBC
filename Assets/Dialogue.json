@@ -1,0 +1,94 @@
+﻿[
+  {
+    "scene": 0,
+    "index": 0,
+    "name": "testScene",
+    "lines": [
+      {
+        "name": "나레이션",
+        "background": "hut",
+        "context": "어느 숲속 작은 오두막,\n누군가가 주님 곁으로 가기 직전의 이야기다."
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "으어어, 손자야 거기 있는냐?"
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "할아버지...\n저 여기 있어요"
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "내가 떠나기전에 네게 남길 것이 있단다."
+      },
+      {
+        "name": "할아버지",
+        "background": "GetWBC",
+        "context": "이건 내가 가장 소중하게 여기던 상자란다."
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "이걸 받아주렴"
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "이게 뭐죠?\n그냥 상자처럼 보이는데요"
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "어허! 이 대단한 상자를 그냥 상자라니, 그것보다 이 상자에는 큰 문제가 있단다."
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "무슨 문제요?"
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "그 상자를 열어 보겠니?"
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "..........\n잠겨있는데 열쇠는요?"
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": ".........."
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": ".........."
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "열쇠가 도망갔다."
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "..........\n잃어버린게 아니고요?"
+      },
+      {
+        "name": "할아버지",
+        "background": "home",
+        "context": "콜록콜록\n세계 최고의 상자를 찾거라 그 안에 그 상자를 열수 있는 만능 열쇠가 들어있을 거란다. 꽥"
+      },
+      {
+        "name": "알렌",
+        "background": "home",
+        "context": "할아버지!\n"
+      }
+    ]
+  }
+]

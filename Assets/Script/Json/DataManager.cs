@@ -72,17 +72,19 @@ public class SaveData
     public List<HasItem> items = new List<HasItem>();
     public List<HasItem> chests = new List<HasItem>();
     public List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
-
+    //플레이어 정보
     public OpeningChest[] openingChests = new OpeningChest[16];//열고 있는 상자 정보
     public List<List<int>> weirdRecipe = new List<List<int>>();//이상한 상자 레시피
     public AutoCraftMaxCounter autoCounter;
     public LockInfo lockInfo;
     public int[] equipWeapons = new int[6];//장착한 장비
     public int gold = 0;
+    public int storyProgress = 0;
 }
 
 public class DataManager : MonoBehaviour
 {
+    JsonParser jsonParser = new JsonParser();
     [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] GameManager gameManager;
@@ -116,7 +118,7 @@ public class DataManager : MonoBehaviour
         else
         {
             string loadJson = File.ReadAllText(path);
-            saveData = JsonToOject<SaveData>(loadJson);
+            saveData = jsonParser.JsonToOject<SaveData>(loadJson);
             if (saveData != null)
             {
                 saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
@@ -174,9 +176,6 @@ public class DataManager : MonoBehaviour
         saveData.autoCounter = AutoCrafter.AutoCounter;
         saveData.lockInfo = LockManager.LockInfo;
         #endregion
-        string jsonData = ObjectToJson(saveData);
-        File.WriteAllText(path, jsonData);
+        jsonParser.SaveJson<SaveData>(saveData, path);
     }
-    string ObjectToJson(object obj) { return JsonConvert.SerializeObject(obj); }
-    T JsonToOject<T>(string jsonData) { return JsonConvert.DeserializeObject<T>(jsonData); }
 }
