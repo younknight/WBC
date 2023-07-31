@@ -5,6 +5,8 @@ public enum popupType
 {
     explain,
     getItem,
+    getChest,
+    drop,
     setting,
     recipe,
     chest,

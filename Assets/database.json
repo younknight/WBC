@@ -1,15 +1,224 @@
 {
-  "items": [],
-  "chests": [
+  "items": [
+    {
+      "itemId": 0,
+      "count": 99
+    },
     {
       "itemId": 1,
-      "count": 1
+      "count": 182
+    },
+    {
+      "itemId": 2,
+      "count": 102
+    },
+    {
+      "itemId": 3,
+      "count": 99
+    },
+    {
+      "itemId": 4,
+      "count": 99
+    },
+    {
+      "itemId": 5,
+      "count": 99
+    },
+    {
+      "itemId": 6,
+      "count": 99
+    },
+    {
+      "itemId": 7,
+      "count": 99
+    },
+    {
+      "itemId": 8,
+      "count": 99
+    },
+    {
+      "itemId": 9,
+      "count": 99
+    },
+    {
+      "itemId": 10,
+      "count": 99
+    },
+    {
+      "itemId": 11,
+      "count": 99
+    },
+    {
+      "itemId": 12,
+      "count": 99
+    },
+    {
+      "itemId": 13,
+      "count": 99
+    },
+    {
+      "itemId": 14,
+      "count": 99
+    },
+    {
+      "itemId": 15,
+      "count": 99
+    },
+    {
+      "itemId": 16,
+      "count": 99
+    },
+    {
+      "itemId": 17,
+      "count": 99
+    },
+    {
+      "itemId": 18,
+      "count": 99
+    },
+    {
+      "itemId": 19,
+      "count": 99
+    },
+    {
+      "itemId": 20,
+      "count": 99
+    },
+    {
+      "itemId": 21,
+      "count": 99
+    },
+    {
+      "itemId": 22,
+      "count": 99
+    },
+    {
+      "itemId": 23,
+      "count": 99
+    },
+    {
+      "itemId": 24,
+      "count": 99
+    },
+    {
+      "itemId": 25,
+      "count": 99
+    },
+    {
+      "itemId": 26,
+      "count": 99
+    },
+    {
+      "itemId": 27,
+      "count": 99
+    },
+    {
+      "itemId": 28,
+      "count": 99
+    },
+    {
+      "itemId": 29,
+      "count": 99
+    },
+    {
+      "itemId": 30,
+      "count": 99
+    },
+    {
+      "itemId": 31,
+      "count": 99
+    },
+    {
+      "itemId": 32,
+      "count": 99
+    },
+    {
+      "itemId": 33,
+      "count": 99
+    },
+    {
+      "itemId": 34,
+      "count": 99
+    }
+  ],
+  "chests": [
+    {
+      "itemId": 0,
+      "count": 100
+    },
+    {
+      "itemId": 1,
+      "count": 97
+    },
+    {
+      "itemId": 2,
+      "count": 97
+    },
+    {
+      "itemId": 3,
+      "count": 99
+    },
+    {
+      "itemId": 4,
+      "count": 99
+    },
+    {
+      "itemId": 5,
+      "count": 99
+    },
+    {
+      "itemId": 6,
+      "count": 99
+    },
+    {
+      "itemId": 7,
+      "count": 99
+    },
+    {
+      "itemId": 8,
+      "count": 99
     }
   ],
   "weapons": [
     {
       "weaponId": 0,
-      "count": 0,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 1,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 2,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 3,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 4,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 5,
+      "count": 10,
+      "level": 1,
+      "enforceGauge": 0
+    },
+    {
+      "weaponId": 6,
+      "count": 10,
       "level": 1,
       "enforceGauge": 0
     }
@@ -28,19 +237,27 @@
     null,
     null,
     null,
-    null,
+    {
+      "chestId": 2,
+      "openTime": "2023-08-01T07:09:36.3331307+09:00"
+    },
     null,
     null
   ],
-  "weirdRecipe": [],
+  "weirdRecipe": [
+    [
+      1,
+      2
+    ]
+  ],
   "autoCounter": {
-    "currentCount": 5,
-    "lastTime": "2023-07-27T22:51:12.0267645+09:00"
+    "currentCount": 20,
+    "lastTime": "2023-08-01T05:24:08.4088682+09:00"
   },
   "lockInfo": {
-    "maxOpenerCount": 2,
-    "craftCoolTime": 20,
-    "maxCraftCount": 5
+    "maxOpenerCount": 16,
+    "craftCoolTime": 1,
+    "maxCraftCount": 20
   },
   "equipWeapons": [
     0,
@@ -50,6 +267,6 @@
     -1,
     -1
   ],
-  "gold": 0,
+  "gold": 98765,
   "storyProgress": 0
 }

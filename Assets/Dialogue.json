@@ -2,7 +2,7 @@
   {
     "scene": 0,
     "index": 0,
-    "name": "testScene",
+    "name": "startStory",
     "lines": [
       {
         "name": "나레이션",
@@ -88,6 +88,18 @@
         "name": "알렌",
         "background": "home",
         "context": "할아버지!\n"
+      }
+    ]
+  },
+  {
+    "scene": 1,
+    "index": 1,
+    "name": "tutorial",
+    "lines": [
+      {
+        "name": "알렌",
+        "background": "main",
+        "context": "어느 숲속 작은 오두막,\n누군가가 주님 곁으로 가기 직전의 이야기다."
       }
     ]
   }

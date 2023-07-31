@@ -13,7 +13,7 @@ public class StoryManager : MonoBehaviour
     static StoryManager instance;
     public static StoryManager Instance { get => instance; set => instance = value; }
     public StoryData StoryData { get => storyData; set => storyData = value; }
-
+    string path;
     private void Awake()
     {
         if (null == instance)
@@ -22,6 +22,7 @@ public class StoryManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else Destroy(this.gameObject);
+        path = Path.Combine(Application.dataPath, "Story.json");
         LoadProgress();
     }
     #endregion
@@ -33,17 +34,16 @@ public class StoryManager : MonoBehaviour
     {
         storyData = new StoryData();
         storyData.progress = 0;
-        string path = Path.Combine(Application.dataPath, "Story.json");
         jsonParser.SaveJson<StoryData>(storyData, path);
     }
     public void LoadProgress()
     {
-        storyData = jsonParser.LoadJson<StoryData>("Story.json");
+        storyData = jsonParser.LoadJson<StoryData>(path);
     }
     public void AddProgress()
     {
         LoadProgress();
         storyData.progress++;
-        jsonParser.SaveJson<StoryData>(storyData, "Story.json");
+        jsonParser.SaveJson<StoryData>(storyData, path);
     }
 }

@@ -5,23 +5,33 @@ using UnityEngine.UI;
 using TMPro;
 public class GetItemPopup : Popup
 {
-
-    [SerializeField] Image image;
-    [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI rankingText;
-    [SerializeField] TextMeshProUGUI countText;
-    [SerializeField] GameObject isNewFrame;
+    [SerializeField] List<GetItemSlot> slots;
     static GetItemPopup instance;
     public static GetItemPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     void Awake() { if (Instance == null) Instance = this; }
-    public void SetGetItem(string name, string count, Sprite sprite, bool isNew, string ranking)
+    public void SetGetItem(Dictionary<IInformation, int> drops)
     {
-        nameText.text = name;
-        countText.text = count;
-        rankingText.text = ranking;
-        image.sprite = sprite;
-        isNewFrame.SetActive(isNew);
+        int i = 0;
+        foreach(KeyValuePair<IInformation, int> entry in drops)
+        {
+            bool isNew = false;
+            if (InfoManager.CheckInterfaceType(entry.Key) == "item")
+            {
+                isNew = Inventory.CheckNewItem((Item)entry.Key);
+                InventoryManager.instance.AddItems<Item>((Item)entry.Key, entry.Value);
+            }
+            if (InfoManager.CheckInterfaceType(entry.Key) == "weapon")
+            {
+                isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
+                InventoryManager.instance.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
+            }
+            slots[i++].Setup(isNew, entry.Key.GetSprite(),entry.Value);
+        }
+        for (; i < slots.Count; i++)
+        {
+            slots[i].gameObject.SetActive(false);
+        }
     }
 
 }

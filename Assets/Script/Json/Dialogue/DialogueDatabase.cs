@@ -18,12 +18,20 @@ public class DialogueDatabase : MonoBehaviour
     }
     public string GetDialogueName(int id, int index)//id = 씬 넘버, index = 대화 넘버
     {
-        if (index == dialogueDic[id].contexts.Length) return null;
-        return dialogueDic[id].contexts[index].name;
+        if (dialogueDic.ContainsKey(id))
+        {
+            if (index == dialogueDic[id].contexts.Length) return null;
+            return dialogueDic[id].contexts[index].name;
+        }
+        return null;
     }
     public string GetDialogueContetxt(int id, int index)//id = 씬 넘버, index = 대화 넘버
     {
-        if (index == dialogueDic[id].contexts.Length) return null;
-        return dialogueDic[id].contexts[index].context;
+        if (dialogueDic.ContainsKey(id))
+        {
+            if (index == dialogueDic[id].contexts.Length) return null;
+            return dialogueDic[id].contexts[index].context;
+        }
+        return null;
     }
 }

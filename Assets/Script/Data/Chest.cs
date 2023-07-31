@@ -35,10 +35,9 @@ public class Chest : ScriptableObject, IInformation
     public List<Recipe> recipes;
 
     [Space(10f)]
+    [Tooltip("각 확률은 독립적으로 계산")]
     [Header("DropItem")]
-    [Tooltip("퍼센트는 100퍼 에 맞추고 0부터 시작함")]
     public List<DropItem<Item>> dropItems;
-    [Tooltip("무기는 아이템 마지막 퍼센트에서 시작함 마지막은 100")]
     public List<DropItem<Weapon>> dropWeapons;
     #region Getter
     public int GetSellPrice() { return sellPrice; }
@@ -47,8 +46,11 @@ public class Chest : ScriptableObject, IInformation
     public string GetExplain() { return chestExplain; }
     public string GetRanking() { return ranking; }
     public Sprite GetSprite() { return chetImage; }
+    public List<DropItem<IInformation>> Drops { get => drops; set => drops = value; }
     #endregion
     List<DropItem<IInformation>> drops;
+
+
     private void OnValidate()
     {
         string[] nameValue = name.Split('.');
@@ -79,18 +81,15 @@ public class Chest : ScriptableObject, IInformation
         DropItem<IInformation> drop = drops.Find(x => x.drop == item);
         return UnityEngine.Random.Range(drop.minDrop, drop.maxDrop + 1);
     }
-    public IInformation GetRandomDrop()
+    public List<IInformation> GetRandomDrop()
     {
-        int min = 0;
-        int percent = UnityEngine.Random.Range(1, 100 + 1);
-        IInformation returnValue = null;
-        int i = 0;
-        for (; i < drops.Count; i++)
+        List<IInformation> returnValue = new List<IInformation>();
+        for (int i=0; i < drops.Count; i++)
         {
-            if (i != 0) min = drops[i - 1].percent;
-            if (min < percent && percent <= drops[i].percent)
+            int percent = UnityEngine.Random.Range(1, 100 + 1);
+            if (percent <= drops[i].percent)
             {
-                returnValue = drops[i].drop;
+                returnValue.Add(drops[i].drop);
             }
         }
         return returnValue;

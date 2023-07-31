@@ -122,7 +122,7 @@ public class DataManager : MonoBehaviour
             if (saveData != null)
             {
                 saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
-
+                #region 로드
                 //불러오기
                 List<itemInfo> itemInfos = new List<itemInfo>();
                 for (int i = 0; i < saveData.items.Count; i++) { itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count)); }
@@ -146,6 +146,7 @@ public class DataManager : MonoBehaviour
                     else weapons[i] = null;
                 }
                 EquipmentManager.EquipWeapon = weapons;
+                #endregion
             }
         }
     }

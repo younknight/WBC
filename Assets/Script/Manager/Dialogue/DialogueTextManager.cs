@@ -27,7 +27,8 @@ public class DialogueTextManager : MonoBehaviour
         {
             isAction = false;
             StoryManager.Instance.AddProgress();
-            sceneMoveManager.MoveScene("Main");
+            if(id == 0) sceneMoveManager.MoveScene("Main");
+
             return;
         }
         nameText.text = talkDataName;

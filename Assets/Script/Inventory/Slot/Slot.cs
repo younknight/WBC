@@ -67,15 +67,7 @@ public class Slot : MonoBehaviour
     }
     void ShowInfo()
     {
-        string name = itemInformation.GetName();
-        if (InfoManager.CheckInterfaceType(itemInformation) == "chest") name += " »óÀÚ";
-        string explain = itemInformation.GetExplain();
-        Sprite sprite = itemInformation.GetSprite();
-        string ranking = itemInformation.GetRanking();
-        int id = itemInformation.GetId();
-        int sellPrice = itemInformation.GetSellPrice();
-        string type = InfoManager.CheckInterfaceType(itemInformation);
-        ExplainPopup.Instance.SetExplain(type, name, explain, sprite, id, ranking, sellPrice);
+        ExplainPopup.Instance.SetExplain(itemInformation);
         ExplainPopup.Instance.Open();
     }
     void ShowRecipe()

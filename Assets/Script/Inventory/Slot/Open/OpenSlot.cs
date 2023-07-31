@@ -22,7 +22,7 @@ public class OpenSlot : MonoBehaviour
     public int Id { get => id; set => id = value; }
     public bool IsLock { get => isLock; set => isLock = value; }
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         timer.Animator = animator;
@@ -74,22 +74,24 @@ public class OpenSlot : MonoBehaviour
         if (isOpening && timer.canOpen)
         {
             DeleteOpenChest();
-            IInformation newItem = chest.GetRandomDrop();
-            int count = chest.GetRandomCount(newItem);
-            bool isNew = false;
-            if (InfoManager.CheckInterfaceType(newItem) == "item")
+            List<IInformation> newItems = chest.GetRandomDrop();
+            Dictionary<IInformation, int> drops = new Dictionary<IInformation, int>();
+            foreach(IInformation newItem in newItems)
             {
-                isNew = Inventory.CheckNewItem((Item)newItem);
-                InventoryManager.instance.AddItems<Item>((Item)newItem, count);
+                int count = chest.GetRandomCount(newItem);
+                if (InfoManager.CheckInterfaceType(newItem) == "item")
+                {
+                    InventoryManager.instance.AddItems<Item>((Item)newItem, count);
+                }
+                if (InfoManager.CheckInterfaceType(newItem) == "weapon")
+                {
+                    InventoryManager.instance.AddItems<Weapon>((Weapon)newItem, count);
+                }
+                drops.Add(newItem, count);
             }
-            if (InfoManager.CheckInterfaceType(newItem) == "weapon")
-            {
-                isNew = Inventory.CheckNewWeapon((Weapon)newItem);
-                InventoryManager.instance.AddItems<Weapon>((Weapon)newItem, count);
-            }
-            GetItemPopup.Instance.SetGetItem(newItem.GetName(), "x" + count.ToString(), newItem.GetSprite(), isNew, newItem.GetRanking());
+            //¾ÆÀÌÅÛ È¹µæ ÆË¾÷
+            GetItemPopup.Instance.SetGetItem(drops);
             GetItemPopup.Instance.Open();
-            //PopupManager.Instance.OpenGetItemPopup(); ;-----------------------------------------------------
             RemoveSlot(false);
         }
         else

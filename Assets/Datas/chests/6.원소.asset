@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 6
   chestName: "\uC6D0\uC18C"
   price: 0
+  sellPrice: 0
   chestExplain: "\uC6D0\uC18C\uC758 \uD798\uC774 \uAE43\uB4E4\uC5B4 \uC788\uB2E4\uB294
     \uC0C1\uC790.\n\uBB18\uD558\uAC8C \uBB34\uAC81\uB2E4."
   ranking: N
@@ -30,15 +31,15 @@ MonoBehaviour:
   - drop: {fileID: 11400000, guid: 538f7f04641a4de4195ae9d23845e94c, type: 2}
     maxDrop: 2
     minDrop: 1
-    percent: 30
+    percent: 100
   - drop: {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
     maxDrop: 2
     minDrop: 1
-    percent: 45
+    percent: 100
   - drop: {fileID: 11400000, guid: 8c3b91254f4c4214da9c84e95917b4eb, type: 2}
     maxDrop: 2
     minDrop: 1
-    percent: 60
+    percent: 100
   - drop: {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
     maxDrop: 3
     minDrop: 1

@@ -9,7 +9,7 @@ public class ResultSlot : MonoBehaviour
     [SerializeField] Button button;
     [SerializeField] Sprite unknownChest;
     [SerializeField] Sprite questionMark;
-    Crafter crafter;
+    [SerializeField] Crafter crafter;
     [SerializeField] Chest chest;//
     [SerializeField] List<int> weirdRecipe = new List<int>();
     public Chest Chest { get => chest; set => chest = value; }
@@ -18,7 +18,6 @@ public class ResultSlot : MonoBehaviour
     private void Start()
     {
         ClearChest();
-        crafter = transform.parent.GetComponent<Crafter>();
         button.interactable = false;
     }
     public void SetChest(Chest chest, bool isNew)
@@ -49,8 +48,8 @@ public class ResultSlot : MonoBehaviour
         {
             CraftDatabase.instance.AddWierd(weirdRecipe);
         }
-        GetItemPopup.Instance.SetGetItem(chest.chestName + " 상자", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
-        GetItemPopup.Instance.Open();
+        GetChestPopup.Instance.SetGetChest(chest.chestName + " 상자", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
+        GetChestPopup.Instance.Open();
         //PopupManager.Instance.OpenGetItemPopup();-----------------------------------------------------
         //Debug.Log(chest.ToString() + "/메이크 체스트/" + 1);
         InventoryManager.instance.AddItems<Chest>(chest,1);

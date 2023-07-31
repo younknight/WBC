@@ -18,11 +18,6 @@ public class Opener : MonoBehaviour
         openingChests = null;
         instance = null;
     }
-    private void OnValidate()
-    {
-        slots = slotParent.GetComponentsInChildren<OpenSlot>();
-
-    }
     private void Awake()
     {
         if (instance == null) instance = this;
