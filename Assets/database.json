@@ -6,11 +6,11 @@
     },
     {
       "itemId": 1,
-      "count": 182
+      "count": 175
     },
     {
       "itemId": 2,
-      "count": 102
+      "count": 103
     },
     {
       "itemId": 3,
@@ -18,7 +18,7 @@
     },
     {
       "itemId": 4,
-      "count": 99
+      "count": 94
     },
     {
       "itemId": 5,
@@ -144,7 +144,7 @@
   "chests": [
     {
       "itemId": 0,
-      "count": 100
+      "count": 101
     },
     {
       "itemId": 1,
@@ -160,7 +160,7 @@
     },
     {
       "itemId": 4,
-      "count": 99
+      "count": 104
     },
     {
       "itemId": 5,
@@ -168,7 +168,7 @@
     },
     {
       "itemId": 6,
-      "count": 99
+      "count": 100
     },
     {
       "itemId": 7,
@@ -188,7 +188,7 @@
     },
     {
       "weaponId": 1,
-      "count": 10,
+      "count": 9,
       "level": 1,
       "enforceGauge": 0
     },
@@ -212,9 +212,9 @@
     },
     {
       "weaponId": 5,
-      "count": 10,
-      "level": 1,
-      "enforceGauge": 0
+      "count": 7,
+      "level": 2,
+      "enforceGauge": 1
     },
     {
       "weaponId": 6,
@@ -237,10 +237,7 @@
     null,
     null,
     null,
-    {
-      "chestId": 2,
-      "openTime": "2023-08-01T07:09:36.3331307+09:00"
-    },
+    null,
     null,
     null
   ],
@@ -248,11 +245,12 @@
     [
       1,
       2
-    ]
+    ],
+    []
   ],
   "autoCounter": {
-    "currentCount": 20,
-    "lastTime": "2023-08-01T05:24:08.4088682+09:00"
+    "currentCount": 16,
+    "lastTime": "2023-08-01T11:14:20.8394674+09:00"
   },
   "lockInfo": {
     "maxOpenerCount": 16,
@@ -261,7 +259,7 @@
   },
   "equipWeapons": [
     0,
-    -1,
+    1,
     -1,
     -1,
     -1,

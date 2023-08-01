@@ -6,7 +6,7 @@ using TMPro;
 public class Slot : MonoBehaviour
 {
     public bool isSet = false;
-    [SerializeField] int id;//
+    [SerializeField] int id;
     [SerializeField] popupType popupType;
     [SerializeField] bool isShowCount = true;
     [SerializeField] Image image;

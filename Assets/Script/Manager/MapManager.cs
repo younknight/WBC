@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
+public struct ListMapInfos
+{
+   public List<MapInfo> maps;
+}
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] List<MapInfo> maps = new List<MapInfo>();
+    [SerializeField] List<MapWorld> worlds = new List<MapWorld>();
+    [SerializeField] List<ListMapInfos> maps = new List<ListMapInfos>();
+    Dictionary<MapWorld, List<MapInfo>> allMaps = new Dictionary<MapWorld, List<MapInfo>>();
     private static MapInfo selectedMap;
 
     public static MapInfo SelectedMap { get => selectedMap; set => selectedMap = value; }
@@ -19,14 +25,23 @@ public class MapManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else Destroy(this.gameObject);
+        if (worlds.Count != maps.Count) throw new System.Exception("dic error : not count matching");
+        for(int i = 0;i < worlds.Count; i++)
+        {
+            allMaps.Add(worlds[i], maps[i].maps);
+        }
     }
 
     void Start()
     {
-        SelectedMap = maps[0];//defult
+        SelectedMap = allMaps[0][0];//defult
     }
-    public void SelectMap(int id)
+    public void SelectMap(MapWorld world, int id)
     {
-        SelectedMap = maps[id];
+        SelectedMap = allMaps[world][id];
+    }
+    public string GetStageName(MapWorld world, int id)
+    {
+        return allMaps[world][id].mapName;
     }
 }
