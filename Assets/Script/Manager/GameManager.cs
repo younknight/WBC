@@ -134,9 +134,9 @@ public class GameManager : MonoBehaviour
         TextManager.instance.SetGold();
         inventoryManager.Initalize();
     }
-    public void Purchase(int cost)
+    public void Purchase(bool isPurchase,int cost)
     {
-        gold -= cost;
+        gold += isPurchase ? -cost : cost;
         TextManager.instance.SetGold();
     }
 }

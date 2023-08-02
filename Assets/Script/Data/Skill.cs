@@ -23,8 +23,5 @@ public class Skill : ScriptableObject
     public float buffCriRate = 0;
     [Header("Spawner")]
     public List<GameObject> summons;
-    private void OnValidate()
-    {
-        skillName = name;
-    }
+    private void OnValidate() { skillName = name; }
 }

@@ -43,11 +43,11 @@ public class Unit : MonoBehaviour
     }
     public void BuffStatusWithWeapon(bool isBuff, Weapon weapon)
     {
-        BuffStatus(isBuff, statusType.maxHp, weapon.hp);
-        BuffStatus(isBuff, statusType.attack, weapon.attack);
-        BuffStatus(isBuff, statusType.defence, weapon.defence);
-        BuffStatus(isBuff, statusType.criDamage, weapon.criDamage);
-        BuffStatus(isBuff, statusType.criRate, weapon.criRate);
+        BuffStatus(isBuff, statusType.maxHp, weapon.status.hp);
+        BuffStatus(isBuff, statusType.attack, weapon.status.attack);
+        BuffStatus(isBuff, statusType.defence, weapon.status.defence);
+        BuffStatus(isBuff, statusType.criDamage, weapon.status.criDamage);
+        BuffStatus(isBuff, statusType.criRate, weapon.status.criRate);
     }
     public void BuffStatus(bool isBuff, statusType status, float value)
     {

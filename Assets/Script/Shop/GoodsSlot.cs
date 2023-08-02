@@ -28,7 +28,7 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Chest>(chest,count);
-                GameManager.instance.Purchase(chest.price);
+                GameManager.instance.Purchase(true,chest.price);
                 button.interactable = false;
             }
             else
@@ -41,7 +41,7 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Item>(item, count);
-                GameManager.instance.Purchase(item.price);
+                GameManager.instance.Purchase(true,item.price);
                 button.interactable = false;
             }
             else
@@ -54,7 +54,7 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
 
-                GameManager.instance.Purchase(this.price);
+                GameManager.instance.Purchase(true,this.price);
                 int price = -1;
                 if (lockType == lockType.craftCoolTime)
                 {

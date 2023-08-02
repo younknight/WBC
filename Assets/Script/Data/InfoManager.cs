@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 public interface IInformation
 {
-    public int GetSellPrice();
     public int GetId();
     public string GetName();
     public string GetExplain();

@@ -19,7 +19,6 @@ public class Chest : ScriptableObject, IInformation
     public int id;
     public string chestName;
     public int price;
-    public int sellPrice;
     [Multiline(5)]
     public string chestExplain;
     public string ranking;
@@ -39,7 +38,6 @@ public class Chest : ScriptableObject, IInformation
     public List<DropItem<Item>> dropItems;
     public List<DropItem<Weapon>> dropWeapons;
     #region Getter
-    public int GetSellPrice() { return sellPrice; }
     public int GetId() { return id; }
     public string GetName() { return chestName; }
     public string GetExplain() { return chestExplain; }

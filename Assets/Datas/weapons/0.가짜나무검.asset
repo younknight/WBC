@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: "0.\uAC00\uC9DC\uB098\uBB34\uAC80"
   m_EditorClassIdentifier: 
   id: 0
-  weaponName: "\uB098\uBB34\uAC80"
+  weaponName: "\uAC00\uC9DC\uB098\uBB34\uAC80"
   weaponType: 0
   weapomExplain: "\u3141\u3141\u3141\u3141\u3141"
   ranking: SSR
+  sellPrice: 0
   weaponImage: {fileID: 1854118681, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
-  hp: 12
-  attack: 12
-  defence: 12
-  criDamage: 12
-  criRate: 12
+  status:
+    hp: 1
+    attack: 1
+    defence: 1
+    criDamage: 1
+    criRate: 1
+  coolTime: 5
+  skills: {fileID: 0}

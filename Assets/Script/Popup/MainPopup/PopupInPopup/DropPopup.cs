@@ -7,6 +7,11 @@ public class DropPopup : Popup
 {//
     [SerializeField] List<GetItemSlot> slots;
     [SerializeField] Toggle toggle;
+    public void TogglePopup()
+    {
+        if (toggle.isOn) Open();
+        else CloseStart();
+    }
     public void Setup(List<DropItem<IInformation>> drops)
     {
         toggle.isOn = false;
@@ -20,10 +25,5 @@ public class DropPopup : Popup
         {
             slots[i].gameObject.SetActive(false);
         }
-    }
-    public void TogglePopup()
-    {
-        if (toggle.isOn) Open();
-        else CloseStart();
     }
 }

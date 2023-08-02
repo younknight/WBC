@@ -2,6 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public enum weaponType { weapon, accessory }
+[System.Serializable]
+public struct status
+{
+    public float hp;
+    public float attack;
+    public float defence;
+    public float criDamage;
+    public float criRate;
+
+    public status(float hp, float attack, float defence, float criDamage, float criRate)
+    {
+        this.hp = hp;
+        this.attack = attack;
+        this.defence = defence;
+        this.criDamage = criDamage;
+        this.criRate = criRate;
+    }
+}
 [CreateAssetMenu]
 public class Weapon : ScriptableObject, IInformation
 {
@@ -12,7 +30,6 @@ public class Weapon : ScriptableObject, IInformation
     [Multiline(5)]
     public string weapomExplain;
     public string ranking;
-    public int sellPrice;
 
     [Space(10f)]
     [Header("Sprite")]
@@ -20,18 +37,12 @@ public class Weapon : ScriptableObject, IInformation
 
     [Space(10f)]
     [Header("status")]
-    public float hp = 0;
-    public float attack = 0;
-    public float defence = 0;
-    public float criDamage = 0;
-    public float criRate = 0;
-
+    public status status = new status(0,0,0,0,0);
     [Space(10f)]
     [Header("skill")]
     public float coolTime = 5f;
-    public List<Skill> skills;
+    public Skill skills;
     #region Getter
-    public int GetSellPrice() { return sellPrice; }
     public int GetId() { return id; }
     public string GetName() { return weaponName; }
     public string GetExplain() { return weapomExplain; }

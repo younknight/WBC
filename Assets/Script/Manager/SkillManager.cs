@@ -14,14 +14,12 @@ public class SkillManager : MonoBehaviour
 
     public void UseSkill(Weapon weapon)
     {
-        foreach(Skill skill in weapon.skills)
+        Skill skill = weapon.skills;
+        switch (skill.skillType)
         {
-            switch (skill.skillType)
-            {
-                case skillType.buff:
-                    StartCoroutine(BuffPlayer(skill));
-                    break;
-            }
+            case skillType.buff:
+                StartCoroutine(BuffPlayer(skill));
+                break;
         }
     }
     IEnumerator BuffPlayer(Skill skill)
