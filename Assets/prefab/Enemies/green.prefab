@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff877cf3f5f0a0c4f8069e8e972ca7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portrait: {fileID: -1451511306, guid: 7073a11981b43d849a75141d40c615f9, type: 3}
   maxHp: 5
   attack: 1
   defence: 0
@@ -139,12 +140,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9f60fc535391d4b802de467f47af71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   attackPrefap: {fileID: 1902671026812846797, guid: b055ee39457f575488dcd87d0fdc582c, type: 3}
   spawnPoint: {fileID: 8979505924264483997}
   attackRate: 1
   attackRange: 4
   weaponState: 0
   attackTarget: {fileID: 0}
+  unit: {fileID: 0}
 --- !u!58 &6461289063759835856
 CircleCollider2D:
   m_ObjectHideFlags: 0

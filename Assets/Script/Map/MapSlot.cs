@@ -11,6 +11,6 @@ public class MapSlot : MonoBehaviour
     public void SetMap()
     {
         MapManager.Instance.SelectMap(world,id);
-        StagePopup.Instance.Setup(MapManager.Instance.GetStageName(world,id));
+        StagePopup.Instance.Setup(MapManager.Instance.GetStage(world,id));
     }
 }

@@ -29,6 +29,7 @@ public class AutoCrafter : MonoBehaviour
     [SerializeField] Slider maxGaugeBar;
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] TextMeshProUGUI maxCraftCountText;
+    [SerializeField] TextMeshProUGUI minCoolTime;
     int count = 0;
     int maxCount = 20;
     public void OpenPopup()
@@ -39,8 +40,8 @@ public class AutoCrafter : MonoBehaviour
     }
     public void FreshCount()
     {
-        maxCraftCountText.text = LockManager.LockInfo.craftCoolTime.ToString();
-        maxCraftCountText.text = autoCounter.currentCount.ToString();
+        minCoolTime.text = LockManager.LockInfo.craftCoolTime.ToString() + "s";
+        maxCraftCountText.text = autoCounter.currentCount.ToString() + "/" + LockManager.LockInfo.maxCraftCount.ToString();
         maxGaugeBar.value = (float)autoCounter.currentCount / (float)maxCount;
     }
     void FreshSelectedCount()

@@ -8,5 +8,4 @@ public class SettingPopup : Popup
     public static SettingPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     void Awake() { if (Instance == null) Instance = this; }
-    //setting
 }

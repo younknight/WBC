@@ -4,6 +4,7 @@ using UnityEngine;
 public enum statusType { maxHp, hp, attack, defence, criDamage, criRate}
 public class Unit : MonoBehaviour
 {
+    [SerializeField] Sprite portrait;
     [SerializeField] float maxHp = 10;
     [SerializeField] float attack = 1;//
     [SerializeField] float defence = 0;//
@@ -14,6 +15,7 @@ public class Unit : MonoBehaviour
     public int RoundIndex { get => roundIndex; set => roundIndex = value; }
     public float Hp { get => hp; set => hp = value; }
     public float MaxHp { get => maxHp; set => maxHp = value; }
+    public Sprite Portrait { get => portrait; set => portrait = value; }
 
     // Start is called before the first frame update
     void Start()

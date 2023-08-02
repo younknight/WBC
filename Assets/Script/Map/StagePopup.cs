@@ -12,10 +12,26 @@ public class StagePopup : Popup
     void Awake() { if (Instance == null) Instance = this; }
     #endregion
     [SerializeField] TextMeshProUGUI stageName;
+    [SerializeField] Transform slotsParent;
     [SerializeField] SceneMoveManager sceneMoveManager;
-    public void Setup(string name)
+    GetItemSlot[] slots;
+    private void OnValidate()
     {
-        stageName.text = name;
+        slots = slotsParent.GetComponentsInChildren<GetItemSlot>();
+    }
+    public void Setup(MapInfo stage)
+    {
+        stageName.text = stage.mapName;
+        List<Unit> enemies = MapManager.Instance.GetAllEnemy(stage);
+        int i = 0;
+        for(;i < enemies.Count; i++)
+        {
+            slots[i].Setup(true, enemies[i].Portrait, enemies[i].name);
+        }
+        for (; i < slots.Length; i++)
+        {
+            slots[i].Setup(false, null, null);
+        }
         Open();
     }
     public void GoDungeon()

@@ -26,7 +26,7 @@ public class GetItemPopup : Popup
                 isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
                 InventoryManager.instance.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
             }
-            slots[i++].Setup(isNew, entry.Key.GetSprite(),entry.Value);
+            slots[i++].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
         }
         for (; i < slots.Count; i++)
         {

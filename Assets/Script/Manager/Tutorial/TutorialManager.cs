@@ -16,6 +16,7 @@ public class TutorialManager : MonoBehaviour
         TutorialPannel.gameObject.SetActive(true);
         dialogue.id = StoryManager.Instance.StoryData.progress;
         dialogue.index = 0;
+        dialogue.Talk();
     }
     public void Talk()
     {

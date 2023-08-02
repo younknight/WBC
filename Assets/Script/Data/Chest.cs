@@ -16,7 +16,6 @@ public struct DropItem<T>
 public class Chest : ScriptableObject, IInformation
 {
     [Header ("Information")]
-    
     public int id;
     public string chestName;
     public int price;

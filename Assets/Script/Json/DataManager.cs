@@ -35,7 +35,7 @@ public class LockInfo
 {
     public int maxOpenerCount = 2;
     public int craftCoolTime = 20;
-    public int maxCraftCount = 10;
+    public int maxCraftCount = 5;
 
     public LockInfo(int maxOpenerCount, int craftCoolTime, int maxCraftCount)
     {
@@ -79,7 +79,6 @@ public class SaveData
     public LockInfo lockInfo;
     public int[] equipWeapons = new int[6];//장착한 장비
     public int gold = 0;
-    public int storyProgress = 0;
 }
 
 public class DataManager : MonoBehaviour

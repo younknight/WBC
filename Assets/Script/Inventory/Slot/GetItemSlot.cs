@@ -10,10 +10,10 @@ public class GetItemSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] GameObject isNewFrame;
 
-    public void Setup(bool isNew, Sprite sprite, int count)
+    public void Setup(bool isNew, Sprite sprite, string count)
     {
         itemImage.sprite = sprite;
-        countText.text = "x" + count;
+        countText.text =  count;
         isNewFrame.SetActive(isNew);
     }
     public void SetupDrop(DropItem<IInformation> dropItem)

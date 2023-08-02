@@ -13,9 +13,12 @@ public class MapInfo : ScriptableObject
 {
     public int id;
     public string mapName;
+    public MapWorld world;
     [Multiline(5)]
     public string mapExplain;
     public string ranking;
+    public int isStory;
+    public bool isLastStage = false;
     public List<EnenmySwarm> enenmies;
 
     

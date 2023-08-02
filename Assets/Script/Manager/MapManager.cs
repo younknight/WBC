@@ -36,12 +36,19 @@ public class MapManager : MonoBehaviour
     {
         SelectedMap = allMaps[0][0];//defult
     }
-    public void SelectMap(MapWorld world, int id)
+    public void SelectMap(MapWorld world, int id) { SelectedMap = allMaps[world][id]; }
+    public MapInfo GetStage(MapWorld world, int id) { return allMaps[world][id]; }
+    public List<Unit> GetAllEnemy(MapInfo mapInfo)
     {
-        SelectedMap = allMaps[world][id];
-    }
-    public string GetStageName(MapWorld world, int id)
-    {
-        return allMaps[world][id].mapName;
+        List<Unit> enemies = new List<Unit>();
+        for(int i = 0; i < mapInfo.enenmies.Count; i++)
+        {
+            for(int j = 0; j < mapInfo.enenmies[i].enemyInfos.Count; j++)
+            {
+                Unit unit = mapInfo.enenmies[i].enemyInfos[j].GetComponent<Unit>();
+                if (!enemies.Contains(unit)) enemies.Add(unit);
+            }
+        }
+        return enemies;
     }
 }

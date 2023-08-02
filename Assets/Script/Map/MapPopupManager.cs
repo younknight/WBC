@@ -24,6 +24,6 @@ public class MapPopupManager : MonoBehaviour
     public void OpenPopup(MapWorld world)
     {
         maps[world].Open();
-        maps[world].Setup(maps[world].name);
+        maps[world].Setup(maps[world].name, StoryManager.Instance.StoryData.mapLockProgress[world]);
     }
 }

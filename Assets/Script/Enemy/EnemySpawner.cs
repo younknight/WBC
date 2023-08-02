@@ -17,14 +17,8 @@ public class EnemySpawner : MonoBehaviour
     public MapInfo MapInfo { get => mapInfo; set => mapInfo = value; }
     public static EnemySpawner Instance { get => instance; }
     public List<List<Unit>> Enemies { get => enemies; set => enemies = value; }
-    private void OnDestroy()
-    {
-        instance = null;
-    }
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-    }
+    private void OnDestroy() { instance = null; }
+    private void Awake() { if (instance == null) instance = this; }
     private void Start()
     {
         if (MapManager.SelectedMap) SetUp(MapManager.SelectedMap);
@@ -65,9 +59,15 @@ public class EnemySpawner : MonoBehaviour
         enemies[round].Remove(enemy);
         if(enemies[round].Count == 0)
         {
-            player.GO();
             currentRound++;
             //전부 처리완료
+            if(currentRound >= maxRound)
+            {
+                player.Stop();
+                EndPopup.Instance.Setup(true, mapInfo.isStory >= StoryManager.Instance.StoryData.progress, mapInfo);
+                return;
+            }
+            player.GO();
         }
     }
 }

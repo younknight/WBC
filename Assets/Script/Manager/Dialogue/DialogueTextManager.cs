@@ -12,22 +12,20 @@ public class DialogueTextManager : MonoBehaviour
     public int id = 0;//--------------------------------ÀÎµ¦½º 
     public int index = 0;//-------------
     public bool isAction = true;//
-    private void Start()
+    private void Awake()
     {
         dialogueData = GetComponent<DialogueDatabase>();
         id = StoryManager.Instance.StoryData.progress;
-        Talk();
     }
     public void Talk()
     {
         string talkDataContext = dialogueData.GetDialogueContetxt(id, index);
         string talkDataName = dialogueData.GetDialogueName(id, index);
-
         if(talkDataContext == null)
         {
             isAction = false;
             StoryManager.Instance.AddProgress();
-            if(id == 0) sceneMoveManager.MoveScene("Main");
+            if(id != 1) sceneMoveManager.MoveScene("Main");//Æ©Åä¸®¾ó
 
             return;
         }

@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         LockManager.LockInfo = new LockInfo(2, 20, 5);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
         inventoryManager.Initalize();
-        gold = 0;
+        gold = 11110;
         CommonData();
         SetData();
     }
@@ -133,5 +133,10 @@ public class GameManager : MonoBehaviour
     {
         TextManager.instance.SetGold();
         inventoryManager.Initalize();
+    }
+    public void Purchase(int cost)
+    {
+        gold -= cost;
+        TextManager.instance.SetGold();
     }
 }

@@ -16,6 +16,7 @@ public class Shop : MonoBehaviour
     {
         itemBox.FreshSlots();
         chestBox.FreshSlots();
+        playerBox.FreshSlots();
         itemBox.Setting(1);
         chestBox.Setting(0);
         playerBox.Setting(2);

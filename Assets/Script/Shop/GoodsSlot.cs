@@ -15,6 +15,7 @@ public class GoodsSlot : MonoBehaviour
     [SerializeField] Image image;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] TextMeshProUGUI countText;
+    [SerializeField] Sprite defaultSprite;
     Button button;
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Chest>(chest,count);
-                GameManager.Gold -= chest.price;
+                GameManager.instance.Purchase(chest.price);
                 button.interactable = false;
             }
             else
@@ -40,7 +41,7 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
                 InventoryManager.instance.AddItems<Item>(item, count);
-                GameManager.Gold -= item.price;
+                GameManager.instance.Purchase(item.price);
                 button.interactable = false;
             }
             else
@@ -53,24 +54,23 @@ public class GoodsSlot : MonoBehaviour
             if (GameManager.Gold >= price)
             {
 
-                GameManager.Gold -= item.price;
+                GameManager.instance.Purchase(this.price);
                 int price = -1;
                 if (lockType == lockType.craftCoolTime)
                 {
                     LockManager.LockInfo.craftCoolTime--;
-                    price = (int)(20 - LockManager.LockInfo.craftCoolTime) * 1000;
                 }
                 if (lockType == lockType.openSlotCount)
                 {
                     LockManager.LockInfo.maxOpenerCount++;
                     Opener.Instance.SetUnlock();
-                    price = LockManager.LockInfo.maxOpenerCount * 1000;
                 }
                 if (lockType == lockType.maxCraftCounter)
                 {
                     LockManager.LockInfo.maxCraftCount++;
-                    price = LockManager.LockInfo.maxCraftCount * 1000;
                 }
+                price = LockManager.Instance.GetLevel(lockType) * 1000;
+                DataManager.instance.JsonSave();
                 SetLock(price,lockType);
             }
             else
@@ -84,16 +84,16 @@ public class GoodsSlot : MonoBehaviour
     {
         string name = "";
         string ranking = ""; 
-        Sprite sprite = null; 
+        Sprite sprite = defaultSprite; 
         int price = -1;
-        int id = -1;
+        string id = "";
         if (chest != null)
         {
             name = chest.chestName;
             ranking = chest.ranking;
             sprite = chest.chetImage;
             price = chest.price;
-            id = chest.id;
+            id = "No." + chest.id;
         }
         if (item != null)
         {
@@ -101,10 +101,24 @@ public class GoodsSlot : MonoBehaviour
             ranking = item.ranking;
             sprite = item.itemImage;
             price = item.price;
-            id = item.id;
+            id = "No." + item.id;
+        }
+        if(lockType != lockType.none)
+        {
+            name = lockType.ToString();
+            id = "Lv";
+            ranking += (this.price / 1000);
+            price = this.price;
         }
         PurchasePopup.Instance.SetPurchase(this, name, ranking, sprite, price, count, id);
         PurchasePopup.Instance.Open();
+    }
+    public void IsMaxSlot()
+    {
+        button.interactable = false;
+        image.sprite = defaultSprite;
+        priceText.text = "Max";
+        countText.text = "Lv.Max";
     }
     public void ClearSlot()
     {
@@ -137,6 +151,7 @@ public class GoodsSlot : MonoBehaviour
     {
         this.lockType = lockType;
         this.price = price;
+        image.sprite = defaultSprite;
         priceText.text = price.ToString();
         countText.text = "Lv." + (price / 1000);
     }

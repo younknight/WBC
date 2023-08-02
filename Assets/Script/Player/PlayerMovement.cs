@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
         wayPointCount = wayPoints.Length;
         transform.position = wayPoints[currentIndex].position;
     }
+    public void Stop()
+    {
+        animationContoler.SetAnimation("attack", false);
+        animationContoler.SetAnimation("move", false);
+    }
     public void GO()
     {
         animationContoler.SetAnimation("attack", false);
@@ -60,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //µµÂø
+            EndPopup.Instance.Setup(false, false,  null);
         }
     }
 }

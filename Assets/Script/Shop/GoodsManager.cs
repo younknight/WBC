@@ -42,9 +42,12 @@ public class GoodsManager : MonoBehaviour
         }
         if (isChest == 2)
         {
-            slots[0].SetLock((int)(20 - LockManager.LockInfo.craftCoolTime) * 1000, lockType.craftCoolTime);
-            slots[1].SetLock(LockManager.LockInfo.maxCraftCount * 1000, lockType.maxCraftCounter);
-            slots[2].SetLock(LockManager.LockInfo.maxOpenerCount * 1000, lockType.openSlotCount);
+            if (LockManager.Instance.GetLastLevel(lockType.craftCoolTime)) slots[0].IsMaxSlot();
+            else slots[0].SetLock(LockManager.Instance.GetLevel(lockType.craftCoolTime) * 1000, lockType.craftCoolTime);
+            if (LockManager.Instance.GetLastLevel(lockType.maxCraftCounter)) slots[1].IsMaxSlot();
+            else slots[1].SetLock(LockManager.Instance.GetLevel(lockType.maxCraftCounter) * 1000, lockType.maxCraftCounter);
+            if (LockManager.Instance.GetLastLevel(lockType.openSlotCount)) slots[2].IsMaxSlot();
+            else slots[2].SetLock(LockManager.Instance.GetLevel(lockType.openSlotCount) * 1000, lockType.openSlotCount);
             return;
         }
         int length = indexs.Count;

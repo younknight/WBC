@@ -20,8 +20,12 @@ public class MapPopup : Popup
             slots[i].Id = i;
         }
     }
-    public void Setup(string name)
+    public void Setup(string name, int count)
     {
         worldName.text = name;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].gameObject.SetActive(i <= count);
+        }
     }
 }

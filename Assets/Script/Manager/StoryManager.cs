@@ -6,6 +6,8 @@ using System.IO;
 public class StoryData
 {
     public int progress;
+    public Dictionary<MapWorld, int> mapLockProgress;
+    public int worldLockProgress;
 }
 public class StoryManager : MonoBehaviour
 {
@@ -34,11 +36,33 @@ public class StoryManager : MonoBehaviour
     {
         storyData = new StoryData();
         storyData.progress = 0;
+        storyData.worldLockProgress = 0;
+        SetDic();
         jsonParser.SaveJson<StoryData>(storyData, path);
+    }
+    void SetDic()
+    {
+        StoryData.mapLockProgress = new Dictionary<MapWorld, int>();
+        storyData.mapLockProgress.Add(MapWorld.fire, 0);
+        storyData.mapLockProgress.Add(MapWorld.ice, 0);
+        storyData.mapLockProgress.Add(MapWorld.thunder, 0);
+        storyData.mapLockProgress.Add(MapWorld.earth, 0);
     }
     public void LoadProgress()
     {
         storyData = jsonParser.LoadJson<StoryData>(path);
+    }
+    public void AddMapProgress(MapWorld world)
+    {
+        LoadProgress();
+        storyData.mapLockProgress[world]++;
+        jsonParser.SaveJson<StoryData>(storyData, path);
+    }
+    public void AddWolrdProgress()
+    {
+        LoadProgress();
+        storyData.worldLockProgress++;
+        jsonParser.SaveJson<StoryData>(storyData, path);
     }
     public void AddProgress()
     {

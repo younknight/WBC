@@ -3,17 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum popupType
 {
-    map,
+    none,
     explain,
-    getItem,
-    getChest,
-    drop,
-    setting,
     recipe,
-    chest,
-    status,
     weapon,
-    purchase,
     enforce,
     autoCraft
 }
@@ -21,7 +14,6 @@ public abstract class Popup : MonoBehaviour
 {
     [SerializeField] popupType popupType;
     GameObject popupObject;
-    public popupType PopupType { get => popupType; set => popupType = value; }
 
     Animator animator;
 
