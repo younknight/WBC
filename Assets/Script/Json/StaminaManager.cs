@@ -5,8 +5,8 @@ using System.IO;
 public class StaminaData
 {
     public DateTime lastLogInTime;
-    public int maxStamina = 5;
-    public int currentStamina = 5;
+    public int maxStamina = 10;
+    public int currentStamina = 10;
 
     public void SetLastLogInTime(DateTime today)
     {
@@ -72,6 +72,11 @@ public class StaminaManager : MonoBehaviour
         }
         Save();
         //
+    }
+    public void UseStamina()
+    {
+        staminaData.currentStamina--;
+        Save();
     }
 }
 

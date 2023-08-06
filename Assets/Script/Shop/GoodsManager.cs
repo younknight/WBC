@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum goodsType { item, chest, player }
+public enum goodsType { item, chest, player, special }
 public class GoodsManager : MonoBehaviour
 {
     [SerializeField] Transform slotsParent;

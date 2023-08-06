@@ -4,7 +4,13 @@ using UnityEngine;
 using System.IO;
 public class GoodsInfo
 {
+    public int maxRerollcount = 3;
+    public int rerollCount;
     public Dictionary<goodsType, List<Goods>> goodsDic = new Dictionary<goodsType, List<Goods>>();
+    public bool CanReroll() { return rerollCount < maxRerollcount; }
+    public void AddRerollCount() { rerollCount++; }
+    public void ResetCount() { rerollCount = 0; }
+    public int GetCount() { return rerollCount; }
 }
 public class ShopGoodsInfoManager : MonoBehaviour
 {

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon.unity
     guid: ba17f1c8ef5672b408f1021ff0df6bd2
+  - enabled: 1
+    path: Assets/Scenes/InfinityDungeon.unity
+    guid: 49b93481bf4d4b342b03a81f5684266a
   m_configObjects: {}

@@ -74,6 +74,7 @@ public class Slot : MonoBehaviour
     {
         if ((Chest)itemInformation != null)
         {
+            ChestPopup.Instance.Close();
             RecipePopup.Instance.SetRecipe((Chest)itemInformation);
             RecipePopup.Instance.Open();
         }
