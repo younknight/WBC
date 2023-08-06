@@ -7,18 +7,25 @@ public class Shop : MonoBehaviour
     [SerializeField] GoodsManager itemBox;
     [SerializeField] GoodsManager chestBox;
     [SerializeField] GoodsManager playerBox;
-
+    [SerializeField] ShopGoodsInfoManager shopInfo;
     private void Start()
     {
-        RerollShop();
+        itemBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.item]);
+        chestBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.chest]);
+        playerBox.RandomSetting();
     }
     public void RerollShop()
+    {
+        SetSlots();
+        shopInfo.Save();
+    }
+    void SetSlots()
     {
         itemBox.FreshSlots();
         chestBox.FreshSlots();
         playerBox.FreshSlots();
-        itemBox.Setting(1);
-        chestBox.Setting(0);
-        playerBox.Setting(2);
+        itemBox.RandomSetting();
+        chestBox.RandomSetting();
+        playerBox.RandomSetting();
     }
 }

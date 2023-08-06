@@ -17,7 +17,6 @@ MonoBehaviour:
   weaponType: 0
   weapomExplain: "\uB098\uBB34\uB85C \uB41C \uC791\uC740 \uAC80"
   ranking: SSR
-  sellPrice: 0
   weaponImage: {fileID: 1854118681, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
   status:
     hp: 1
@@ -25,5 +24,11 @@ MonoBehaviour:
     defence: 1
     criDamage: 1
     criRate: 2
+  levelUpStatus:
+    hp: 10
+    attack: 0
+    defence: 0
+    criDamage: 0
+    criRate: 0
   coolTime: 5
   skills: {fileID: 11400000, guid: 9a1a0ba3d48b1854cac5c128339a3a4d, type: 2}

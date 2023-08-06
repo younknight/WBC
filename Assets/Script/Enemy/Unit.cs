@@ -43,11 +43,12 @@ public class Unit : MonoBehaviour
     }
     public void BuffStatusWithWeapon(bool isBuff, Weapon weapon)
     {
-        BuffStatus(isBuff, statusType.maxHp, weapon.status.hp);
-        BuffStatus(isBuff, statusType.attack, weapon.status.attack);
-        BuffStatus(isBuff, statusType.defence, weapon.status.defence);
-        BuffStatus(isBuff, statusType.criDamage, weapon.status.criDamage);
-        BuffStatus(isBuff, statusType.criRate, weapon.status.criRate);
+        int level = Inventory.Weapons.Find(x => x.weapon == weapon).level;
+        BuffStatus(isBuff, statusType.maxHp, weapon.GetStatus(statusType.maxHp, level));
+        BuffStatus(isBuff, statusType.attack, weapon.GetStatus(statusType.attack, level));
+        BuffStatus(isBuff, statusType.defence, weapon.GetStatus(statusType.defence, level));
+        BuffStatus(isBuff, statusType.criDamage, weapon.GetStatus(statusType.criDamage, level));
+        BuffStatus(isBuff, statusType.criRate, weapon.GetStatus(statusType.criRate, level));
     }
     public void BuffStatus(bool isBuff, statusType status, float value)
     {

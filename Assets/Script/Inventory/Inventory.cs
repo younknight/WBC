@@ -33,11 +33,9 @@ public class Inventory : MonoBehaviour
     {
         items = null;
         chests = null;
-        weapons = null;
     }
     private void Awake()
     {
-        
         int count = GameManager.GetCount(inventoryType);
         Transform cavas = GameObject.Find("Canvas").transform;
         for(int i = 0; i < count; i++)

@@ -78,7 +78,7 @@ public class SaveData
     public AutoCraftMaxCounter autoCounter;
     public LockInfo lockInfo;
     public int[] equipWeapons = new int[6];//¿Â¬¯«— ¿Â∫Ò
-    public int gold = 0;
+    public Resource resource;
 }
 
 public class DataManager : MonoBehaviour
@@ -102,7 +102,6 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         JsonLateLoad();
-        SetData();
     }
     void JsonLateLoad() { inventoryManager.Initalize(); }
     public void JsonLoad()
@@ -134,8 +133,8 @@ public class DataManager : MonoBehaviour
                 Inventory.Chests = chestInfos;
                 Inventory.Weapons = weaponInfos;
                 AutoCrafter.AutoCounter = saveData.autoCounter;
-                GameManager.Gold = saveData.gold;
                 LockManager.LockInfo = saveData.lockInfo;
+                ResourseManager.Instance.Resource = saveData.resource;
                 craftDatabase.WeirdRecipe = saveData.weirdRecipe;
                 //¿Â∫Ò ¿Â¬¯
                 Weapon[] weapons = new Weapon[saveData.equipWeapons.Length];
@@ -149,7 +148,6 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    void SetData() { TextManager.instance.SetGold(); }
     public void JsonSave()
     {
         SaveData saveData = new SaveData();
@@ -163,7 +161,7 @@ public class DataManager : MonoBehaviour
         saveData.items = items;
         saveData.chests = chests;
         saveData.weapons = weapons;
-        saveData.gold = GameManager.Gold;
+        saveData.resource = ResourseManager.Instance.Resource;
         int[] equip = new int[6];
         for (int i = 0; i < equip.Length; i++)
         {

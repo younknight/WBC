@@ -21,7 +21,7 @@ public class ItemSellPopup : Popup
     }
     public void Sell()
     {
-        GameManager.instance.Purchase(false, sellSlider.GetTotalPrice());
+        ResourseManager.Instance.Purchase(false, sellSlider.GetTotalPrice());
         InventoryManager.instance.DropItems<Item>(itemInfo.item,sellSlider.CurrentCount);
         Setup(true, itemInfo.item);
         sellSlider.Setup(itemInfo.num,itemInfo.item.sellPrice);

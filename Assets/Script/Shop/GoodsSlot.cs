@@ -4,19 +4,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 public enum lockType { none, maxCraftCounter, craftCoolTime, openSlotCount}
+[System.Serializable]
+public class Goods
+{
+    public int id;
+    public int count;
+
+    public Goods(int id, int count)
+    {
+        this.id = id;
+        this.count = count;
+    }
+}
 public class GoodsSlot : MonoBehaviour
 {
     Chest chest;
     Item item;
     int count;
     int price;
-    [SerializeField] lockType lockType;//
+    [SerializeField] Goods goods;
 
+
+
+    [SerializeField] lockType lockType;//
     [SerializeField] Image image;
     [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] Sprite defaultSprite;
     Button button;
+
+    public Goods Goods { get => goods; set => goods = value; }
+
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -25,10 +43,10 @@ public class GoodsSlot : MonoBehaviour
     {
         if (chest != null)
         {
-            if (GameManager.Gold >= price)
+            if (ResourseManager.Instance.GetGold() >= price)
             {
                 InventoryManager.instance.AddItems<Chest>(chest,count);
-                GameManager.instance.Purchase(true,chest.price);
+                ResourseManager.Instance.Purchase(true,chest.price);
                 button.interactable = false;
             }
             else
@@ -38,10 +56,10 @@ public class GoodsSlot : MonoBehaviour
         }
         if (item != null)
         {
-            if (GameManager.Gold >= price)
+            if (ResourseManager.Instance.GetGold() >= price)
             {
                 InventoryManager.instance.AddItems<Item>(item, count);
-                GameManager.instance.Purchase(true,item.price);
+                ResourseManager.Instance.Purchase(true,item.price);
                 button.interactable = false;
             }
             else
@@ -51,10 +69,10 @@ public class GoodsSlot : MonoBehaviour
         }
         if(lockType != lockType.none)
         {
-            if (GameManager.Gold >= price)
+            if (ResourseManager.Instance.GetGold() >= price)
             {
 
-                GameManager.instance.Purchase(true,this.price);
+                ResourseManager.Instance.Purchase(true,this.price);
                 int price = -1;
                 if (lockType == lockType.craftCoolTime)
                 {
@@ -137,6 +155,7 @@ public class GoodsSlot : MonoBehaviour
         image.sprite = item.itemImage;
         priceText.text = "" + (item.price * count);
         countText.text = "x" + count;
+        goods = new Goods(item.id, count);
     }
     public void SetChest(Chest chest, int count)
     {
@@ -146,6 +165,7 @@ public class GoodsSlot : MonoBehaviour
         image.sprite = chest.chetImage;
         priceText.text = "" + (chest.price * count);
         countText.text = "x" + count;
+        goods = new Goods(chest.id, count);
     }
     public void SetLock(int price, lockType lockType)
     {

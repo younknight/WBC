@@ -21,6 +21,7 @@ public class OpenSlot : MonoBehaviour
     public Opener Opener { get => opener; set => opener = value; }
     public int Id { get => id; set => id = value; }
     public bool IsLock { get => isLock; set => isLock = value; }
+    public Chest Chest { get => chest; set => chest = value; }
 
     private void Awake()
     {

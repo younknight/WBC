@@ -19,14 +19,14 @@ public class GetItemPopup : Popup
             if (InfoManager.CheckInterfaceType(entry.Key) == "item")
             {
                 isNew = Inventory.CheckNewItem((Item)entry.Key);
-                InventoryManager.instance.AddItems<Item>((Item)entry.Key, entry.Value);
             }
             if (InfoManager.CheckInterfaceType(entry.Key) == "weapon")
             {
                 isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
-                InventoryManager.instance.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
             }
-            slots[i++].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
+            Debug.Log(i);
+            slots[i].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
+            i++;
         }
         for (; i < slots.Count; i++)
         {

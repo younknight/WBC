@@ -6,11 +6,11 @@
     },
     {
       "itemId": 1,
-      "count": 0
+      "count": 99
     },
     {
       "itemId": 2,
-      "count": 0
+      "count": 99
     },
     {
       "itemId": 3,
@@ -22,7 +22,7 @@
     },
     {
       "itemId": 5,
-      "count": 16
+      "count": 99
     },
     {
       "itemId": 6,
@@ -172,7 +172,7 @@
     },
     {
       "itemId": 7,
-      "count": 100
+      "count": 99
     },
     {
       "itemId": 8,
@@ -188,7 +188,7 @@
     },
     {
       "weaponId": 1,
-      "count": 9,
+      "count": 10,
       "level": 1,
       "enforceGauge": 0
     },
@@ -212,8 +212,8 @@
     },
     {
       "weaponId": 5,
-      "count": 4,
-      "level": 3,
+      "count": 10,
+      "level": 1,
       "enforceGauge": 0
     },
     {
@@ -244,7 +244,7 @@
   "weirdRecipe": [],
   "autoCounter": {
     "currentCount": 20,
-    "lastTime": "2023-08-02T07:58:01.9364294+09:00"
+    "lastTime": "2023-08-06T16:04:13.1062938+09:00"
   },
   "lockInfo": {
     "maxOpenerCount": 16,
@@ -252,12 +252,15 @@
     "maxCraftCount": 20
   },
   "equipWeapons": [
-    0,
     1,
-    1,
+    -1,
+    -1,
     -1,
     -1,
     -1
   ],
-  "gold": 98765
+  "resource": {
+    "gold": 98765,
+    "primo": 56789
+  }
 }

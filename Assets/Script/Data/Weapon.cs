@@ -37,7 +37,8 @@ public class Weapon : ScriptableObject, IInformation
 
     [Space(10f)]
     [Header("status")]
-    public status status = new status(0,0,0,0,0);
+    public status status = new status(0, 0, 0, 0, 0);
+    public status levelUpStatus = new status(0, 0, 0, 0, 0);
     [Space(10f)]
     [Header("skill")]
     public float coolTime = 5f;
@@ -54,5 +55,23 @@ public class Weapon : ScriptableObject, IInformation
         string[] nameValue = name.Split('.');
         weaponName = nameValue[1];
         id = Convert.ToInt32(nameValue[0]);
+    }
+    public float GetStatus(statusType statusType, int level)
+    {
+        level -= 1;
+        switch (statusType)
+        {
+            case statusType.maxHp:
+                return status.hp + (levelUpStatus.hp * level);
+            case statusType.attack:
+                return status.attack + (levelUpStatus.attack * level);
+            case statusType.defence:
+                return status.defence + (levelUpStatus.defence * level);
+            case statusType.criDamage:
+                return status.criDamage + (levelUpStatus.criDamage * level);
+            case statusType.criRate:
+                return status.criRate + (levelUpStatus.criRate * level);
+        }
+        return -1000;
     }
 }

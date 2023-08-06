@@ -41,7 +41,6 @@ public struct weaponInfo
 }
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Opener opener;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] CraftDatabase craftDatabase;
     public static GameManager instance;
@@ -52,9 +51,7 @@ public class GameManager : MonoBehaviour
     static List<itemInfo> fullItems;
     static List<chestInfo> fullChests;
     static List<weaponInfo> fullWeapons;
-    static int gold;
     #region getter, setter
-    public static int Gold { get => gold; set => gold = value; }
     public List<Item> ItemDatas { get => itemDatas; set => itemDatas = value; }
     public List<Chest> ChestDatas { get => chestDatas; set => chestDatas = value; }
     public List<Weapon> WeaponDatas { get => weaponDatas; set => weaponDatas = value; }
@@ -109,7 +106,8 @@ public class GameManager : MonoBehaviour
         LockManager.LockInfo = new LockInfo(2, 20, 5);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
         inventoryManager.Initalize();
-        gold = 11110;
+        ResourseManager.Instance.SetGold(11100);
+        ResourseManager.Instance.SetPrimo(22200);
         CommonData();
         SetData();
     }
@@ -120,7 +118,8 @@ public class GameManager : MonoBehaviour
         Inventory.Weapons = fullWeapons;
         LockManager.LockInfo = new LockInfo(16, 1, 20);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(20, DateTime.Now);
-        gold = 98765;
+        ResourseManager.Instance.SetGold(98765);
+        ResourseManager.Instance.SetPrimo(56789);
         CommonData();
         SetData();
     }
@@ -131,12 +130,7 @@ public class GameManager : MonoBehaviour
     }
     void SetData()
     {
-        TextManager.instance.SetGold();
+        TextManager.instance.SetText();
         inventoryManager.Initalize();
-    }
-    public void Purchase(bool isPurchase,int cost)
-    {
-        gold += isPurchase ? -cost : cost;
-        TextManager.instance.SetGold();
     }
 }

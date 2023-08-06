@@ -2,12 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum goodsType { item, chest, player }
 public class GoodsManager : MonoBehaviour
 {
     [SerializeField] Transform slotsParent;
+    [SerializeField] goodsType goodsType;
     [SerializeField] GoodsSlot[] slots;
 
-    public GoodsSlot[] Slots { get => slots; set => slots = value; }
+    public goodsType GoodsType { get => goodsType; set => goodsType = value; }
+
+    public List<Goods> GetGoodsId()
+    {
+        List<Goods> ids = new List<Goods>();
+        for(int i = 0; i< slots.Length; i++)
+        {
+            if(slots[i].Goods != null)
+            ids.Add(slots[i].Goods);
+        }
+        return ids;
+    }
 
     private void OnValidate()
     {
@@ -21,26 +34,46 @@ public class GoodsManager : MonoBehaviour
             slots[i].ClearSlot();
         }
     }
-    public void Setting(int isChest)//1 아이템, 0 상자
+    public void Setting(List<Goods> goods)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if(goods[i].count > 0)
+            {
+                if (goodsType == goodsType.item)//아이템
+                {
+                    slots[i].gameObject.SetActive(true);
+                    slots[i].SetItem(Inventory.Items.Find(x => x.item.id == goods[i].id).item, goods[i].count);
+                }
+                if (goodsType == goodsType.chest)//상자
+                {
+                    slots[i].gameObject.SetActive(true);
+                    slots[i].SetChest(Inventory.Chests.Find(x => x.chest.id == goods[i].id).chest, goods[i].count);
+                }
+            }
+            else slots[i].gameObject.SetActive(false);
+        }
+    }
+    public void RandomSetting()//1 아이템, 0 상자
     {
         int index = 0;
         int count = 0;
         List<int> indexs = new List<int>();
-        if (isChest == 1)
+        if (goodsType == goodsType.item)
         {
             for (int j = 0; j < Inventory.Items.Count; j++)
             {
                 indexs.Add(j);
             }
         }
-        if(isChest == 0)
+        if(goodsType == goodsType.chest)
         {
             for (int j = 0; j < Inventory.Chests.Count; j++)
             {
                 indexs.Add(j);
             }
         }
-        if (isChest == 2)
+        if (goodsType == goodsType.player)
         {
             if (LockManager.Instance.GetLastLevel(lockType.craftCoolTime)) slots[0].IsMaxSlot();
             else slots[0].SetLock(LockManager.Instance.GetLevel(lockType.craftCoolTime) * 1000, lockType.craftCoolTime);
@@ -59,14 +92,14 @@ public class GoodsManager : MonoBehaviour
         for (int i = 0; i < slots.Length && i < length; i++)
         {
             count = Random.Range(1, 5 + 1);
-            if (isChest == 1)//아이템
+            if (goodsType == goodsType.item)//아이템
             {
                 slots[i].gameObject.SetActive(true);
                 index = Random.Range(0, indexs.Count);
                 slots[i].SetItem(Inventory.Items[indexs[index]].item, count);
                 indexs.Remove(indexs[index]);
             }
-            if (isChest == 0)//상자
+            if (goodsType == goodsType.chest)//상자
             {
                 if(indexs.Count >= 2)
                 {

@@ -30,7 +30,7 @@ public class Opener : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].RemoveSlot(!(i < LockManager.LockInfo.maxOpenerCount));
+            if(slots[i].Chest == null) slots[i].RemoveSlot(!(i < LockManager.LockInfo.maxOpenerCount));
         }
     }
     public void FreshSlot()
