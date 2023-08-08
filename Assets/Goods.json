@@ -1,57 +1,57 @@
 {
   "maxRerollcount": 3,
-  "rerollCount": 3,
+  "rerollCount": 0,
   "goodsDic": {
     "chest": [
       {
+        "id": 6,
+        "count": 3
+      },
+      {
+        "id": 3,
+        "count": 3
+      },
+      {
         "id": 7,
         "count": 4
+      },
+      {
+        "id": 4,
+        "count": 4
+      },
+      {
+        "id": 8,
+        "count": 3
+      },
+      {
+        "id": 2,
+        "count": 4
+      }
+    ],
+    "item": [
+      {
+        "id": 12,
+        "count": 5
       },
       {
         "id": 8,
         "count": 1
       },
       {
-        "id": 1,
+        "id": 18,
         "count": 1
       },
       {
-        "id": 2,
+        "id": 27,
+        "count": 5
+      },
+      {
+        "id": 19,
         "count": 2
-      },
-      {
-        "id": 4,
-        "count": 2
-      },
-      {
-        "id": 5,
-        "count": 4
-      }
-    ],
-    "item": [
-      {
-        "id": 17,
-        "count": 5
-      },
-      {
-        "id": 29,
-        "count": 5
-      },
-      {
-        "id": 30,
-        "count": 5
-      },
-      {
-        "id": 5,
-        "count": 4
       },
       {
         "id": 22,
-        "count": 5
-      },
-      {
-        "id": 25,
-        "count": 4
+        "count": 2
       }
     ]
   }

@@ -2,19 +2,19 @@
   "items": [
     {
       "itemId": 0,
-      "count": 99
+      "count": 102
     },
     {
       "itemId": 1,
-      "count": 99
+      "count": 304
     },
     {
       "itemId": 2,
-      "count": 99
+      "count": 107
     },
     {
       "itemId": 3,
-      "count": 99
+      "count": 101
     },
     {
       "itemId": 4,
@@ -148,15 +148,15 @@
     },
     {
       "itemId": 1,
-      "count": 99
+      "count": 91
     },
     {
       "itemId": 2,
-      "count": 99
+      "count": 98
     },
     {
       "itemId": 3,
-      "count": 99
+      "count": 98
     },
     {
       "itemId": 4,
@@ -182,13 +182,13 @@
   "weapons": [
     {
       "weaponId": 0,
-      "count": 10,
+      "count": 18,
       "level": 1,
       "enforceGauge": 0
     },
     {
       "weaponId": 1,
-      "count": 10,
+      "count": 8,
       "level": 1,
       "enforceGauge": 0
     },
@@ -206,7 +206,7 @@
     },
     {
       "weaponId": 4,
-      "count": 10,
+      "count": 8,
       "level": 1,
       "enforceGauge": 0
     },
@@ -218,7 +218,7 @@
     },
     {
       "weaponId": 6,
-      "count": 10,
+      "count": 9,
       "level": 1,
       "enforceGauge": 0
     }
@@ -253,14 +253,15 @@
   },
   "equipWeapons": [
     1,
-    -1,
-    -1,
-    -1,
-    -1,
-    -1
+    1,
+    1,
+    4,
+    4,
+    6
   ],
   "resource": {
-    "gold": 11069765,
+    "level": 1,
+    "gold": 11021765,
     "primo": 56789
   }
 }

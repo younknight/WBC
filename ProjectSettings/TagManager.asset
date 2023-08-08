@@ -7,6 +7,7 @@ TagManager:
   - canvas
   - Enemy
   - Inventory
+  - Summon
   layers:
   - Default
   - TransparentFX

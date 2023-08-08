@@ -15,15 +15,26 @@ MonoBehaviour:
   id: 6
   weaponName: f
   weaponType: 1
-  weapomExplain: "\u3141\u3141\u3141\u3141\u3141"
+  weapomExplain: "\u3142\u3142\u3142\u3142"
   ranking: SSR
-  sellPrice: 0
   weaponImage: {fileID: -2012628262, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
   status:
     hp: 1
     attack: 1
+    attackSpeed: 0
+    attackTarget: 2
     defence: 1
     criDamage: 1
     criRate: 7
+  levelUpStatus:
+    hp: 0
+    attack: 0
+    attackSpeed: 0
+    attackTarget: 0
+    defence: 0
+    criDamage: 0
+    criRate: 0
   coolTime: 5
-  skills: {fileID: 0}
+  buffSkill: {fileID: 0}
+  summonSkill: {fileID: 0}
+  nonTargetSkill: {fileID: 11400000, guid: 3a1ac7df3ed25de429c26aa3c093a8e0, type: 2}

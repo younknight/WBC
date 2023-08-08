@@ -11,12 +11,13 @@ public class Shop : MonoBehaviour
     [SerializeField] ShopGoodsInfoManager shopInfo;
     [SerializeField] Reroller rerollBtn;
     int[] rerollCost = new int[3] { 1000, 5000, 10000 };
-    private void Start()
+    public void Setting()
     {
         itemBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.item]);
         chestBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.chest]);
-        playerBox.RandomSetting();
-        if (shopInfo.GoodsInfo.CanReroll()) rerollBtn.SetActive(true, rerollCost[shopInfo.GoodsInfo.GetCount()].ToString()) ;
+        playerBox.StaticSetting();
+        specialChestBox.StaticSetting();
+        if (shopInfo.GoodsInfo.CanReroll()) rerollBtn.SetActive(true, rerollCost[shopInfo.GoodsInfo.GetCount()].ToString());
         else rerollBtn.SetActive(false, "X");
     }
     public void OpenAdPopup()
@@ -35,6 +36,7 @@ public class Shop : MonoBehaviour
                 if (shopInfo.GoodsInfo.CanReroll()) rerollBtn.SetActive(true, rerollCost[shopInfo.GoodsInfo.GetCount()].ToString());
                 else rerollBtn.SetActive(false, "X");
             }
+            // Debug.Log("reroll");
             SetSlots();
             shopInfo.Save();
         }
@@ -46,6 +48,7 @@ public class Shop : MonoBehaviour
         playerBox.FreshSlots();
         itemBox.RandomSetting();
         chestBox.RandomSetting();
-        playerBox.RandomSetting();
+        playerBox.StaticSetting();
+        specialChestBox.StaticSetting();
     }
 }

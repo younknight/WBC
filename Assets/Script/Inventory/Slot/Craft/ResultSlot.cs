@@ -48,7 +48,7 @@ public class ResultSlot : MonoBehaviour
         {
             CraftDatabase.instance.AddWierd(weirdRecipe);
         }
-        GetChestPopup.Instance.SetGetChest(chest.chestName + " 상자", "x1", chest.chetImage, Inventory.CheckNewChest(chest), chest.ranking);
+        GetChestPopup.Instance.SetGetChest(chest);
         GetChestPopup.Instance.Open();
         //PopupManager.Instance.OpenGetItemPopup();-----------------------------------------------------
         //Debug.Log(chest.ToString() + "/메이크 체스트/" + 1);

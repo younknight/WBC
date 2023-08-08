@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: "2.\uAE30\uBCF8"
   m_EditorClassIdentifier: 
   id: 2
-  chestName: "\uAE30\uBCF8"
+  chestName: "\uAE30\uBCF8 \uC0C1\uC790"
   price: 0
   chestExplain: "\uC544\uC8FC \uAE30\uBCF8\uC801\uC778 \uC0C1\uC790"
   ranking: N
   openTime: 5
   chetImage: {fileID: -336927171, guid: b2cac2974c63539489ec1959991177af, type: 3}
+  chestOpenImage: {fileID: -1458494095, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes:
   - {fileID: 11400000, guid: e007538c508d77241b2895bfe77fcd3c, type: 2}
   dropItems:

@@ -100,6 +100,11 @@
         "name": "알렌",
         "background": "main",
         "context": "어느 숲속 작은 오두막,\n누군가가 주님 곁으로 가기 직전의 이야기다."
+      },
+      {
+        "name": "알렌",
+        "background": "main",
+        "context": "0번쨰로 이동"
       }
     ]
   },

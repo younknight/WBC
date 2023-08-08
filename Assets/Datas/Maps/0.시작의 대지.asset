@@ -14,14 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   mapName: "\uC2DC\uC791\uC758 \uB300\uC9C0"
+  world: 0
   mapExplain: 
   ranking: 
+  isStory: 0
+  isLastStage: 0
   enenmies:
   - enemyInfos:
     - {fileID: 5666161977861290290, guid: 47df41a626c69494c8704c6ffd4da66d, type: 3}
+    - {fileID: 5666161977861290290, guid: 47df41a626c69494c8704c6ffd4da66d, type: 3}
+    - {fileID: 5666161977861290290, guid: 47df41a626c69494c8704c6ffd4da66d, type: 3}
+    - {fileID: 5666161977861290290, guid: 47df41a626c69494c8704c6ffd4da66d, type: 3}
+    - {fileID: 5666161977861290290, guid: 47df41a626c69494c8704c6ffd4da66d, type: 3}
   - enemyInfos:
+    - {fileID: 5666161977861290290, guid: b463df344db1c6c459c0a34f593ffc79, type: 3}
+    - {fileID: 5666161977861290290, guid: b463df344db1c6c459c0a34f593ffc79, type: 3}
+    - {fileID: 5666161977861290290, guid: b463df344db1c6c459c0a34f593ffc79, type: 3}
     - {fileID: 5666161977861290290, guid: b463df344db1c6c459c0a34f593ffc79, type: 3}
   - enemyInfos:
     - {fileID: 5666161977861290290, guid: b0b619d38ef5eb3459ad7880402dd8e0, type: 3}
+    - {fileID: 5666161977861290290, guid: b0b619d38ef5eb3459ad7880402dd8e0, type: 3}
+    - {fileID: 5666161977861290290, guid: b0b619d38ef5eb3459ad7880402dd8e0, type: 3}
   - enemyInfos:
+    - {fileID: 5666161977861290290, guid: 5cd6d614d5b1cf34e969d18c6bf090f7, type: 3}
     - {fileID: 5666161977861290290, guid: 5cd6d614d5b1cf34e969d18c6bf090f7, type: 3}

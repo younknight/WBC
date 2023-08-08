@@ -54,6 +54,31 @@ public class GoodsManager : MonoBehaviour
             else slots[i].gameObject.SetActive(false);
         }
     }
+    public void StaticSetting()
+    {
+        if (goodsType == goodsType.player)
+        {
+            if (LockManager.Instance.GetLastLevel(lockType.craftCoolTime)) slots[0].IsMaxSlot();
+            else slots[0].SetLock(LockManager.Instance.GetLevel(lockType.craftCoolTime) * 1000, lockType.craftCoolTime);
+            if (LockManager.Instance.GetLastLevel(lockType.maxCraftCounter)) slots[1].IsMaxSlot();
+            else slots[1].SetLock(LockManager.Instance.GetLevel(lockType.maxCraftCounter) * 1000, lockType.maxCraftCounter);
+            if (LockManager.Instance.GetLastLevel(lockType.openSlotCount)) slots[2].IsMaxSlot();
+            else slots[2].SetLock(LockManager.Instance.GetLevel(lockType.openSlotCount) * 1000, lockType.openSlotCount);
+            return;
+        }
+        if(goodsType == goodsType.special)
+        {
+            for(int i = 0; i< slots.Length; i++)
+            {
+                if(i < ResourseManager.Instance.GetLevel())
+                {
+                    slots[i].SetButton(true, i);
+                    continue;
+                }
+                slots[i].SetButton(false, i);
+            }
+        }
+    }
     public void RandomSetting()//1 아이템, 0 상자
     {
         int index = 0;
@@ -72,16 +97,6 @@ public class GoodsManager : MonoBehaviour
             {
                 indexs.Add(j);
             }
-        }
-        if (goodsType == goodsType.player)
-        {
-            if (LockManager.Instance.GetLastLevel(lockType.craftCoolTime)) slots[0].IsMaxSlot();
-            else slots[0].SetLock(LockManager.Instance.GetLevel(lockType.craftCoolTime) * 1000, lockType.craftCoolTime);
-            if (LockManager.Instance.GetLastLevel(lockType.maxCraftCounter)) slots[1].IsMaxSlot();
-            else slots[1].SetLock(LockManager.Instance.GetLevel(lockType.maxCraftCounter) * 1000, lockType.maxCraftCounter);
-            if (LockManager.Instance.GetLastLevel(lockType.openSlotCount)) slots[2].IsMaxSlot();
-            else slots[2].SetLock(LockManager.Instance.GetLevel(lockType.openSlotCount) * 1000, lockType.openSlotCount);
-            return;
         }
         int length = indexs.Count;
        

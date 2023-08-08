@@ -15,7 +15,7 @@ public abstract class Popup : MonoBehaviour
     [SerializeField] popupType popupType;
     GameObject popupObject;
 
-    Animator animator;
+    protected Animator animator;
 
     private void Start()
     {

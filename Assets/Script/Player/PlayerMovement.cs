@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
                 isArrive = true;
                 Arrive();
                 animationContoler.SetAnimation("move", false);
+                Attacker.CanAttack = true;
                 //animationContoler.SetAnimation("Attack", true);
                 //도착 공격개시
             }

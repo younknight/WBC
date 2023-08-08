@@ -17,7 +17,7 @@ public class RecipePopup : Popup
     void Awake() { if (Instance == null) Instance = this; }
     public void SetRecipe(Chest chest)
     {
-        nameText.text = chest.chestName + "»óÀÚ";
+        nameText.text = chest.chestName;
         rankingText.text = chest.ranking;
         image.sprite = chest.chetImage;
         weirdRecipe.SetActive(false);

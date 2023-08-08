@@ -80,7 +80,7 @@ public class AutoCrafter : MonoBehaviour
                 InventoryManager.instance.DropItems<Item>(slot.Chest.recipes[0].items[j], count);
             }
             InventoryManager.instance.AddItems<Chest>(slot.Chest, count);
-            GetChestPopup.Instance.SetGetChest(slot.Chest.chestName + " »óÀÚ", "x" + count, slot.Chest.chetImage, false, slot.Chest.ranking);
+            GetChestPopup.Instance.SetGetChest(slot.Chest);
             GetChestPopup.Instance.Open();
             FreshSelectedCount();
             OpenPopup();

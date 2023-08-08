@@ -18,7 +18,8 @@ public class Goods
 }
 public class GoodsSlot : MonoBehaviour
 {
-    Chest chest;
+    [SerializeField] bool isSpecialChest;
+    [SerializeField] Chest chest;
     Item item;
     int count;
     int price;
@@ -32,6 +33,7 @@ public class GoodsSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] Sprite defaultSprite;
     Button button;
+    List<int> requestPrimoCost = new List<int>() { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000 };
 
     public Goods Goods { get => goods; set => goods = value; }
 
@@ -43,15 +45,32 @@ public class GoodsSlot : MonoBehaviour
     {
         if (chest != null)
         {
-            if (ResourseManager.Instance.GetGold() >= price)
+            if (isSpecialChest)//특수상자
             {
-                InventoryManager.instance.AddItems<Chest>(chest,count);
-                ResourseManager.Instance.Purchase(true,chest.price);
-                button.interactable = false;
+                if (ResourseManager.Instance.GetPrimo() >= price)
+                {
+                    PurchasePopup.Instance.Close();
+                    ResourseManager.Instance.PurchaseWithPrimo(true, price);
+                    GetItemPopup.Instance.SetGetItem(chest);
+                    GetItemPopup.Instance.Open();
+                }
+                else
+                {
+                    //잔액부족
+                }
             }
-            else
+            else//일반상자
             {
-                //잔액부족
+                if (ResourseManager.Instance.GetGold() >= price)
+                {
+                    InventoryManager.instance.AddItems<Chest>(chest, count);
+                    ResourseManager.Instance.Purchase(true, price);
+                    button.interactable = false;
+                }
+                else
+                {
+                    //잔액부족
+                }
             }
         }
         if (item != null)
@@ -59,7 +78,7 @@ public class GoodsSlot : MonoBehaviour
             if (ResourseManager.Instance.GetGold() >= price)
             {
                 InventoryManager.instance.AddItems<Item>(item, count);
-                ResourseManager.Instance.Purchase(true,item.price);
+                ResourseManager.Instance.Purchase(true,price);
                 button.interactable = false;
             }
             else
@@ -130,6 +149,14 @@ public class GoodsSlot : MonoBehaviour
         }
         PurchasePopup.Instance.SetPurchase(this, name, ranking, sprite, price, count, id);
         PurchasePopup.Instance.Open();
+    }
+    public void SetButton(bool interactive,int level)
+    {
+        image.sprite = chest.GetSprite();
+        count = 1;
+        countText.text = "LV." + (level + 1);
+        priceText.text = "" + requestPrimoCost[level];
+        button.interactable = interactive;
     }
     public void IsMaxSlot()
     {

@@ -19,8 +19,8 @@ public class WeaponInfoPopup : Popup
     {
         if(weapon.skills != null)
         {
-            skillName.text = weapon.skills.skillName;
-            skillExplian.text = weapon.skills.skillExplain;
+            skillName.text = weapon.skills.GetName();
+            skillExplian.text = weapon.skills.GetExplain();
         }
         else
         {
@@ -32,6 +32,8 @@ public class WeaponInfoPopup : Popup
     {
         status.SetText(statusType.maxHp, weapon.status.hp.ToString());
         status.SetText(statusType.attack, weapon.status.attack.ToString());
+        status.SetText(statusType.attackSpeed, weapon.status.attackSpeed.ToString());
+        status.SetText(statusType.attackTarget, weapon.status.attackTarget.ToString());
         status.SetText(statusType.defence, weapon.status.defence.ToString());
         status.SetText(statusType.criRate, weapon.status.criRate.ToString());
         status.SetText(statusType.criDamage, weapon.status.criDamage.ToString());

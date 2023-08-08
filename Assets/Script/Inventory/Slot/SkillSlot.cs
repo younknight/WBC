@@ -17,12 +17,11 @@ public class SkillSlot : MonoBehaviour
         }
         circleTimer = GetComponent<CircleTimer>();
     }
-    public void UseSkill()
+    public void TryUseSkill()
     {
-        //if(weapon.Weapon != null)
-        //{
-        skillManager.UseSkill(weapon);
-        circleTimer.TimerStart(weapon.coolTime);
-        //}
+        if(weapon.skills != null)
+        {
+            skillManager.UseSkill(weapon, circleTimer);
+        }
     }
 }

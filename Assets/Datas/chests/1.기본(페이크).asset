@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "1.\uAE30\uBCF8(\uD398\uC774\uD06C)"
   m_EditorClassIdentifier: 
   id: 1
-  chestName: "\uAE30\uBCF8(\uD398\uC774\uD06C)"
+  chestName: "\uAE30\uBCF8(\uD398\uC774\uD06C) \uC0C1\uC790"
   price: 0
   chestExplain: "\uC0AC\uC2E4 \uC81C\uC791\uC790\uAC00 \uAF3C\uC218\uB85C \uB123\uC5B4\uB454
     \uC0C1\uC790\uB2E4.\n\uBE4C\uB4DC\uD560\uB54C \uC6D0\uB798\uB300\uB85C \uB3CC\uB824
@@ -21,6 +21,7 @@ MonoBehaviour:
   ranking: N
   openTime: 5
   chetImage: {fileID: -336927171, guid: b2cac2974c63539489ec1959991177af, type: 3}
+  chestOpenImage: {fileID: -1458494095, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes: []
   dropItems:
   - drop: {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}

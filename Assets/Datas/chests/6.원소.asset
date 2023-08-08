@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: "6.\uC6D0\uC18C"
   m_EditorClassIdentifier: 
   id: 6
-  chestName: "\uC6D0\uC18C"
+  chestName: "\uC6D0\uC18C \uC0C1\uC790"
   price: 0
-  sellPrice: 0
   chestExplain: "\uC6D0\uC18C\uC758 \uD798\uC774 \uAE43\uB4E4\uC5B4 \uC788\uB2E4\uB294
     \uC0C1\uC790.\n\uBB18\uD558\uAC8C \uBB34\uAC81\uB2E4."
   ranking: N
   openTime: 10
   chetImage: {fileID: 286309609, guid: b2cac2974c63539489ec1959991177af, type: 3}
+  chestOpenImage: {fileID: -1458494095, guid: b2cac2974c63539489ec1959991177af, type: 3}
   recipes:
   - {fileID: 11400000, guid: 2b52dfcd39d757d4d873a9fb61eb3f03, type: 2}
   dropItems:

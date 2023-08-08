@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum skillType { buff }
+
 [CreateAssetMenu]
-public class Skill : ScriptableObject
+public class NonTargetSkill : ScriptableObject, ISkill
 {
     [Space(10f)]
     [Header("skillInfo")]
@@ -15,13 +15,13 @@ public class Skill : ScriptableObject
     public skillType skillType;
     [Space(10f)]
     [Header("skillValue")]
-    public float buffTime = 4;
-    public float buffHp = 0;
-    public float buffAttack = 0;
-    public float buffdDfence = 0;
-    public float buffCriDamage = 0;
-    public float buffCriRate = 0;
-    [Header("Spawner")]
-    public List<GameObject> summons;
+    public float radius = 1f;
+    public float damage = 1;
+
+    public string GetExplain() { return skillExplain; }
+
+    public string GetName() { return skillName; }
+    public skillType GetSkillType() { return skillType; }
+
     private void OnValidate() { skillName = name; }
 }

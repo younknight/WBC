@@ -25,13 +25,6 @@ public class InventoryManager : MonoBehaviour
     #region 아이템 추가 및 사용
     public void AddItems<T>(T item, int num) where T : IInformation
     {
-
-        if(InfoManager.CheckInterfaceType(item) == "chest")
-        {
-            if (item.GetId() == 0) SoundEffecter.Instance.PlayEffect(soundEffectType.getNegative);//이상한 상자
-            else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);//그 외
-        }
-        else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);//아이템
         for (int i = 0; i < inventories.Count; i++)
         {
             if (inventories[i].InventoryType == GetInventoryType<T>(item))

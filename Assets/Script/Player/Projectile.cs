@@ -7,8 +7,8 @@ public class Projectile : MonoBehaviour
     Movement2D movement2D;
     Transform target;
     [SerializeField] float damage;//
-    [SerializeField] bool isPlayer;//
-    public void Setup(Transform target, float damage, bool isPlayer)
+    [SerializeField] unitType isPlayer;//
+    public void Setup(Transform target, float damage, unitType isPlayer)
     {
         movement2D = GetComponent<Movement2D>();
         this.damage = damage;
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
        // Debug.Log("Ãæµ¹");
-        if (isPlayer)
+        if (isPlayer == unitType.player)
         {
             if (!collision.CompareTag("Enemy"))
             {
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
                 return;
             }
         }
-        else
+        if(isPlayer == unitType.enemy)
         {
             if (!collision.CompareTag("Player"))
             {
@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
         if (collision.transform != target) return;
        // Debug.Log(damage);
         Destroy(gameObject);
-        if (isPlayer) collision.GetComponent<Unit>().Damaged(damage);
-        if (!isPlayer) collision.GetComponent<Player>().Unit.Damaged(damage);
+        if (isPlayer == unitType.player || isPlayer == unitType.summon) collision.GetComponent<Unit>().Damaged(damage);
+        if (isPlayer == unitType.enemy) collision.GetComponent<Player>().Unit.Damaged(damage);
     }
 }

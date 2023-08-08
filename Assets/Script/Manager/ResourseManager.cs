@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Resource
 {
+    public int level;
     public int gold;
     public int primo;
 
-    public Resource(int gold, int primo)
+    public Resource(int level, int gold, int primo)
     {
+        this.level = level;
         this.gold = gold;
         this.primo = primo;
     }
@@ -33,22 +35,17 @@ public class ResourseManager : MonoBehaviour
     {
         TextManager.instance.SetText();
     }
-    Resource resource = new Resource(0, 0);
-    public int GetGold()
+    Resource resource = new Resource(1, 0, 0);
+    public int GetLevel() { return resource.level; }
+    public int GetGold()  {  return resource.gold; }
+    public int GetPrimo() {  return resource.primo; }
+    public void SetGold(int value)  { resource.gold = value; }
+    public void SetPrimo(int value) { resource.primo = value; }
+    public void LevelUp()
     {
-        return resource.gold;
-    }
-    public int GetPrimo()
-    {
-        return resource.primo;
-    }
-    public void SetGold(int value)
-    {
-        resource.gold = value;
-    }
-    public void SetPrimo(int value)
-    {
-        resource.primo = value;
+        resource.level++;
+        TextManager.instance.SetText();
+        DataManager.instance.JsonSave();
     }
     public void Purchase(bool isPurchase, int cost)
     {

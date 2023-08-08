@@ -36,7 +36,6 @@ public class ExplainPopup : Popup
         }
         if (type == "chest")
         {
-            nameText.text += " »óÀÚ";
             List<IInformation> drops = new List<IInformation>();
             Chest chest = InfoManager.GetCharacter<Chest>(item);
             chestBtn.gameObject.SetActive(true);

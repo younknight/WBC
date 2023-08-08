@@ -27,6 +27,7 @@ public class Chest : ScriptableObject, IInformation
     [Space(10f)]
     [Header("Sprite")]
     public Sprite chetImage;
+    public Sprite chestOpenImage;
 
     [Space(10f)]
     [Header("Recipe")]
@@ -51,7 +52,7 @@ public class Chest : ScriptableObject, IInformation
     private void OnValidate()
     {
         string[] nameValue = name.Split('.');
-        chestName = nameValue[1];
+        chestName = nameValue[1] + " »óÀÚ";
         id = Convert.ToInt32(nameValue[0]);
         drops = new List<DropItem<IInformation>>();
         for (int i = 0; i < dropItems.Count; i++)
@@ -90,5 +91,17 @@ public class Chest : ScriptableObject, IInformation
             }
         }
         return returnValue;
+    }
+    public Dictionary<IInformation, int> GetDrop()
+    {
+
+        List<IInformation> newItems = GetRandomDrop();
+        Dictionary<IInformation, int> drops = new Dictionary<IInformation, int>();
+        foreach (IInformation newItem in newItems)
+        {
+            int count = GetRandomCount(newItem);
+            drops.Add(newItem, count);
+        }
+        return drops;
     }
 }

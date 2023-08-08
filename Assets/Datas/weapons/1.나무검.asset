@@ -21,14 +21,18 @@ MonoBehaviour:
   status:
     hp: 1
     attack: 1
+    attackSpeed: 0
+    attackTarget: 0
     defence: 1
     criDamage: 1
     criRate: 2
   levelUpStatus:
     hp: 10
     attack: 0
+    attackSpeed: 0
+    attackTarget: 0
     defence: 0
     criDamage: 0
     criRate: 0
   coolTime: 5
-  skills: {fileID: 11400000, guid: 9a1a0ba3d48b1854cac5c128339a3a4d, type: 2}
+  buffSkill: {fileID: 11400000, guid: 9a1a0ba3d48b1854cac5c128339a3a4d, type: 2}

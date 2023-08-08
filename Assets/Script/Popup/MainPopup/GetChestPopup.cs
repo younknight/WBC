@@ -15,12 +15,15 @@ public class GetChestPopup : Popup
     public static GetChestPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     void Awake() { if (Instance == null) Instance = this; }
-    public void SetGetChest(string name, string count, Sprite sprite, bool isNew, string ranking)
+    public void SetGetChest(Chest chest)
     {
-        nameText.text = name;
-        countText.text = count;
-        rankingText.text = ranking;
-        image.sprite = sprite;
-        isNewFrame.SetActive(isNew);
+        nameText.text = chest.chestName;
+        countText.text = "x1";
+        rankingText.text = chest.ranking;
+        image.sprite = chest.chetImage;
+        isNewFrame.SetActive(Inventory.CheckNewChest(chest));
+
+        if (chest.GetId() == 0) SoundEffecter.Instance.PlayEffect(soundEffectType.getNegative);//이상한 상자
+        else SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);//그 외
     }
 }

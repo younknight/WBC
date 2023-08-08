@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2047055803447866298}
   - component: {fileID: 2719068444432674754}
   - component: {fileID: 5433348934844141522}
+  - component: {fileID: 6938466643235419971}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -138,14 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819b67c08d13d93418df307fd1446237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status:
-    hp: 10
-    attack: 1
-    defence: 0
-    criDamage: 0
-    criRate: 0
-  equipment: {fileID: 0}
-  hp: {fileID: 0}
+  hpBar: {fileID: 0}
+  unit: {fileID: 0}
 --- !u!114 &6667583778001645511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,10 +184,9 @@ MonoBehaviour:
   animator: {fileID: 1865815778406024289}
   attackPrefap: {fileID: 1902671026812846797, guid: b055ee39457f575488dcd87d0fdc582c, type: 3}
   spawnPoint: {fileID: 8692764649963636260}
-  attackRate: 1
-  attackRange: 2
   weaponState: 0
   attackTarget: {fileID: 0}
+  unit: {fileID: 0}
 --- !u!114 &2719068444432674754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,8 +199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff877cf3f5f0a0c4f8069e8e972ca7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portrait: {fileID: 0}
   maxHp: 1
   attack: 1
+  attackTarget: 1
+  attackSpeed: 2
   defence: 0
   criDamage: 0
   criRate: 0
@@ -246,3 +243,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6938466643235419971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5947594767441282488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684aece6cf542ed43adde9c69d44a70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleR: 1
+  deg: 0
+  objSpeed: 60

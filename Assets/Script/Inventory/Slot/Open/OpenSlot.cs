@@ -74,26 +74,11 @@ public class OpenSlot : MonoBehaviour
         animator.SetBool("ready", false);
         if (isOpening && timer.canOpen)
         {
-            DeleteOpenChest();
-            List<IInformation> newItems = chest.GetRandomDrop();
-            Dictionary<IInformation, int> drops = new Dictionary<IInformation, int>();
-            foreach(IInformation newItem in newItems)
-            {
-                int count = chest.GetRandomCount(newItem);
-                if (InfoManager.CheckInterfaceType(newItem) == "item")
-                {
-                    InventoryManager.instance.AddItems<Item>((Item)newItem, count);
-                }
-                if (InfoManager.CheckInterfaceType(newItem) == "weapon")
-                {
-                    InventoryManager.instance.AddItems<Weapon>((Weapon)newItem, count);
-                }
-                drops.Add(newItem, count);
-            }
-            //¾ÆÀÌÅÛ È¹µæ ÆË¾÷
-            GetItemPopup.Instance.SetGetItem(drops);
+            GetItemPopup.Instance.SetGetItem(chest);
             GetItemPopup.Instance.Open();
+            DeleteOpenChest();
             RemoveSlot(false);
+            DataManager.instance.JsonSave();
         }
         else
         {
