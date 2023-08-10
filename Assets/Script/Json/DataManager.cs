@@ -87,6 +87,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] GameManager gameManager;
+    [SerializeField] Chest firstChest;
     public static DataManager instance;
     string path;
     private void OnDestroy()
@@ -109,8 +110,14 @@ public class DataManager : MonoBehaviour
         SaveData saveData = new SaveData();
         if (!File.Exists(path))
         {
-            Debug.Log("경로가 존재 안함");
-            gameManager.ResetPlayer();
+            Inventory.Items = new List<itemInfo>();
+            Inventory.Chests = new List<chestInfo>();
+            Inventory.Chests.Add(new chestInfo(firstChest, 1));
+            Inventory.Weapons = new List<weaponInfo>();
+            LockManager.LockInfo = new LockInfo(2, 20, 5);
+            AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
+            ResourseManager.Instance.SetGold(11100);
+            ResourseManager.Instance.SetPrimo(22200);
             JsonSave();
         }
         else

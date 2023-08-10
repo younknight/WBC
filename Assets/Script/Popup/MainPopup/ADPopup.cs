@@ -16,6 +16,7 @@ public class ADPopup : Popup
     [SerializeField] string[] texts;
     Dictionary<rewardType, string> rewardPhrases = new Dictionary<rewardType, string>();
     [SerializeField] rewardType selectedMode;//
+    [SerializeField] AdManager adManager;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -33,7 +34,8 @@ public class ADPopup : Popup
     }
     public void Confirm()
     {
-        Debug.Log("±§∞Ì Ω√√ª");
+        //adManager.LoadRewardedAd();
+        //adManager.ShowRewardedAd();
         CloseStart();
     }
 }

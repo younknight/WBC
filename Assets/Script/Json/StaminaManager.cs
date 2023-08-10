@@ -52,7 +52,12 @@ public class StaminaManager : MonoBehaviour
     }
     public void Load()
     {
-        staminaData = jsonParser.LoadJson<StaminaData>(path);
+        if (!File.Exists(path))
+        {
+            ResetProgress();
+
+        }
+            staminaData = jsonParser.LoadJson<StaminaData>(path);
     }
     public void Save()
     {

@@ -33,6 +33,10 @@ public class ShopGoodsInfoManager : MonoBehaviour
     }
     public void Load()
     {
+        if (!File.Exists(path))
+        {
+            Save();
+        }
         goodsInfo = jsonParser.LoadJson<GoodsInfo>(path);
     }
     public void Save()

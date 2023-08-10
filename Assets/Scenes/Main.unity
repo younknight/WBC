@@ -41619,6 +41619,7 @@ MonoBehaviour:
   - "\uC0C1\uC810 \uC9C4\uC5F4\uC7A5 \uAD50\uCCB4\uD558\uAE30"
   - "\uC2A4\uD14C\uBBF8\uB098 \uC804\uBD80 \uD68C\uBCF5\uD558\uAE30"
   selectedMode: 0
+  adManager: {fileID: 0}
 --- !u!1 &1101480988
 GameObject:
   m_ObjectHideFlags: 0
@@ -75486,6 +75487,7 @@ MonoBehaviour:
   craftDatabase: {fileID: 2098371294}
   inventoryManager: {fileID: 1656364275}
   gameManager: {fileID: 1585775292}
+  firstChest: {fileID: 11400000, guid: 11c868dbd73608d40871c5ad7ff3bb8a, type: 2}
 --- !u!1001 &2006845196
 PrefabInstance:
   m_ObjectHideFlags: 0

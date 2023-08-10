@@ -50,6 +50,11 @@ public class StoryManager : MonoBehaviour
     }
     public void LoadProgress()
     {
+        if (!File.Exists(path))
+        {
+            ResetProgress();
+
+        }
         storyData = jsonParser.LoadJson<StoryData>(path);
     }
     public void AddMapProgress(MapWorld world)

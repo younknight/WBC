@@ -4,54 +4,54 @@
   "goodsDic": {
     "chest": [
       {
-        "id": 1,
-        "count": 2
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 4,
-        "count": 3
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 7,
-        "count": 4
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 3,
-        "count": 2
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 8,
-        "count": 3
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 6,
-        "count": 3
+        "id": 0,
+        "count": 0
       }
     ],
     "item": [
       {
-        "id": 24,
-        "count": 4
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 20,
-        "count": 2
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 19,
-        "count": 2
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 26,
-        "count": 2
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 13,
-        "count": 3
+        "id": 0,
+        "count": 0
       },
       {
-        "id": 34,
-        "count": 4
+        "id": 0,
+        "count": 0
       }
     ]
   }
