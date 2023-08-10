@@ -7,7 +7,6 @@ public class Unit : MonoBehaviour
     [SerializeField] Sprite portrait;
     [SerializeField] float maxHp = 10;
     [SerializeField] float attack = 1;//
-    [SerializeField] float attackTarget = 1;//
     [SerializeField] float attackSpeed = 2;//
     [SerializeField] float defence = 0;//
     [SerializeField] float criDamage = 0;//
@@ -40,8 +39,6 @@ public class Unit : MonoBehaviour
                 return criDamage;
             case statusType.criRate:
                 return criRate;
-            case statusType.attackTarget:
-                return attackTarget;
             case statusType.attackSpeed:
                 return attackSpeed;
         }
@@ -56,7 +53,6 @@ public class Unit : MonoBehaviour
         BuffStatus(isBuff, statusType.criDamage, weapon.GetStatus(statusType.criDamage, level));
         BuffStatus(isBuff, statusType.criRate, weapon.GetStatus(statusType.criRate, level));
         BuffStatus(isBuff, statusType.attackSpeed, weapon.GetStatus(statusType.attackSpeed, level));
-        BuffStatus(isBuff, statusType.attackTarget, weapon.GetStatus(statusType.attackTarget, level));
     }
     public void BuffStatus(bool isBuff, statusType status, float value)
     {
@@ -77,9 +73,6 @@ public class Unit : MonoBehaviour
             case statusType.criRate:
                 criRate += isBuff ? value : -value;
                 break;
-            case statusType.attackTarget:
-                attackTarget += isBuff ? value : -value;
-                break;
             case statusType.attackSpeed:
                 if (isBuff)
                 {
@@ -94,7 +87,6 @@ public class Unit : MonoBehaviour
     {
         maxHp = 10;
         attack = 1; 
-        attackTarget = 1;
         attackSpeed = 2;
         defence = 0;
         criDamage = 0;

@@ -5,74 +5,114 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     static EnemySpawner instance;
-    [SerializeField] GameObject enemyHp;
-    [SerializeField] Transform canvasTransform;
     [SerializeField] MapInfo mapInfo;
     [SerializeField] EnemyGroup[] wayPoints;
+    [SerializeField] HpSpawner hpSpawner;
     [SerializeField] PlayerMovement player;
+    [SerializeField] EnemyGauge enemyGauge;
+    [SerializeField] bool isInfinity;
     List<List<Unit>> enemies = new List<List<Unit>>();
-    int maxRound;
+    int maxRound = 2;
     int currentRound = 0;
+    int totalRound = 1;
 
     public MapInfo MapInfo { get => mapInfo; set => mapInfo = value; }
     public static EnemySpawner Instance { get => instance; }
     public List<List<Unit>> Enemies { get => enemies; set => enemies = value; }
-    private void OnDestroy() { instance = null; }
+    public int TotalRound { get => totalRound; set => totalRound = value; }
+    public int CurrentRound { get => currentRound; set => currentRound = value; }
+
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     private void Awake()
     {
         if (instance == null) instance = this;
-        if (MapManager.SelectedMap) SetUp(MapManager.SelectedMap);
-    }
-    private void Start()
-    {
-        ;
+        for(int i = 0; i< wayPoints.Length; i++)
+        {
+            wayPoints[i].SetRandomPoint();
+        }
+        if (!isInfinity)
+        {
+            if (MapManager.SelectedMap) SetUp(MapManager.SelectedMap);
+        }
+        else SetUp(mapInfo);
     }
     public List<Unit> GetEnemyList()
     {
+        if (currentRound >= maxRound) return null;
         return enemies[currentRound];
     }
     public void SetUp(MapInfo mapInfo)
     {
         this.mapInfo = mapInfo;
-        maxRound = mapInfo.enenmies.Count;
-        for (int roundIndex = 0; roundIndex < maxRound && roundIndex < wayPoints.Length; roundIndex++)
+        if (!isInfinity)
         {
-            List<Unit> enemieyList = new List<Unit>();
-            for(int j = 0;j < mapInfo.enenmies[roundIndex].enemyInfos.Count; j++)
+            maxRound = mapInfo.enenmies.Count;
+            for (int roundIndex = 0; roundIndex < maxRound && roundIndex < wayPoints.Length; roundIndex++)
             {
-                var newEnemy = Instantiate(mapInfo.enenmies[roundIndex].enemyInfos[j], wayPoints[roundIndex].GetRandomPoint().position, Quaternion.identity).GetComponent<Unit>();
-                newEnemy.RoundIndex = roundIndex;
-                enemieyList.Add(newEnemy);
-                SpawnHp(newEnemy.gameObject);
+                List<Unit> enemieyList = new List<Unit>();
+                for (int j = 0; j < mapInfo.enenmies[roundIndex].enemyInfos.Count; j++)
+                {
+                    var newEnemy = Instantiate(mapInfo.enenmies[roundIndex].enemyInfos[j], wayPoints[roundIndex].GetRandomPoint().position, Quaternion.identity).GetComponent<Unit>();
+                    newEnemy.RoundIndex = roundIndex;
+                    enemieyList.Add(newEnemy);
+                    hpSpawner.SpawnHp(newEnemy.gameObject);
+                }
+                enemies.Add(enemieyList);
             }
-            enemies.Add(enemieyList);
+        }
+        else
+        {
+            maxRound = 2;
+            for (int roundIndex = 0; roundIndex < maxRound; roundIndex++)
+            {
+                List<Unit> enemieyList = new List<Unit>();
+                enemies.Add(enemieyList);
+            }
+            SpawnNextEnemy(0);
         }
     }
-    void SpawnHp(GameObject enemy)
+    public void SpawnNextEnemy(int round)
     {
-        //Debug.Log("ASdasd");
-        GameObject sliderClone = Instantiate(enemyHp);
-        sliderClone.transform.SetParent(canvasTransform);
-        sliderClone.transform.localScale = Vector3.one;
-        sliderClone.GetComponent<HpPositionSetter>().Setup(enemy.transform);
-        sliderClone.GetComponent<HpManager>().Setup(enemy.GetComponent<Unit>());
-        sliderClone.transform.SetAsFirstSibling();
+        wayPoints[round].SetRandomPoint();
+        for (int i = 0; i < mapInfo.enenmies[0].enemyInfos.Count; i++)
+        {
+            var newEnemy = Instantiate(mapInfo.enenmies[0].enemyInfos[i], wayPoints[round].GetRandomPoint().position, Quaternion.identity).GetComponent<Unit>();
+            newEnemy.RoundIndex = round;
+            enemies[round].Add(newEnemy);
+            hpSpawner.SpawnHp(newEnemy.gameObject);
+        }
+
     }
     public void DestroyEnemy(Unit enemy, int round)
     {
-        enemies[round].Remove(enemy);
-        if(enemies[round].Count == 0)
+        if(!isInfinity) enemies[round].Remove(enemy);
+        else enemies[currentRound].Remove(enemy);
+        if (enemies[round].Count == 0)
         {
-            currentRound++;
-            //傈何 贸府肯丰
             Attacker.CanAttack = false;
-            if (currentRound >= maxRound)
+            totalRound++;
+            if (!isInfinity)
             {
-                player.Stop();
-                EndPopup.Instance.Setup(true, mapInfo.isStory >= StoryManager.Instance.StoryData.progress, mapInfo);
-                return;
+                currentRound++;
+                //傈何 贸府肯丰
+                if (currentRound >= maxRound)
+                {
+                    player.Stop();
+                    EndPopup.Instance.Setup(true, mapInfo.isStory >= StoryManager.Instance.StoryData.progress, mapInfo);
+                    return;
+                }
+            }
+            else
+            {
+                enemyGauge.Setup(totalRound);
+                currentRound = ReverseTurn(currentRound);
+                SpawnNextEnemy(currentRound);
             }
             player.GO();
         }
     }
+    int ReverseTurn(int index) { return index == 0 ? 1 : 0; }
 }

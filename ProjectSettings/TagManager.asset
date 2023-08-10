@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Inventory
   - Summon
+  - Ground
+  - Area
   layers:
   - Default
   - TransparentFX

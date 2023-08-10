@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
             targetCursor = GetComponent<TargetCursor>();
             attacker = GetComponent<Attacker>();
             attacker.UnitSetup(EquipmentManager.instance.Unit);
+            attacker.ChangeState(WeaponState.SearchTarget);
         }
         SetUp();
     }

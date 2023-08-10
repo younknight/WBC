@@ -8,17 +8,15 @@ public struct status
     public float hp;
     public float attack;
     public float attackSpeed;
-    public float attackTarget;
     public float defence;
     public float criDamage;
     public float criRate;
 
-    public status(float hp, float attack, float attackSpeed, float attackTarget, float defence, float criDamage, float criRate)
+    public status(float hp, float attack, float attackSpeed, float defence, float criDamage, float criRate)
     {
         this.hp = hp;
         this.attack = attack;
         this.attackSpeed = attackSpeed;
-        this.attackTarget = attackTarget;
         this.defence = defence;
         this.criDamage = criDamage;
         this.criRate = criRate;
@@ -42,8 +40,8 @@ public class Weapon : ScriptableObject, IInformation
 
     [Space(10f)]
     [Header("status")]
-    public status status = new status(0, 0, 0, 0, 0, 0, 0);
-    public status levelUpStatus = new status(0, 0, 0, 0, 0, 0, 0);
+    public status status = new status(0, 0, 0, 0, 0, 0);
+    public status levelUpStatus = new status(0, 0, 0, 0, 0, 0);
     [Space(10f)]
     [Header("skill")]
     public float coolTime = 5f;
@@ -82,8 +80,6 @@ public class Weapon : ScriptableObject, IInformation
                 return status.criDamage + (levelUpStatus.criDamage * level);
             case statusType.criRate:
                 return status.criRate + (levelUpStatus.criRate * level);
-            case statusType.attackTarget:
-                return status.attackTarget + (levelUpStatus.attackTarget * level);
             case statusType.attackSpeed:
                 return status.attackSpeed + (levelUpStatus.attackSpeed * level);
         }

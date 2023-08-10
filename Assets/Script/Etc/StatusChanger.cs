@@ -7,7 +7,6 @@ public class StatusChanger : MonoBehaviour
     [SerializeField] TextMeshProUGUI hp;
     [SerializeField] TextMeshProUGUI attack;
     [SerializeField] TextMeshProUGUI attackSpeed;
-    [SerializeField] TextMeshProUGUI attackTarget;
     [SerializeField] TextMeshProUGUI defence;
     [SerializeField] TextMeshProUGUI criRate;
     [SerializeField] TextMeshProUGUI criDamage;
@@ -18,7 +17,6 @@ public class StatusChanger : MonoBehaviour
         statusText.Add(statusType.maxHp, hp);
         statusText.Add(statusType.attack, attack);
         statusText.Add(statusType.attackSpeed, attackSpeed);
-        statusText.Add(statusType.attackTarget, attackTarget);
         statusText.Add(statusType.defence, defence);
         statusText.Add(statusType.criRate, criRate);
         statusText.Add(statusType.criDamage, criDamage);

@@ -12,8 +12,8 @@ public class Attacker : MonoBehaviour
     [SerializeField] AnimationContol animator;
     [SerializeField] GameObject attackPrefap;
     [SerializeField] attackType attackType;
-    WeaponState weaponState = WeaponState.SearchTarget;
-    Transform attackTarget = null;
+    [SerializeField] WeaponState weaponState = WeaponState.SearchTarget;
+    [SerializeField]Transform attackTarget = null;//
     Transform spawnPoint;
     Unit unit;
     unitType isPlayer;
@@ -35,17 +35,13 @@ public class Attacker : MonoBehaviour
         if (gameObject.CompareTag("Player"))  {  isPlayer = unitType.player; }
         if (gameObject.CompareTag("Enemy")) { isPlayer = unitType.enemy; }
         if (gameObject.CompareTag("Summon")) { isPlayer = unitType.summon; }
-        ChangeState(WeaponState.SearchTarget);
+        if(isPlayer != unitType.player) ChangeState(WeaponState.SearchTarget);
     }
     public void ChangeState(WeaponState newState)
     {
         StopCoroutine(weaponState.ToString());
         weaponState = newState;
         StartCoroutine(weaponState.ToString());
-    }
-    void TargettingWithMinDistance(float closestDisSqr,int index)
-    {
-      
     }
     public IEnumerator SearchTarget()
     {
@@ -54,14 +50,18 @@ public class Attacker : MonoBehaviour
             if (isPlayer == unitType.player || isPlayer == unitType.summon)
             {
                 float closestDisSqr = Mathf.Infinity;
-                for (int i = 0; i < EnemySpawner.Instance.GetEnemyList().Count; i++)
+                if (EnemySpawner.Instance.GetEnemyList() != null)
                 {
-                    float distance = Vector3.Distance(EnemySpawner.Instance.GetEnemyList()[i].transform.position, transform.position);
-                    // Debug.Log(EnemySpawner.Instance.Enemies[i][j]);
-                    if (distance <= attackRange && distance <= closestDisSqr)
+                    for (int i = 0; i < EnemySpawner.Instance.GetEnemyList().Count; i++)
                     {
-                        closestDisSqr = distance;
-                        attackTarget = EnemySpawner.Instance.GetEnemyList()[i].transform;
+                        float distance = Vector3.Distance(EnemySpawner.Instance.GetEnemyList()[i].transform.position, transform.position);
+                        // Debug.Log(EnemySpawner.Instance.Enemies[i][j]);
+                        if (distance <= attackRange && distance <= closestDisSqr)
+                        {
+
+                            closestDisSqr = distance;
+                            attackTarget = EnemySpawner.Instance.GetEnemyList()[i].transform;
+                        }
                     }
                 }
             }

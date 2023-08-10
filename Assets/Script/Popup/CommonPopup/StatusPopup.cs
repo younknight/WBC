@@ -8,7 +8,6 @@ public class StatusPopup : Popup
     [SerializeField] TextMeshProUGUI hp;
     [SerializeField] TextMeshProUGUI attack;
     [SerializeField] TextMeshProUGUI attackSpeed;
-    [SerializeField] TextMeshProUGUI attackTarget;
     [SerializeField] TextMeshProUGUI defence;
     [SerializeField] TextMeshProUGUI criDamage;
     [SerializeField] TextMeshProUGUI criRate;
@@ -29,7 +28,6 @@ public class StatusPopup : Popup
         criDamage.text = "" + unit.GetStatus(statusType.criDamage);
         criRate.text = "" + unit.GetStatus(statusType.criRate);
         attackSpeed.text = "" + unit.GetStatus(statusType.attackSpeed);
-        attackTarget.text = "" + unit.GetStatus(statusType.attackTarget);
         //if (player != null)
         //{
         //    hp.text += "(+" + equipmentManager.Equipment.GetDifferce(statusType.maxHp, player.Unit.GetStatus(statusType.maxHp)) + ")";

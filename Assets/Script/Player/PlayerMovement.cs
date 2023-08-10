@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     int currentIndex = 0;
     Movement2D movement2D;
     [SerializeField] AnimationContol animationContoler;
+    [SerializeField] bool isInfinity;
+
     // Start is called before the first frame update
     //private void OnValidate()
     //{
@@ -44,8 +46,6 @@ public class PlayerMovement : MonoBehaviour
                 isArrive = true;
                 Arrive();
                 animationContoler.SetAnimation("move", false);
-                Attacker.CanAttack = true;
-                //animationContoler.SetAnimation("Attack", true);
                 //도착 공격개시
             }
             yield return null;
@@ -54,19 +54,26 @@ public class PlayerMovement : MonoBehaviour
     void Arrive()
     {
         movement2D.MoveTo(Vector3.zero);
+        Attacker.CanAttack = true;
     }
     void NextMoveTo()
     {
-        if(currentIndex < wayPointCount - 1)
+        if (currentIndex < wayPointCount - 1)
         {
             transform.position = wayPoints[currentIndex].position;
             currentIndex++;
-            Vector3 direction = (wayPoints[currentIndex].position - transform.position).normalized;
-            movement2D.MoveTo(direction);
+
+            //Vector3 direction = (wayPoints[currentIndex].position - transform.position).normalized;
+            movement2D.MoveTo(Vector3.right);
         }
         else
         {
-            EndPopup.Instance.Setup(false, false,  null);
+            if (isInfinity)
+            {
+                currentIndex = 0;
+                movement2D.MoveTo(Vector3.right);
+            }
+            else EndPopup.Instance.Setup(false, false, null);
         }
     }
 }
