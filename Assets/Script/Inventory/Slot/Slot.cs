@@ -12,6 +12,7 @@ public class Slot : MonoBehaviour
     [SerializeField] Image image;
     [SerializeField] Image numberFrame;
     [SerializeField] TextMeshProUGUI numberText;
+    [SerializeField] InventoryManager inventoryManager;//
 
     bool isActive = false;
     int number = 0;
@@ -25,7 +26,10 @@ public class Slot : MonoBehaviour
     public bool IsActive { get => isActive; set => isActive = value; }
     public IInformation ItemInformation { get => itemInformation; set => itemInformation = value; }
     public int Number { get => number; set => number = value; }
-
+    private void Awake()
+    {
+        inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+    }
     public void ActivateSlot()
     {
         if (PopupType == popupType.explain) ShowInfo();
@@ -44,10 +48,10 @@ public class Slot : MonoBehaviour
     {
         if (number > 0 && ((Weapon)itemInformation).weaponType == EquipmentSlot.currentSelectedSlot.WeaponType)
         {
-            InventoryManager.instance.DropItems<Weapon>((Weapon)itemInformation, 1);
+            inventoryManager.DropItems<Weapon>((Weapon)itemInformation, 1);
             if(EquipmentSlot.currentSelectedSlot.Weapon != null)
             {
-                InventoryManager.instance.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
+                inventoryManager.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
             }
             EquipmentSlot.currentSelectedSlot.SetWeapon((Weapon)itemInformation);
             EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = (Weapon)itemInformation;
@@ -67,8 +71,8 @@ public class Slot : MonoBehaviour
     }
     void ShowInfo()
     {
-        ExplainPopup.Instance.SetExplain(itemInformation);
         ExplainPopup.Instance.Open();
+        ExplainPopup.Instance.SetExplain(itemInformation);
     }
     void ShowRecipe()
     {

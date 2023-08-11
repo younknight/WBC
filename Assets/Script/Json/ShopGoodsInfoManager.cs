@@ -24,7 +24,7 @@ public class ShopGoodsInfoManager : MonoBehaviour
 
     private void Awake()
     {
-        path = Path.Combine(Application.dataPath, "Goods.json");
+        path = Application.persistentDataPath + "/" +"Goods.json";
         for (int i = 0; i < managers.Count; i++)
         {
             goodsInfo.goodsDic.Add(managers[i].GoodsType, null);

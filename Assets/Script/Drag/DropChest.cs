@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class DropChest : MonoBehaviour, IDropHandler
 {
     public OpenSlot openSlot;//
+    [SerializeField] InventoryManager inventoryManager;//
     void Awake()
     {
         openSlot = GetComponent<OpenSlot>();
@@ -19,12 +20,9 @@ public class DropChest : MonoBehaviour, IDropHandler
             {
                 if (openSlot.IsNull())
                 {
-                    {
-                        SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
-                        openSlot.SetChest((Chest)slot.ItemInformation, 0);
-                        InventoryManager.instance.DropItems<Chest>((Chest)slot.ItemInformation, 1);
-                    }
-
+                    SoundEffecter.Instance.PlayEffect(soundEffectType.drop);
+                    openSlot.SetChest(InfoManager.GetCharacter<Chest>(slot.ItemInformation), 0);
+                    inventoryManager.DropItems<Chest>((Chest)slot.ItemInformation, 1);
                 }
             }
         }

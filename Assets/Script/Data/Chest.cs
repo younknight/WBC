@@ -44,16 +44,17 @@ public class Chest : ScriptableObject, IInformation
     public string GetExplain() { return chestExplain; }
     public string GetRanking() { return ranking; }
     public Sprite GetSprite() { return chetImage; }
-    public List<DropItem<IInformation>> Drops { get => drops; set => drops = value; }
     #endregion
     List<DropItem<IInformation>> drops;
-
 
     private void OnValidate()
     {
         string[] nameValue = name.Split('.');
         chestName = nameValue[1] + " »óÀÚ";
         id = Convert.ToInt32(nameValue[0]);
+    }
+    private void Setup()
+    {
         drops = new List<DropItem<IInformation>>();
         for (int i = 0; i < dropItems.Count; i++)
         {
@@ -81,6 +82,7 @@ public class Chest : ScriptableObject, IInformation
     }
     public List<IInformation> GetRandomDrop()
     {
+        Setup();
         List<IInformation> returnValue = new List<IInformation>();
         for (int i=0; i < drops.Count; i++)
         {
@@ -92,9 +94,8 @@ public class Chest : ScriptableObject, IInformation
         }
         return returnValue;
     }
-    public Dictionary<IInformation, int> GetDrop()
+    public Dictionary<IInformation, int> GetDropItem()
     {
-
         List<IInformation> newItems = GetRandomDrop();
         Dictionary<IInformation, int> drops = new Dictionary<IInformation, int>();
         foreach (IInformation newItem in newItems)
@@ -102,6 +103,11 @@ public class Chest : ScriptableObject, IInformation
             int count = GetRandomCount(newItem);
             drops.Add(newItem, count);
         }
+        return drops;
+    }
+    public List<DropItem<IInformation>> GetDropItemInfo()
+    {
+        Setup();
         return drops;
     }
 }

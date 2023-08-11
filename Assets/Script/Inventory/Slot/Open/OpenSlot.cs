@@ -74,8 +74,8 @@ public class OpenSlot : MonoBehaviour
         animator.SetBool("ready", false);
         if (isOpening && timer.canOpen)
         {
-            GetItemPopup.Instance.SetGetItem(chest);
             GetItemPopup.Instance.Open();
+            GetItemPopup.Instance.SetGetItem(chest);
             DeleteOpenChest();
             RemoveSlot(false);
             DataManager.instance.JsonSave();

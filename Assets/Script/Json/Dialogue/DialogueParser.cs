@@ -47,7 +47,7 @@ public class DialogueParser : MonoBehaviour
     {
         List<Dialogue> dialogueList = new List<Dialogue>();//대사 리스트 
 
-        path = Path.Combine(Application.dataPath, path);
+        path = Application.persistentDataPath + "/"+ path;
         if (!File.Exists(path))
         {
             SaveNewJson();
@@ -84,7 +84,7 @@ public class DialogueParser : MonoBehaviour
     [ContextMenu("To Dialogue Json Data")]
     public void SaveNewJson()
     {
-        string path = Path.Combine(Application.dataPath, "Dialogue.json");
+        string path = Application.persistentDataPath + "/" + "Dialogue.json";
         List<DialogueJson> dialogueJson = new List<DialogueJson>();
         line[] test = new line[3];
         DialogueJson dialogue;

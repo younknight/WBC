@@ -9,6 +9,7 @@ public class DialogueDatabase : MonoBehaviour
     [SerializeField] Dialogue[] dialogues;//
     private void Awake()
     {
+        
         DialogueParser parser = GetComponent<DialogueParser>();
         dialogues = parser.Parse("Dialogue.json");
         for (int i = 0; i < dialogues.Length; i++)

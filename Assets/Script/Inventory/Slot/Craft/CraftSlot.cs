@@ -7,6 +7,7 @@ public class CraftSlot : MonoBehaviour
 {
     [SerializeField] Image image;
     [SerializeField] GameObject cancelBtn;
+    [SerializeField] InventoryManager inventoryManager;//
     Crafter crafter;
     Item item;
 
@@ -43,7 +44,7 @@ public class CraftSlot : MonoBehaviour
     }
     public void Cancel()
     {
-        InventoryManager.instance.AddItems<Item>(item,1);
+        inventoryManager.AddItems<Item>(item,1);
         RemoveSlot();
     }
 }

@@ -9,6 +9,15 @@ public class StaminaGauge : MonoBehaviour
     [SerializeField] List<Image> lanterns;
     [SerializeField] TextMeshProUGUI countText;
     int count;
+    public static StaminaGauge instance;
+    private void OnDestroy()
+    {
+        instance = null;
+    }
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
     private void Start()
     {
         Setup(StaminaManager.Instance.StaminaData.currentStamina);

@@ -6,6 +6,7 @@ using TMPro;
 public class GetItemPopup : Popup
 {
     Chest chest;
+    [SerializeField] InventoryManager inventoryManager;//
     [SerializeField] GameObject popup;
     [SerializeField] Image chestImage;
     [SerializeField] List<GetItemSlot> slots;
@@ -16,7 +17,7 @@ public class GetItemPopup : Popup
     public void SetGetItem(Chest chest)
     {
         this.chest = chest;
-        Dictionary<IInformation, int> drops = chest.GetDrop();
+        Dictionary<IInformation, int> drops = chest.GetDropItem();
         int i = 0;
         foreach(KeyValuePair<IInformation, int> entry in drops)
         {
@@ -24,14 +25,15 @@ public class GetItemPopup : Popup
             if (InfoManager.CheckInterfaceType(entry.Key) == "item")
             {
                 isNew = Inventory.CheckNewItem((Item)entry.Key);
-                InventoryManager.instance.AddItems<Item>((Item)entry.Key, entry.Value);
+                inventoryManager.AddItems<Item>((Item)entry.Key, entry.Value);
             }
             if (InfoManager.CheckInterfaceType(entry.Key) == "weapon")
             {
                 isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
-                InventoryManager.instance.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
+                inventoryManager.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
             }
             Debug.Log(i);
+            slots[i].gameObject.SetActive(true);
             slots[i].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
             i++;
         }

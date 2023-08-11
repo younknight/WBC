@@ -27,8 +27,8 @@ public class SkillManager : MonoBehaviour
     }
     public void UseSkill(Weapon weapon, CircleTimer timer)
     {
-        ISkill skill = weapon.skills;
-        if (!isNonTarget(weapon.skills.GetSkillType()))
+        ISkill skill = weapon.GetSkil();
+        if (!isNonTarget(weapon.GetSkil().GetSkillType()))
         {
             timer.TimerStart(weapon.coolTime);
         }

@@ -86,6 +86,7 @@ public class DataManager : MonoBehaviour
     JsonParser jsonParser = new JsonParser();
     [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] Opener opener;
     [SerializeField] GameManager gameManager;
     [SerializeField] Chest firstChest;
     public static DataManager instance;
@@ -97,14 +98,19 @@ public class DataManager : MonoBehaviour
     void Awake()
     {
         if (instance == null) instance = this;
-        path = Path.Combine(Application.dataPath, "database.json");
+        path =  Application.persistentDataPath + "/"+ "database.json" ;
         JsonLoad();
     }
     private void Start()
     {
         JsonLateLoad();
     }
-    void JsonLateLoad() { inventoryManager.Initalize(); }
+    void JsonLateLoad()
+    {
+        inventoryManager.Setup();
+        inventoryManager.Initalize();
+        opener.FreshSlot();
+    }
     public void JsonLoad()
     {
         SaveData saveData = new SaveData();
@@ -116,9 +122,8 @@ public class DataManager : MonoBehaviour
             Inventory.Weapons = new List<weaponInfo>();
             LockManager.LockInfo = new LockInfo(2, 20, 5);
             AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
-            ResourseManager.Instance.SetGold(11100);
-            ResourseManager.Instance.SetPrimo(22200);
-            JsonSave();
+            Opener.OpeningChests = new OpeningChest[16];
+            ResourseManager.Instance.Resource = new Resource(0,0,0);
         }
         else
         {

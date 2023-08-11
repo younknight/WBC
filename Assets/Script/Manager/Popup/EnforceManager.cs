@@ -17,6 +17,7 @@ public class EnforceManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI resouceText;
     [SerializeField] Slider gaugeSlider;
     [SerializeField] Slider expectationSlider;
+    [SerializeField] InventoryManager inventoryManager;//
 
     public static EnforceManager Instance { get => instance; set => instance = value; }
 
@@ -74,7 +75,7 @@ public class EnforceManager : MonoBehaviour
             gauge -= level * 2;
             level++;
         }
-        InventoryManager.instance.DropItems<Weapon>(weapon, resourceCount);
+        inventoryManager.DropItems<Weapon>(weapon, resourceCount);
         SetGauge(level, gauge);
         EquipmentManager.instance.SetEquipManager();
         DataManager.instance.JsonSave();

@@ -11,6 +11,7 @@ public class ADPopup : Popup
     public static ADPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     #endregion
+    [Header("ÆË¾÷ ¼³Á¤")]
     [SerializeField] TextMeshProUGUI rewardText;
     [SerializeField] rewardType[] rewardTypes;
     [SerializeField] string[] texts;
@@ -26,6 +27,7 @@ public class ADPopup : Popup
             rewardPhrases.Add(rewardTypes[i], texts[i]);
         }
     }
+    public rewardType GetSelectedMode() { return selectedMode; }
     public void OpenPopup(rewardType rewardType)
     {
         selectedMode = rewardType;
@@ -34,8 +36,7 @@ public class ADPopup : Popup
     }
     public void Confirm()
     {
-        //adManager.LoadRewardedAd();
-        //adManager.ShowRewardedAd();
+        adManager.ShowAd();
         CloseStart();
     }
 }

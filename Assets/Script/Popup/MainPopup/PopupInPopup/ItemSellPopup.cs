@@ -7,6 +7,7 @@ public class ItemSellPopup : Popup
 {
     [SerializeField] Toggle toggle;
     [SerializeField] SellSlider sellSlider;
+    [SerializeField] InventoryManager inventoryManager;//
     itemInfo itemInfo;
     public void TogglePopup()
     {
@@ -22,7 +23,7 @@ public class ItemSellPopup : Popup
     public void Sell()
     {
         ResourseManager.Instance.Purchase(false, sellSlider.GetTotalPrice());
-        InventoryManager.instance.DropItems<Item>(itemInfo.item,sellSlider.CurrentCount);
+        inventoryManager.DropItems<Item>(itemInfo.item,sellSlider.CurrentCount);
         Setup(true, itemInfo.item);
         sellSlider.Setup(itemInfo.num,itemInfo.item.sellPrice);
     }

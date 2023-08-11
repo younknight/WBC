@@ -12,6 +12,7 @@ public class ResultSlot : MonoBehaviour
     [SerializeField] Crafter crafter;
     [SerializeField] Chest chest;//
     [SerializeField] List<int> weirdRecipe = new List<int>();
+    [SerializeField] InventoryManager inventoryManager;//
     public Chest Chest { get => chest; set => chest = value; }
     public List<int> WeirdRecipe { get => weirdRecipe; set => weirdRecipe = value; }
 
@@ -52,7 +53,7 @@ public class ResultSlot : MonoBehaviour
         GetChestPopup.Instance.Open();
         //PopupManager.Instance.OpenGetItemPopup();-----------------------------------------------------
         //Debug.Log(chest.ToString() + "/메이크 체스트/" + 1);
-        InventoryManager.instance.AddItems<Chest>(chest,1);
+        inventoryManager.AddItems<Chest>(chest,1);
         ClearChest();
         crafter.FreshSlot();
 

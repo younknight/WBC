@@ -7,6 +7,7 @@ public class DropCraft : MonoBehaviour, IDropHandler
 {
     public CraftSlot craftSlot;//
     public Slot originalSlot;//
+    [SerializeField] InventoryManager inventoryManager;//
     void Awake()
     {
         craftSlot = GetComponent<CraftSlot>();
@@ -22,17 +23,17 @@ public class DropCraft : MonoBehaviour, IDropHandler
                 if (craftSlot.IsNull())
                 {
                     craftSlot.SetItem((Item)originalSlot.ItemInformation);
-                    InventoryManager.instance.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
+                    inventoryManager.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
                     craftSlot.AddResource(craftSlot.Item.id);
                 }
                 else
                 {
                     //½º¿ÒºÎ
-                    InventoryManager.instance.AddItems<Item>(craftSlot.Item, 1);
+                    inventoryManager.AddItems<Item>(craftSlot.Item, 1);
                     craftSlot.RemoveResource(craftSlot.Item.id);
                     craftSlot.SetItem((Item)originalSlot.ItemInformation);
                     craftSlot.AddResource(craftSlot.Item.id);
-                    InventoryManager.instance.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
+                    inventoryManager.DropItems<Item>((Item)originalSlot.ItemInformation, 1);
                 }
             }
         }

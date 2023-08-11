@@ -10,6 +10,7 @@ public class InfinityDungeonPopup : Popup
     public void OpenPopup()
     {
         Open();
+        staminaGauge.Setup(StaminaManager.Instance.StaminaData.currentStamina);
         tmpAlpha.FadeOut(StaminaManager.Instance.StaminaData.currentStamina - 1);
     }
     public void ClosePopup()

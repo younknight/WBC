@@ -684,6 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 4594795394568274510}
+  slTimer: {fileID: 6461070177817818048}
   canOpen: 0
 --- !u!1 &6689227870578816242
 GameObject:
@@ -776,10 +777,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7c3b365f28d5345929eda446a4ac4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  timer: {fileID: 3856231186462879025}
-  counter: {fileID: 442037927608787180}
-  counterText: {fileID: 8291669874084966423}
+  chest: {fileID: 0}
+  chestImage: {fileID: 0}
+  defaultImage: {fileID: 0}
 --- !u!1 &7086712006364810650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,4 +1364,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 7086079076363230641}
+  slTimer: {fileID: 1681442009571715028}
   canOpen: 0

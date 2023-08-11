@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSlot: {fileID: 5582607203454089627}
+  inventoryManager: {fileID: 0}
 --- !u!95 &3384007847768799432
 Animator:
   serializedVersion: 5
@@ -404,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 4941688230380935282}
+  slTimer: {fileID: 4752436479160259977}
   canOpen: 0
 --- !u!1 &7128217343839536157
 GameObject:

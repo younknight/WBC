@@ -12,6 +12,7 @@ public class WeaponPopup : Popup
     #endregion
     [SerializeField] GameObject Equip;
     [SerializeField] GameObject Enforce;
+    [SerializeField] InventoryManager inventoryManager;//
     public void OpenPopup(bool isEnforce)
     {
         Enforce.SetActive(isEnforce);
@@ -23,7 +24,7 @@ public class WeaponPopup : Popup
 
         if (EquipmentSlot.currentSelectedSlot.Weapon != null)
         {
-            InventoryManager.instance.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
+            inventoryManager.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
             EquipmentManager.instance.Unit.BuffStatusWithWeapon(false, EquipmentSlot.currentSelectedSlot.Weapon);
             EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = null;
             EquipmentSlot.currentSelectedSlot.FreashSlot();

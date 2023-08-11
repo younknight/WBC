@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;//--------------
 public struct itemInfo
 {
     public Item item;
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<Item> itemDatas = new List<Item>();
     [SerializeField] List<Chest> chestDatas = new List<Chest>();
     [SerializeField] List<Weapon> weaponDatas = new List<Weapon>();
+    [SerializeField] TextMeshProUGUI countTest;//-------------------
     static List<itemInfo> fullItems;
     static List<chestInfo> fullChests;
     static List<weaponInfo> fullWeapons;
@@ -63,13 +64,32 @@ public class GameManager : MonoBehaviour
         fullChests = null;
         fullWeapons = null;
     }
+    public void SetTest(string text)
+    {
+        countTest.text = text;
+    }
     private void Awake()
     {
         if (instance == null) instance = this;
+        fullItems = new List<itemInfo>();
+        fullChests = new List<chestInfo>();
+        fullWeapons = new List<weaponInfo>();
+        for (int i = 0; i < ItemDatas.Count; i++)
+        {
+            fullItems.Add(new itemInfo(ItemDatas[i], 99));
+        }
+        for (int i = 0; i < ChestDatas.Count; i++)
+        {
+            fullChests.Add(new chestInfo(ChestDatas[i], 99));
+        }
+        for (int i = 0; i < WeaponDatas.Count; i++)
+        {
+            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 10, 1, 0));
+        }
     }
     private void Start()
     {
-
+        countTest.text = fullItems.Count + "/" + fullChests.Count + "/" + fullWeapons.Count;
         EquipmentManager.instance.SetEquipManager();//의존성 최대로ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ
     }
     private void OnValidate()
@@ -89,12 +109,13 @@ public class GameManager : MonoBehaviour
         {
             fullWeapons.Add(new weaponInfo(WeaponDatas[i], 10, 1, 0));
         }
+
     }
     public static int GetCount(inventoryType inventoryType)
     {
-        if (inventoryType == inventoryType.item) return fullItems.Count + 1;
-        if (inventoryType == inventoryType.chest) return fullChests.Count + 1;
-        if (inventoryType == inventoryType.weapon) return fullWeapons.Count + 1;
+        if (inventoryType == inventoryType.item) return fullItems.Count;
+        if (inventoryType == inventoryType.chest) return fullChests.Count;
+        if (inventoryType == inventoryType.weapon) return fullWeapons.Count;
         return 0;
     }
     public void ResetPlayer()//초기화
@@ -105,7 +126,6 @@ public class GameManager : MonoBehaviour
         Inventory.Weapons = new List<weaponInfo>();
         LockManager.LockInfo = new LockInfo(2, 20, 5);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
-        inventoryManager.Initalize();
         ResourseManager.Instance.SetGold(11100);
         ResourseManager.Instance.SetPrimo(22200);
         CommonData();

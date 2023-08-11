@@ -19,7 +19,7 @@ public class SkillSlot : MonoBehaviour
     }
     public void TryUseSkill()
     {
-        if(weapon.skills != null)
+        if(weapon.GetSkil() != null)
         {
             skillManager.UseSkill(weapon, circleTimer);
         }

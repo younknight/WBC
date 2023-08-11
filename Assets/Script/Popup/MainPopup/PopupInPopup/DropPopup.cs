@@ -16,6 +16,7 @@ public class DropPopup : Popup
     {
         toggle.isOn = false;
         int i = 0;
+        GameManager.instance.SetTest(drops.Count + "");
         for (; i < drops.Count; i++)
         {
             slots[i].gameObject.SetActive(true);

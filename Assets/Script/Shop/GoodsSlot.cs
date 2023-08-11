@@ -18,6 +18,7 @@ public class Goods
 }
 public class GoodsSlot : MonoBehaviour
 {
+    [SerializeField] InventoryManager inventoryManager;//
     [SerializeField] bool isSpecialChest;
     [SerializeField] Chest chest;
     Item item;
@@ -63,7 +64,7 @@ public class GoodsSlot : MonoBehaviour
             {
                 if (ResourseManager.Instance.GetGold() >= price)
                 {
-                    InventoryManager.instance.AddItems<Chest>(chest, count);
+                    inventoryManager.AddItems<Chest>(chest, count);
                     ResourseManager.Instance.Purchase(true, price);
                     button.interactable = false;
                 }
@@ -77,7 +78,7 @@ public class GoodsSlot : MonoBehaviour
         {
             if (ResourseManager.Instance.GetGold() >= price)
             {
-                InventoryManager.instance.AddItems<Item>(item, count);
+                inventoryManager.AddItems<Item>(item, count);
                 ResourseManager.Instance.Purchase(true,price);
                 button.interactable = false;
             }

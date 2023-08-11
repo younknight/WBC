@@ -45,7 +45,7 @@ public class Weapon : ScriptableObject, IInformation
     [Space(10f)]
     [Header("skill")]
     public float coolTime = 5f;
-    public ISkill skills;
+    ISkill skills;
     public BuffSkill buffSkill;
     public SummonSkill summonSkill;
     public NonTargetSkill nonTargetSkill;
@@ -61,9 +61,13 @@ public class Weapon : ScriptableObject, IInformation
         string[] nameValue = name.Split('.');
         weaponName = nameValue[1];
         id = Convert.ToInt32(nameValue[0]);
+    }
+    public ISkill GetSkil()
+    {
         if (buffSkill != null) skills = buffSkill;
         if (summonSkill != null) skills = summonSkill;
         if (nonTargetSkill != null) skills = nonTargetSkill;
+        return skills;
     }
     public float GetStatus(statusType statusType, int level)
     {

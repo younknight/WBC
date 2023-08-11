@@ -30,6 +30,7 @@ public class AutoCrafter : MonoBehaviour
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] TextMeshProUGUI maxCraftCountText;
     [SerializeField] TextMeshProUGUI minCoolTime;
+    [SerializeField] InventoryManager inventoryManager;//
     int count = 0;
     int maxCount = 20;
     public void OpenPopup()
@@ -77,9 +78,9 @@ public class AutoCrafter : MonoBehaviour
             autoCounter = new AutoCraftMaxCounter(autoCounter.currentCount - count, date);
             for (int j = 0; j < slot.Chest.recipes[0].items.Count; j++)
             {
-                InventoryManager.instance.DropItems<Item>(slot.Chest.recipes[0].items[j], count);
+                inventoryManager.DropItems<Item>(slot.Chest.recipes[0].items[j], count);
             }
-            InventoryManager.instance.AddItems<Chest>(slot.Chest, count);
+            inventoryManager.AddItems<Chest>(slot.Chest, count);
             GetChestPopup.Instance.SetGetChest(slot.Chest);
             GetChestPopup.Instance.Open();
             FreshSelectedCount();

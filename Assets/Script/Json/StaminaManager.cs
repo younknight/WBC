@@ -37,7 +37,7 @@ public class StaminaManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else Destroy(this.gameObject);
-        path = Path.Combine(Application.dataPath, "Stamina.json");
+        path = Application.persistentDataPath + "/" + "Stamina.json";
         Load();
     }
     #endregion
@@ -47,7 +47,7 @@ public class StaminaManager : MonoBehaviour
     [ContextMenu("Reset Stamina Json Data")]
     public void ResetProgress()
     {
-        path = Path.Combine(Application.dataPath, "Stamina.json");
+        path =  Application.persistentDataPath + "/"+ "Stamina.json" ;
         jsonParser.SaveJson<StaminaData>(staminaData, path);
     }
     public void Load()
@@ -77,6 +77,12 @@ public class StaminaManager : MonoBehaviour
         }
         Save();
         //
+    }
+    public void AddStamina()
+    {
+        staminaData.currentStamina++;
+        StaminaGauge.instance.Setup(staminaData.currentStamina);
+        Save();
     }
     public void UseStamina()
     {

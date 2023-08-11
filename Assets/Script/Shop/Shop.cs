@@ -24,12 +24,25 @@ public class Shop : MonoBehaviour
     {
         ADPopup.Instance.OpenPopup(rewardType.shopReroll);
     }
-    public void RerollShop(bool isDayOver)
+    public void RerollBtn()
     {
         if (shopInfo.GoodsInfo.CanReroll())
         {
-            if (!isDayOver) ResourseManager.Instance.Purchase(true, rerollCost[shopInfo.GoodsInfo.GetCount()]);
+            ResourseManager.Instance.Purchase(true, rerollCost[shopInfo.GoodsInfo.GetCount()]);
             shopInfo.GoodsInfo.AddRerollCount();
+            if (shopInfo.GoodsInfo.CanReroll()) rerollBtn.SetActive(true, rerollCost[shopInfo.GoodsInfo.GetCount()].ToString());
+            else rerollBtn.SetActive(false, "X");
+            // Debug.Log("reroll");
+            SetSlots();
+            shopInfo.Save();
+        }
+    }
+    public void RerollShop(bool isDayOver, bool isAd)
+    {
+        if (shopInfo.GoodsInfo.CanReroll() || isAd)
+        {
+            if (!isDayOver) ResourseManager.Instance.Purchase(true, rerollCost[shopInfo.GoodsInfo.GetCount()]);
+            if (!isAd) shopInfo.GoodsInfo.AddRerollCount();
             if (isDayOver) rerollBtn.SetActive(true, rerollCost[0].ToString());
             else
             {

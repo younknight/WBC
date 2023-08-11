@@ -5,22 +5,20 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] List<Inventory> inventories = new List<Inventory>();
-
-    public static InventoryManager instance;
-    private void OnDestroy()
-    {
-        instance = null;
-    }
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-    }
     public void Initalize()
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            inventories[i].FreshSlot(true);
+            inventories[i].FreshSlot();
         }
+    }
+    public void Setup()
+    {
+        for (int i = 0; i < inventories.Count; i++)
+        {
+            inventories[i].Setup();
+        }
+
     }
     #region 아이템 추가 및 사용
     public void AddItems<T>(T item, int num) where T : IInformation

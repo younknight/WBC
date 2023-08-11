@@ -36,10 +36,9 @@ public class ExplainPopup : Popup
         }
         if (type == "chest")
         {
-            List<IInformation> drops = new List<IInformation>();
             Chest chest = InfoManager.GetCharacter<Chest>(item);
             chestBtn.gameObject.SetActive(true);
-            chestPopup.Setup(chest.Drops);
+            chestPopup.Setup(chest.GetDropItemInfo());
         }
         if(type == "item")
         {

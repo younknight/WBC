@@ -36,20 +36,25 @@ public class Inventory : MonoBehaviour
     }
     private void Awake()
     {
+    }
+    public void Setup()
+    {
         int count = GameManager.GetCount(inventoryType);
         Transform cavas = GameObject.Find("Canvas").transform;
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            GameObject newSlot = Instantiate(slotPrefap, new Vector2(0,0), Quaternion.identity, cavas);
+            GameObject newSlot = Instantiate(slotPrefap, new Vector2(0, 0), Quaternion.identity, cavas);
             newSlot.transform.SetParent(slotParent);
         }
         slots = slotParent.GetComponentsInChildren<Slot>();
+        Debug.Log("set"+slots.Length);
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].Inventory = this;
             slots[i].Id = i;
             slots[i].IsShowCount = isShowCount;
             slots[i].PopupType = openPopupType;
+            slots[i].gameObject.SetActive(false);
         }
     }
     void Start()
@@ -88,12 +93,13 @@ public class Inventory : MonoBehaviour
         return true;
     }
     #endregion
-    public void FreshSlot(bool isTrue)
+    public void FreshSlot()
     {
-        for(int i = 0; i< slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
             slots[i].FreshSlot(true);
         }
+        Debug.Log(Items.Count +"/"+chests.Count+"/"+weapons.Count+ "s=" + slots.Length);
         if (inventoryType == inventoryType.item)
         {
             for(int i=0; i < Items.Count; i++)

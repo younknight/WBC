@@ -15,16 +15,11 @@ public class Opener : MonoBehaviour
 
     private void OnDestroy()
     {
-        openingChests = null;
         instance = null;
     }
     private void Awake()
     {
         if (instance == null) instance = this;
-    }
-    void Start()
-    {
-        FreshSlot();
     }
     public void SetUnlock()
     {

@@ -6,15 +6,11 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] Image fill;
-    Slider slTimer;
+    [SerializeField] Slider slTimer;
     Animator animator;
     public bool canOpen = false;
     public Animator Animator { get => animator; set => animator = value; }
     Coroutine coroutine;
-    void Start()
-    {
-        slTimer = GetComponent<Slider>();
-    }
     public void SetReapeatTimer(float maxValue, float current)
     {
         AutoCraftMaxCounter counter = AutoCrafter.AutoCounter;
@@ -45,11 +41,14 @@ public class Timer : MonoBehaviour
         canOpen = false;
         slTimer.maxValue = maxValue;
         slTimer.value = current;
-        if(maxValue <= current)
+        if (maxValue <= current)
         {
             CanOpenChest();
         }
-        else StartCoroutine(startSlider());
+        else
+        {
+            StartCoroutine(startSlider());
+        }
     }
     IEnumerator startSlider()
     {

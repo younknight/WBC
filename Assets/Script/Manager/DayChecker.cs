@@ -19,7 +19,7 @@ public class DayChecker : MonoBehaviour
     {
         if (isOverDay)
         {
-            shop.RerollShop(true);
+            shop.RerollShop(true, false);
             shopInfo.GoodsInfo.ResetCount();
             shopInfo.Save();
         }
