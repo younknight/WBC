@@ -16,6 +16,7 @@ public class GetItemPopup : Popup
     void Awake() { if (Instance == null) Instance = this; }
     public void SetGetItem(Chest chest)
     {
+        Open();
         this.chest = chest;
         Dictionary<IInformation, int> drops = chest.GetDropItem();
         int i = 0;
@@ -32,7 +33,6 @@ public class GetItemPopup : Popup
                 isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
                 inventoryManager.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
             }
-            Debug.Log(i);
             slots[i].gameObject.SetActive(true);
             slots[i].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
             i++;
@@ -54,6 +54,7 @@ public class GetItemPopup : Popup
         SoundEffecter.Instance.PlayEffect(soundEffectType.getPositive);//æ∆¿Ã≈€
         chestImage.gameObject.SetActive(false);
         popup.SetActive(true);
+        Debug.Log("asd");
         animator.SetTrigger("open");
     }
 }

@@ -86,6 +86,8 @@ public class DataManager : MonoBehaviour
     JsonParser jsonParser = new JsonParser();
     [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] DayChecker dayChecker;
+    [SerializeField] StaminaGauge stamina;
     [SerializeField] Opener opener;
     [SerializeField] GameManager gameManager;
     [SerializeField] Chest firstChest;
@@ -110,6 +112,8 @@ public class DataManager : MonoBehaviour
         inventoryManager.Setup();
         inventoryManager.Initalize();
         opener.FreshSlot();
+        dayChecker.DayCheck();
+        stamina.Setup(StaminaManager.Instance.StaminaData.currentStamina);
     }
     public void JsonLoad()
     {

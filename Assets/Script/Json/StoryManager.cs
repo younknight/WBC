@@ -24,7 +24,6 @@ public class StoryManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         else Destroy(this.gameObject);
-        Debug.Log(Application.persistentDataPath);
         path = Application.persistentDataPath + "/"+ "Story.json";
         LoadProgress();
     }

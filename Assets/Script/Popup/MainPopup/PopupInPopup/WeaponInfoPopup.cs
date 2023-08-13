@@ -17,10 +17,10 @@ public class WeaponInfoPopup : Popup
     }
     void SetSkill(Weapon weapon)
     {
-        if(weapon.GetSkil() != null)
+        if(weapon.skills != null)
         {
-            skillName.text = weapon.GetSkil().GetName();
-            skillExplian.text = weapon.GetSkil().GetExplain();
+            skillName.text = weapon.skills.GetName();
+            skillExplian.text = weapon.skills.GetExplain();
         }
         else
         {

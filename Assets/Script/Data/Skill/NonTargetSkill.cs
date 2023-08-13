@@ -1,27 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum AreaType{ circle, square }
 [CreateAssetMenu]
-public class NonTargetSkill : ScriptableObject, ISkill
+public class NonTargetSkill : Skill
 {
     [Space(10f)]
-    [Header("skillInfo")]
-    public string skillName;
-    [Multiline(5)]
-    public string skillExplain;
-    [Space(10f)]
-    [Header("skillType")]
-    public skillType skillType;
-    [Space(10f)]
     [Header("skillValue")]
-    public float radius = 1f;
+    public float radiusX = 1f;
+    public float radiusY = 1f;
     public float damage = 1;
-
-    public string GetExplain() { return skillExplain; }
-
-    public string GetName() { return skillName; }
-    public skillType GetSkillType() { return skillType; }
-
-    private void OnValidate() { skillName = name; }
+    public AreaType areaType;
+    public GameObject skillEffect;
+    private void OnValidate()
+    {
+        skillType = skillType.NonTargetAttack;
+        if (areaType == AreaType.circle) radiusY = radiusX;
+    }
 }

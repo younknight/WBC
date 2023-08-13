@@ -35,4 +35,4 @@ MonoBehaviour:
     criDamage: 0
     criRate: 0
   coolTime: 5
-  buffSkill: {fileID: 11400000, guid: 9a1a0ba3d48b1854cac5c128339a3a4d, type: 2}
+  skills: {fileID: 11400000, guid: 9a1a0ba3d48b1854cac5c128339a3a4d, type: 2}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efda16bebc293614f8f5bd010e9e6382, type: 3}
+  m_Name: fireBall
+  m_EditorClassIdentifier: 
+  skillName: fireBall
+  skillExplain: "\uD30C\uC774\uC5B4\uBCFC"
+  skillType: 2
+  radiusX: 2
+  radiusY: 2
+  damage: 10
+  areaType: 0
+  skillEffect: {fileID: 4461325431068283630, guid: d88658022efa46d4a9938a8409ea2ba5, type: 3}

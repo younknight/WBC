@@ -8,15 +8,17 @@ public struct status
     public float hp;
     public float attack;
     public float attackSpeed;
+    public float attackTarget;
     public float defence;
     public float criDamage;
     public float criRate;
 
-    public status(float hp, float attack, float attackSpeed, float defence, float criDamage, float criRate)
+    public status(float hp, float attack, float attackSpeed, float attackTarget, float defence, float criDamage, float criRate)
     {
         this.hp = hp;
         this.attack = attack;
         this.attackSpeed = attackSpeed;
+        this.attackTarget = attackTarget;
         this.defence = defence;
         this.criDamage = criDamage;
         this.criRate = criRate;
@@ -40,15 +42,12 @@ public class Weapon : ScriptableObject, IInformation
 
     [Space(10f)]
     [Header("status")]
-    public status status = new status(0, 0, 0, 0, 0, 0);
-    public status levelUpStatus = new status(0, 0, 0, 0, 0, 0);
+    public status status = new status(0, 0, 0, 0, 0, 0, 0);
+    public status levelUpStatus = new status(0, 0, 0, 0, 0, 0, 0);
     [Space(10f)]
     [Header("skill")]
     public float coolTime = 5f;
-    ISkill skills;
-    public BuffSkill buffSkill;
-    public SummonSkill summonSkill;
-    public NonTargetSkill nonTargetSkill;
+    public Skill skills;
     #region Getter
     public int GetId() { return id; }
     public string GetName() { return weaponName; }
@@ -61,13 +60,6 @@ public class Weapon : ScriptableObject, IInformation
         string[] nameValue = name.Split('.');
         weaponName = nameValue[1];
         id = Convert.ToInt32(nameValue[0]);
-    }
-    public ISkill GetSkil()
-    {
-        if (buffSkill != null) skills = buffSkill;
-        if (summonSkill != null) skills = summonSkill;
-        if (nonTargetSkill != null) skills = nonTargetSkill;
-        return skills;
     }
     public float GetStatus(statusType statusType, int level)
     {
@@ -86,6 +78,8 @@ public class Weapon : ScriptableObject, IInformation
                 return status.criRate + (levelUpStatus.criRate * level);
             case statusType.attackSpeed:
                 return status.attackSpeed + (levelUpStatus.attackSpeed * level);
+            case statusType.attackTarget:
+                return status.attackTarget + (levelUpStatus.attackTarget * level);
         }
         return -1000;
     }

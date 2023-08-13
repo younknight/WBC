@@ -70,13 +70,7 @@ public class StaminaManager : MonoBehaviour
     }
     public void CheckDay()
     {
-        //¿€µø∫Œ
-        if (staminaData.OverDay())
-        {
-            staminaData.ChargeStamina();
-        }
-        Save();
-        //
+        staminaData.ChargeStamina();
     }
     public void AddStamina()
     {

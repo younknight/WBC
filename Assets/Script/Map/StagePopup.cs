@@ -9,15 +9,16 @@ public class StagePopup : Popup
     static StagePopup instance;
     public static StagePopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
-    void Awake() { if (Instance == null) Instance = this; }
+    void Awake() { if (Instance == null) Instance = this; slots = slotsParent.GetComponentsInChildren<GetItemSlot>(); }
     #endregion
     [SerializeField] TextMeshProUGUI stageName;
     [SerializeField] Transform slotsParent;
     [SerializeField] SceneMoveManager sceneMoveManager;
+    [SerializeField] TextMeshProUGUI testText;//-----------------------
     GetItemSlot[] slots;
-    private void OnValidate()
+    public void Test(string text)
     {
-        slots = slotsParent.GetComponentsInChildren<GetItemSlot>();
+        testText.text = text;
     }
     public void Setup(MapInfo stage)
     {

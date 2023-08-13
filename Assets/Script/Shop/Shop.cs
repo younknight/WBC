@@ -41,7 +41,7 @@ public class Shop : MonoBehaviour
     {
         if (shopInfo.GoodsInfo.CanReroll() || isAd)
         {
-            if (!isDayOver) ResourseManager.Instance.Purchase(true, rerollCost[shopInfo.GoodsInfo.GetCount()]);
+            if (!isDayOver && !isAd) ResourseManager.Instance.Purchase(true, rerollCost[shopInfo.GoodsInfo.GetCount()]);
             if (!isAd) shopInfo.GoodsInfo.AddRerollCount();
             if (isDayOver) rerollBtn.SetActive(true, rerollCost[0].ToString());
             else

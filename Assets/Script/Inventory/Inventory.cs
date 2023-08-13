@@ -47,7 +47,6 @@ public class Inventory : MonoBehaviour
             newSlot.transform.SetParent(slotParent);
         }
         slots = slotParent.GetComponentsInChildren<Slot>();
-        Debug.Log("set"+slots.Length);
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].Inventory = this;
@@ -99,8 +98,7 @@ public class Inventory : MonoBehaviour
         {
             slots[i].FreshSlot(true);
         }
-        Debug.Log(Items.Count +"/"+chests.Count+"/"+weapons.Count+ "s=" + slots.Length);
-        if (inventoryType == inventoryType.item)
+        if (inventoryType == inventoryType.item)//
         {
             for(int i=0; i < Items.Count; i++)
             {

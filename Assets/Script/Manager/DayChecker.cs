@@ -6,19 +6,12 @@ public class DayChecker : MonoBehaviour
 {
     [SerializeField] Shop shop;
     [SerializeField] ShopGoodsInfoManager shopInfo;
-    bool isOverDay = false;
-    private void Awake()
+    public void DayCheck()
     {
         if (StaminaManager.Instance.OverDay())
         {
             StaminaManager.Instance.CheckDay();
-            isOverDay = true;
-        }
-    }
-    void Start()
-    {
-        if (isOverDay)
-        {
+            shopInfo.GoodsInfo.ResetCount();
             shop.RerollShop(true, false);
             shopInfo.GoodsInfo.ResetCount();
             shopInfo.Save();

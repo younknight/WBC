@@ -53,7 +53,6 @@ public class GoodsSlot : MonoBehaviour
                     PurchasePopup.Instance.Close();
                     ResourseManager.Instance.PurchaseWithPrimo(true, price);
                     GetItemPopup.Instance.SetGetItem(chest);
-                    GetItemPopup.Instance.Open();
                 }
                 else
                 {
