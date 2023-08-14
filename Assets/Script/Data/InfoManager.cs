@@ -30,7 +30,7 @@ public class InfoManager : MonoBehaviour
     }
     static public string CheckInterfaceType(IInformation obj)
     {
-        if (obj is Item) return "item";
+        if (obj is Ingredient) return "item";
         else if (obj is Weapon) return "weapon";
         else if (obj is Chest) return "chest";
         else return "Unknown";

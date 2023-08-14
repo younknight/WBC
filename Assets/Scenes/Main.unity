@@ -537,6 +537,7 @@ MonoBehaviour:
   toggle: {fileID: 1466939521}
   sellSlider: {fileID: 1611405943}
   inventoryManager: {fileID: 1656364275}
+  itemDatabaseManager: {fileID: 699185253}
 --- !u!224 &42601160 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 381087961076497820, guid: 8ce7f6319a096fd41b0647c65f654735, type: 3}
@@ -1304,7 +1305,7 @@ GameObject:
   - component: {fileID: 78061993}
   m_Layer: 0
   m_Name: TutorialManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10695,6 +10696,7 @@ Transform:
   - {fileID: 716395314}
   - {fileID: 78061992}
   - {fileID: 2102880814}
+  - {fileID: 699185252}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &293223458
@@ -11628,7 +11630,7 @@ GameObject:
   - component: {fileID: 321121967}
   m_Layer: 0
   m_Name: SceneManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17609,6 +17611,10 @@ PrefabInstance:
       propertyPath: slots.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2538200834712076401, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
+      propertyPath: itemDatabaseManager
+      value: 
+      objectReference: {fileID: 699185253}
     - target: {fileID: 3144986638694342122, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -19003,7 +19009,7 @@ GameObject:
   - component: {fileID: 446774904}
   m_Layer: 0
   m_Name: EquipmentManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19059,6 +19065,7 @@ MonoBehaviour:
   maxHp: 10
   attack: 1
   attackSpeed: 2
+  attackTarget: 1
   defence: 0
   criDamage: 0
   criRate: 0
@@ -24758,6 +24765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupType: 0
   inventoryManager: {fileID: 1656364275}
+  itemDatabaseManager: {fileID: 699185253}
   popup: {fileID: 298222738}
   chestImage: {fileID: 623570865}
   slots:
@@ -25165,6 +25173,7 @@ MonoBehaviour:
   rankingText: {fileID: 491966431}
   countText: {fileID: 370313775}
   isNewFrame: {fileID: 43608503}
+  itemDatabaseManager: {fileID: 699185253}
 --- !u!95 &626632969
 Animator:
   serializedVersion: 5
@@ -26704,6 +26713,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699033277}
   m_CullTransparentMesh: 1
+--- !u!1 &699185251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 699185252}
+  - component: {fileID: 699185253}
+  m_Layer: 0
+  m_Name: ItemDatabase
+  m_TagString: Manager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &699185252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699185251}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 279632234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &699185253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699185251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc07a50b1b3b774dad1f5cecb07efdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &700059005
 GameObject:
   m_ObjectHideFlags: 0
@@ -27480,7 +27533,7 @@ GameObject:
   - component: {fileID: 716395315}
   m_Layer: 0
   m_Name: DayCheckManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43308,8 +43361,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7c3b365f28d5345929eda446a4ac4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chest: {fileID: 0}
-  chestImage: {fileID: 1060824893}
+  isSet: 0
+  id: 0
+  isShowCount: 1
+  popupType: 0
+  item: {fileID: 0}
+  image: {fileID: 1060824893}
+  countFrame: {fileID: 0}
+  numberText: {fileID: 0}
   defaultImage: {fileID: 286309609, guid: b2cac2974c63539489ec1959991177af, type: 3}
 --- !u!114 &1143664236
 MonoBehaviour:
@@ -45995,6 +46054,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5311607371736658304, guid: ade714be425d1ff48bb82cea4c7d5f1a, type: 3}
   m_PrefabInstance: {fileID: 1252436992}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1252436994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7235206614715195413, guid: ade714be425d1ff48bb82cea4c7d5f1a, type: 3}
+  m_PrefabInstance: {fileID: 1252436992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921757ccc67a8e44ab72ea72e1cb6b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1254162702
 GameObject:
   m_ObjectHideFlags: 0
@@ -48564,7 +48634,7 @@ GameObject:
   - component: {fileID: 1353445029}
   m_Layer: 0
   m_Name: ResourceManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49678,7 +49748,7 @@ GameObject:
   - component: {fileID: 1403428454}
   m_Layer: 0
   m_Name: LockManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52386,12 +52456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceCount: 0
   weapon: {fileID: 0}
-  weaponInfo:
-    weapon: {fileID: 0}
-    num: 0
-    level: 0
-    enforceGauge: 0
-  equipmentSlot: {fileID: 2125535853}
+  equipmentSlot: {fileID: 1252436994}
   level: 0
   gauge: 0
   levelText: {fileID: 884053732}
@@ -52400,6 +52465,7 @@ MonoBehaviour:
   gaugeSlider: {fileID: 725019536}
   expectationSlider: {fileID: 1124732620}
   inventoryManager: {fileID: 1656364275}
+  itemDatabaseManager: {fileID: 699185253}
 --- !u!1 &1495640167
 GameObject:
   m_ObjectHideFlags: 0
@@ -58757,7 +58823,7 @@ GameObject:
   - component: {fileID: 1585775292}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58778,51 +58844,15 @@ MonoBehaviour:
   craftDatabase: {fileID: 2098371294}
   firstChest: {fileID: 11400000, guid: 11c868dbd73608d40871c5ad7ff3bb8a, type: 2}
   itemDatas:
-  - {fileID: 11400000, guid: 390d0c08b821fd04fbd4674736bcaae4, type: 2}
-  - {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
-  - {fileID: 11400000, guid: 75af4e559882b9b4bbdc80a450913f37, type: 2}
-  - {fileID: 11400000, guid: bb8258fee17f89149b89f7f207147a8c, type: 2}
-  - {fileID: 11400000, guid: 687e2755a63bf3744a71c68b428ed3e5, type: 2}
-  - {fileID: 11400000, guid: 538f7f04641a4de4195ae9d23845e94c, type: 2}
-  - {fileID: 11400000, guid: b64ea2ee1e8eed147a84ec21ff7dc808, type: 2}
-  - {fileID: 11400000, guid: 8c3b91254f4c4214da9c84e95917b4eb, type: 2}
-  - {fileID: 11400000, guid: e9bf38db76378be4d8bdb0afb26d2a03, type: 2}
-  - {fileID: 11400000, guid: 875766df833bab8409b3829b1f13a5f5, type: 2}
-  - {fileID: 11400000, guid: 4102e083dceefe94fbd45d84c73a6dcf, type: 2}
-  - {fileID: 11400000, guid: c03a02c1f538a9146bf04c992bd931c4, type: 2}
-  - {fileID: 11400000, guid: c7a8af9b2c5be464fa39b4c72d9c60fb, type: 2}
-  - {fileID: 11400000, guid: eefe7903d76c2b74ebf44dec7ccb6dbd, type: 2}
-  - {fileID: 11400000, guid: f7a1833bee2f67f469dbcdb6100bd4d3, type: 2}
-  - {fileID: 11400000, guid: 0fc7a4ba07bda7e419fc013fb8331021, type: 2}
-  - {fileID: 11400000, guid: ba856be7fd1b11547aa1805afca57056, type: 2}
-  - {fileID: 11400000, guid: aaec2044f7c94d14bb8fb7bcbfddd3aa, type: 2}
-  - {fileID: 11400000, guid: 54fcf54ff23d9bf45a5c9aa024e7b534, type: 2}
-  - {fileID: 11400000, guid: bd28709153172b14aa0e49c902d5c4ad, type: 2}
-  - {fileID: 11400000, guid: 8a0c8f3159f9c504fa0ecd9ea1321f3d, type: 2}
-  - {fileID: 11400000, guid: b3fdfbcd200d96b4db2986208e431a0f, type: 2}
-  - {fileID: 11400000, guid: b8d76396d6571b5408a51671922717eb, type: 2}
-  - {fileID: 11400000, guid: c2e5af08308a82042bd23b2f4992b9de, type: 2}
-  - {fileID: 11400000, guid: 2ef4816eea6d99e458eab8fefceeafe3, type: 2}
-  - {fileID: 11400000, guid: 4fb126cc79cce484c9ba4700bc2de653, type: 2}
-  - {fileID: 11400000, guid: 68a7767c1af1bad4f868baa8bb4f2c56, type: 2}
-  - {fileID: 11400000, guid: ac543c6591d082746983f65822ac1664, type: 2}
-  - {fileID: 11400000, guid: f2eecb258273aec46987219347fbc3c2, type: 2}
-  - {fileID: 11400000, guid: 9f732bc5544a5b7429ffecc35bd894b8, type: 2}
-  - {fileID: 11400000, guid: 394ad08a10e667d4cbe841db89b2d14b, type: 2}
-  - {fileID: 11400000, guid: 5cc39c1f46563df4092d517d75624bd2, type: 2}
-  - {fileID: 11400000, guid: e4b1038f389c5c74f8cf1eedb18ee8b7, type: 2}
-  - {fileID: 11400000, guid: 77777dfa371f44543bfd06be2f87509a, type: 2}
-  - {fileID: 11400000, guid: ee0f9b64ea60f7147b9cc60494e96a72, type: 2}
+  - {fileID: 11400000, guid: ea76273052b8731468c23f078b5c73ae, type: 2}
+  - {fileID: 11400000, guid: 58879e3674a05b6419c3e1e4398f9d7c, type: 2}
+  - {fileID: 11400000, guid: 760269786321aad45b2641a5fb7749c1, type: 2}
+  - {fileID: 11400000, guid: ae3cf617275173141b5e5e85fdc0257e, type: 2}
   chestDatas:
   - {fileID: 11400000, guid: a2401db03f1990f4a8d1523fe7240fd3, type: 2}
   - {fileID: 11400000, guid: 11c868dbd73608d40871c5ad7ff3bb8a, type: 2}
   - {fileID: 11400000, guid: cbeaaac7fb057d04084bcda7fb7d80bf, type: 2}
   - {fileID: 11400000, guid: fc62468800c2cfc42a9b3d382d396b98, type: 2}
-  - {fileID: 11400000, guid: 27f800e7daac5f344b07d199465f3ea3, type: 2}
-  - {fileID: 11400000, guid: 57f86f7ca638027408d833bcaa094f4d, type: 2}
-  - {fileID: 11400000, guid: 25a5d861c8d0cd94ea8058576835f389, type: 2}
-  - {fileID: 11400000, guid: 95a8ac640dc06cf4581caccf36945ae6, type: 2}
-  - {fileID: 11400000, guid: d51b6be2d47cde347bee38e754442cc5, type: 2}
   weaponDatas:
   - {fileID: 11400000, guid: ed5b3f4b1c91c8242b2f48afd37630e2, type: 2}
   - {fileID: 11400000, guid: 8607f021d2374324fafe0156d32047d1, type: 2}
@@ -58831,7 +58861,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 585483ca5a5ecba42bd50ed119c7ce33, type: 2}
   - {fileID: 11400000, guid: 08d58c33e5464c74d8e6aca2578d3571, type: 2}
   - {fileID: 11400000, guid: f4eba2b774e2b4c4ab1e5ee833895ea9, type: 2}
-  countTest: {fileID: 1201436393}
 --- !u!4 &1585775293
 Transform:
   m_ObjectHideFlags: 0
@@ -59940,6 +59969,10 @@ PrefabInstance:
     - target: {fileID: 3949355345366725300, guid: 209bc58ff4e9441448b8778b970853ed, type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949355345366725300, guid: 209bc58ff4e9441448b8778b970853ed, type: 3}
+      propertyPath: m_TagString
+      value: Manager
       objectReference: {fileID: 0}
     - target: {fileID: 4429829836263832295, guid: 209bc58ff4e9441448b8778b970853ed, type: 3}
       propertyPath: bonus
@@ -64726,7 +64759,7 @@ GameObject:
   - component: {fileID: 1656364275}
   m_Layer: 0
   m_Name: InventoryManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64743,6 +64776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a526821cd0931f1458cc801dc692540f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDatabase: {fileID: 699185253}
   inventories:
   - {fileID: 466875681}
   - {fileID: 612106815}
@@ -66258,7 +66292,7 @@ GameObject:
   - component: {fileID: 1730936568}
   m_Layer: 0
   m_Name: DialogueManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73992,7 +74026,7 @@ GameObject:
   - component: {fileID: 1894088705}
   m_Layer: 0
   m_Name: SoundEffectManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74767,6 +74801,10 @@ PrefabInstance:
       propertyPath: goodsType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2538200834712076401, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
+      propertyPath: itemDatabaseManager
+      value: 
+      objectReference: {fileID: 699185253}
     - target: {fileID: 3667258398758497666, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -75758,7 +75796,7 @@ GameObject:
   - component: {fileID: 1997362630}
   m_Layer: 0
   m_Name: TextManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75939,7 +75977,7 @@ GameObject:
   - component: {fileID: 2004093196}
   m_Layer: 0
   m_Name: SaveJsonManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75974,9 +76012,9 @@ MonoBehaviour:
   craftDatabase: {fileID: 2098371294}
   inventoryManager: {fileID: 1656364275}
   dayChecker: {fileID: 716395315}
+  gameManager: {fileID: 1585775292}
   stamina: {fileID: 2032069718}
   opener: {fileID: 1474077341}
-  gameManager: {fileID: 1585775292}
   firstChest: {fileID: 11400000, guid: 11c868dbd73608d40871c5ad7ff3bb8a, type: 2}
 --- !u!1001 &2006845196
 PrefabInstance:
@@ -78547,7 +78585,7 @@ GameObject:
   - component: {fileID: 2098371294}
   m_Layer: 0
   m_Name: RecipeDatabaseManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78564,14 +78602,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5225587a92d745d48b24ef7fbbd78487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDatabaseManager: {fileID: 699185253}
   SettingRecipes:
   - {fileID: 11400000, guid: e007538c508d77241b2895bfe77fcd3c, type: 2}
   - {fileID: 11400000, guid: f50d4f9fefe92114a87838fd68409f42, type: 2}
-  - {fileID: 11400000, guid: 2b52dfcd39d757d4d873a9fb61eb3f03, type: 2}
-  - {fileID: 11400000, guid: d337e2c22ced21e45a457008b27e5d9b, type: 2}
-  - {fileID: 11400000, guid: 71e107b1c7545c246a9e377e53b20016, type: 2}
-  - {fileID: 11400000, guid: cddd4f18bbf74dc4fb3a65900a10aa18, type: 2}
-  - {fileID: 11400000, guid: 828419c2ef7cdd64692f76f6a2440d0b, type: 2}
 --- !u!4 &2098371295
 Transform:
   m_ObjectHideFlags: 0
@@ -78720,7 +78754,7 @@ GameObject:
   - component: {fileID: 2102880816}
   m_Layer: 0
   m_Name: AdManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79783,17 +79817,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123873566}
   m_CullTransparentMesh: 1
---- !u!114 &2125535853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7235206614715195413, guid: ade714be425d1ff48bb82cea4c7d5f1a, type: 3}
-  m_PrefabInstance: {fileID: 1252436992}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921757ccc67a8e44ab72ea72e1cb6b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2131335786
 GameObject:
   m_ObjectHideFlags: 0
@@ -83150,6 +83173,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2538200834712076401, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
+      propertyPath: itemDatabaseManager
+      value: 
+      objectReference: {fileID: 699185253}
     - target: {fileID: 3720473895377291047, guid: f3031a426b1c0414c917da2797f45df6, type: 3}
       propertyPath: inventoryManager
       value: 
@@ -83312,6 +83339,10 @@ PrefabInstance:
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1656364275}
+    - target: {fileID: 1048369485797682021, guid: 4bbb70ce66970b849879cfa5d5db75b3, type: 3}
+      propertyPath: itemDatabaseManager
+      value: 
+      objectReference: {fileID: 699185253}
     - target: {fileID: 8846058133103416512, guid: 4bbb70ce66970b849879cfa5d5db75b3, type: 3}
       propertyPath: m_Name
       value: ResultChest

@@ -13,6 +13,7 @@ public class Skill : ScriptableObject
     public string skillName;
     [Multiline(5)]
     public string skillExplain;
+    public float coolTime = 5f;
     [Space(10f)]
     [Header("skillType")]
     public skillType skillType;

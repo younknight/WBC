@@ -13,10 +13,10 @@ public class Shop : MonoBehaviour
     int[] rerollCost = new int[3] { 1000, 5000, 10000 };
     public void Setting()
     {
-        itemBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.item]);
-        chestBox.Setting(shopInfo.GoodsInfo.goodsDic[goodsType.chest]);
-        playerBox.StaticSetting();
-        specialChestBox.StaticSetting();
+        itemBox.SetItems(shopInfo.GoodsInfo.goodsDic[goodsType.ingrediant]);
+        chestBox.SetItems(shopInfo.GoodsInfo.goodsDic[goodsType.chest]);
+        playerBox.SetNotItems();
+        specialChestBox.SetNotItems();
         if (shopInfo.GoodsInfo.CanReroll()) rerollBtn.SetActive(true, rerollCost[shopInfo.GoodsInfo.GetCount()].ToString());
         else rerollBtn.SetActive(false, "X");
     }
@@ -61,7 +61,7 @@ public class Shop : MonoBehaviour
         playerBox.FreshSlots();
         itemBox.RandomSetting();
         chestBox.RandomSetting();
-        playerBox.StaticSetting();
-        specialChestBox.StaticSetting();
+        playerBox.SetNotItems();
+        specialChestBox.SetNotItems();
     }
 }

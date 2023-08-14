@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     }
     public void BuffStatusWithWeapon(bool isBuff, Weapon weapon)
     {
-        int level = Inventory.Weapons.Find(x => x.weapon == weapon).level;
+        int level = ItemDatabaseManager.WeaponLevels.Find(x => x.item == weapon).level;
         BuffStatus(isBuff, statusType.maxHp, weapon.GetStatus(statusType.maxHp, level));
         BuffStatus(isBuff, statusType.attack, weapon.GetStatus(statusType.attack, level));
         BuffStatus(isBuff, statusType.attackSpeed, weapon.GetStatus(statusType.attackSpeed, level));

@@ -19,7 +19,7 @@ public struct craftRecipe
 public class CraftDatabase : MonoBehaviour
 {
     public static CraftDatabase instance;
-
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
     [SerializeField] List<Recipe> SettingRecipes = new List<Recipe>();
     List<craftRecipe> recipes = new List<craftRecipe>();
     List<List<int>> weirdRecipe = new List<List<int>>();
@@ -76,18 +76,18 @@ public class CraftDatabase : MonoBehaviour
     #endregion
     public bool CheckResource(Chest chest, int count)
     {
-        Dictionary<Item, int> resources = new Dictionary<Item, int>();
+        Dictionary<Ingredient, int> resources = new Dictionary<Ingredient, int>();
         //아이템 삽입
         for (int i = 0; i < chest.recipes[0].items.Count; i++)
         {
-            Item item = chest.recipes[0].items[i];
+            Ingredient item = chest.recipes[0].items[i];
             if (!resources.ContainsKey(item)) resources.Add(item, 1);
             else resources[item]++;
         }
         //아이템 재고 체크
-        foreach (KeyValuePair<Item, int> entry in resources)
+        foreach (KeyValuePair<Ingredient, int> entry in resources)
         {
-            if (Inventory.Items.Find(x => x.item == entry.Key).num < (entry.Value * count)) return false;
+            if (itemDatabaseManager.FIndItemWithId(entry.Key.id, inventoryType.ingrediant).num < (entry.Value * count)) return false;
         }
         return true;
     }

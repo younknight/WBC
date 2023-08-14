@@ -9,9 +9,9 @@ public class CraftSlot : MonoBehaviour
     [SerializeField] GameObject cancelBtn;
     [SerializeField] InventoryManager inventoryManager;//
     Crafter crafter;
-    Item item;
+    Ingredient item;
 
-    public Item Item { get => item; set => item = value; }
+    public Ingredient Item { get => item; set => item = value; }
     public Crafter Crafter { get => crafter; set => crafter = value; }
 
 
@@ -35,7 +35,7 @@ public class CraftSlot : MonoBehaviour
         cancelBtn.SetActive(false);
         image.color = new Color(1, 1, 1, 0);
     }
-    public void SetItem(Item item)
+    public void SetItem(Ingredient item)
     {
         this.item = item;
         cancelBtn.SetActive(true);
@@ -44,7 +44,7 @@ public class CraftSlot : MonoBehaviour
     }
     public void Cancel()
     {
-        inventoryManager.AddItems<Item>(item,1);
+        inventoryManager.AddItems(item,1);
         RemoveSlot();
     }
 }

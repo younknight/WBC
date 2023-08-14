@@ -1,42 +1,28 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;//--------------
-public struct itemInfo
+public class ItemInfo
 {
     public Item item;
     public int num;
 
-    public itemInfo(Item item, int num)
+    public ItemInfo(Item item, int num)
     {
         this.item = item;
         this.num = num;
     }
 }
-public struct chestInfo
+public class WeaponInfo
 {
-    public Chest chest;
-    public int num;
-    public chestInfo(Chest chest, int num)
-    {
-        this.chest = chest;
-        this.num = num;
-    }
-}
-[System.Serializable]//
-public struct weaponInfo
-{
-    public Weapon weapon;
-    public int num;
+    public Item item;
     public int level;
-    public int enforceGauge;
+    public int gauge;
 
-    public weaponInfo(Weapon weapon, int num, int level, int enforceGauge)
+    public WeaponInfo(Item item, int level, int gauge)
     {
-        this.weapon = weapon;
-        this.num = num;
+        this.item = item;
         this.level = level;
-        this.enforceGauge = enforceGauge;
+        this.gauge = gauge;
     }
 }
 public class GameManager : MonoBehaviour
@@ -45,15 +31,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] CraftDatabase craftDatabase;
     public static GameManager instance;
     [SerializeField] Chest firstChest;
-    [SerializeField] List<Item> itemDatas = new List<Item>();
+    [SerializeField] List<Ingredient> itemDatas = new List<Ingredient>();
     [SerializeField] List<Chest> chestDatas = new List<Chest>();
     [SerializeField] List<Weapon> weaponDatas = new List<Weapon>();
-    [SerializeField] TextMeshProUGUI countTest;//-------------------
-    static List<itemInfo> fullItems;
-    static List<chestInfo> fullChests;
-    static List<weaponInfo> fullWeapons;
+    static List<ItemInfo> fullItems;
+    static List<ItemInfo> fullChests;
+    static List<ItemInfo> fullWeapons;
     #region getter, setter
-    public List<Item> ItemDatas { get => itemDatas; set => itemDatas = value; }
+    public List<Ingredient> ItemDatas { get => itemDatas; set => itemDatas = value; }
     public List<Chest> ChestDatas { get => chestDatas; set => chestDatas = value; }
     public List<Weapon> WeaponDatas { get => weaponDatas; set => weaponDatas = value; }
     #endregion
@@ -64,66 +49,43 @@ public class GameManager : MonoBehaviour
         fullChests = null;
         fullWeapons = null;
     }
-    public void SetTest(string text)
-    {
-        countTest.text = text;
-    }
     private void Awake()
     {
         if (instance == null) instance = this;
-        fullItems = new List<itemInfo>();
-        fullChests = new List<chestInfo>();
-        fullWeapons = new List<weaponInfo>();
+        fullItems = new List<ItemInfo>();
+        fullChests = new List<ItemInfo>();
+        fullWeapons = new List<ItemInfo>();
         for (int i = 0; i < ItemDatas.Count; i++)
         {
-            fullItems.Add(new itemInfo(ItemDatas[i], 99));
+            fullItems.Add(new ItemInfo(ItemDatas[i], 99));
         }
         for (int i = 0; i < ChestDatas.Count; i++)
         {
-            fullChests.Add(new chestInfo(ChestDatas[i], 99));
+            fullChests.Add(new ItemInfo(ChestDatas[i], 99));
         }
         for (int i = 0; i < WeaponDatas.Count; i++)
         {
-            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 10, 1, 0));
+            fullWeapons.Add(new ItemInfo(WeaponDatas[i], 10));
         }
     }
     private void Start()
     {
-        countTest.text = fullItems.Count + "/" + fullChests.Count + "/" + fullWeapons.Count;
         EquipmentManager.instance.SetEquipManager();//의존성 최대로ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ
     }
-    private void OnValidate()
+    public static int GetFullItemCount(inventoryType inventoryType)
     {
-        fullItems = new List<itemInfo>();
-        fullChests = new List<chestInfo>();
-        fullWeapons = new List<weaponInfo>();
-        for (int i = 0; i < ItemDatas.Count; i++)
-        {
-            fullItems.Add(new itemInfo(ItemDatas[i], 99));
-        }
-        for (int i = 0; i < ChestDatas.Count; i++)
-        {
-            fullChests.Add(new chestInfo(ChestDatas[i], 99));
-        }
-        for (int i = 0; i < WeaponDatas.Count; i++)
-        {
-            fullWeapons.Add(new weaponInfo(WeaponDatas[i], 10, 1, 0));
-        }
-
-    }
-    public static int GetCount(inventoryType inventoryType)
-    {
-        if (inventoryType == inventoryType.item) return fullItems.Count;
+        if (inventoryType == inventoryType.ingrediant) return fullItems.Count;
         if (inventoryType == inventoryType.chest) return fullChests.Count;
         if (inventoryType == inventoryType.weapon) return fullWeapons.Count;
         return 0;
     }
     public void ResetPlayer()//초기화
     {
-        Inventory.Items = new List<itemInfo>();
-        Inventory.Chests = new List<chestInfo>();
-        Inventory.Chests.Add(new chestInfo(firstChest, 1));
-        Inventory.Weapons = new List<weaponInfo>();
+        ItemDatabaseManager.Ingrediants = new List<ItemInfo>();
+        ItemDatabaseManager.Chests = new List<ItemInfo>();
+        ItemDatabaseManager.Chests.Add(new ItemInfo(firstChest, 1));
+        ItemDatabaseManager.Weapons = new List<ItemInfo>();
+        ItemDatabaseManager.WeaponLevels = new List<WeaponInfo>();
         LockManager.LockInfo = new LockInfo(2, 20, 5);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
         ResourseManager.Instance.SetGold(11100);
@@ -133,15 +95,25 @@ public class GameManager : MonoBehaviour
     }
     public void GetAllItems()
     {
-        Inventory.Items = fullItems;
-        Inventory.Chests = fullChests;
-        Inventory.Weapons = fullWeapons;
+        ItemDatabaseManager.Ingrediants = fullItems;
+        ItemDatabaseManager.Chests = fullChests;
+        ItemDatabaseManager.Weapons = fullWeapons;
+        ItemDatabaseManager.WeaponLevels = fullWeaponLevels();
         LockManager.LockInfo = new LockInfo(16, 1, 20);
         AutoCrafter.AutoCounter = new AutoCraftMaxCounter(20, DateTime.Now);
         ResourseManager.Instance.SetGold(98765);
         ResourseManager.Instance.SetPrimo(56789);
         CommonData();
         SetData();
+    }
+    List<WeaponInfo> fullWeaponLevels()
+    {
+        List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
+        for(int i = 0; i< fullWeapons.Count; i++)
+        {
+            weaponInfos.Add(new WeaponInfo(fullWeapons[i].item,1,0));
+        }
+        return weaponInfos;
     }
     void CommonData()
     {

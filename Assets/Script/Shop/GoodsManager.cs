@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum goodsType { item, chest, player, special }
+public enum goodsType { ingrediant, chest, player, special }
 public class GoodsManager : MonoBehaviour
 {
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
     [SerializeField] Transform slotsParent;
     [SerializeField] goodsType goodsType;
     [SerializeField] GoodsSlot[] slots;
@@ -34,27 +35,22 @@ public class GoodsManager : MonoBehaviour
             slots[i].ClearSlot();
         }
     }
-    public void Setting(List<Goods> goods)
+    public void SetItems(List<Goods> goods)
     {
         for (int i = 0; i < slots.Length; i++)
         {
             if(goods[i].count > 0)
             {
-                if (goodsType == goodsType.item)//아이템
-                {
-                    slots[i].gameObject.SetActive(true);
-                    slots[i].SetItem(Inventory.Items.Find(x => x.item.id == goods[i].id).item, goods[i].count);
-                }
-                if (goodsType == goodsType.chest)//상자
-                {
-                    slots[i].gameObject.SetActive(true);
-                    slots[i].SetChest(Inventory.Chests.Find(x => x.chest.id == goods[i].id).chest, goods[i].count);
-                }
+                slots[i].gameObject.SetActive(true);
+                Item item = null;
+                if (goodsType == goodsType.ingrediant) { item = itemDatabaseManager.FIndItemWithId(goods[i].id, inventoryType.ingrediant).item; }
+                if (goodsType == goodsType.chest)  { item = itemDatabaseManager.FIndItemWithId(goods[i].id, inventoryType.chest).item; }
+                slots[i].SetItem(item, goods[i].count);
             }
             else slots[i].gameObject.SetActive(false);
         }
     }
-    public void StaticSetting()
+    public void SetNotItems()
     {
         if (goodsType == goodsType.player)
         {
@@ -81,49 +77,31 @@ public class GoodsManager : MonoBehaviour
     }
     public void RandomSetting()//1 아이템, 0 상자
     {
-        int index = 0;
-        int count = 0;
+        int index;
+        int count;
         List<int> indexs = new List<int>();
-        if (goodsType == goodsType.item)
+        List<ItemInfo> items = new List<ItemInfo>();
+        if (goodsType == goodsType.ingrediant) { items = itemDatabaseManager.GetItemListWithType(inventoryType.ingrediant); }
+        if (goodsType == goodsType.chest) { items = itemDatabaseManager.GetItemListWithType(inventoryType.chest); }
+        //아이템의 인덱스 수집
+        for (int j = 0; j < items.Count; j++)
         {
-            for (int j = 0; j < Inventory.Items.Count; j++)
-            {
-                indexs.Add(j);
-            }
-        }
-        if(goodsType == goodsType.chest)
-        {
-            for (int j = 0; j < Inventory.Chests.Count; j++)
-            {
-                indexs.Add(j);
-            }
+            indexs.Add(j);
         }
         int length = indexs.Count;
-       
+       //아이템 랜덤 진열
         for (int i = 0 ; i < slots.Length; i++)
         {
             slots[i].gameObject.SetActive(false);
         }
         for (int i = 0; i < slots.Length && i < length; i++)
         {
+            if (goodsType == goodsType.chest && indexs.Count < 2) break;
             count = Random.Range(1, 5 + 1);
-            if (goodsType == goodsType.item)//아이템
-            {
-                slots[i].gameObject.SetActive(true);
-                index = Random.Range(0, indexs.Count);
-                slots[i].SetItem(Inventory.Items[indexs[index]].item, count);
-                indexs.Remove(indexs[index]);
-            }
-            if (goodsType == goodsType.chest)//상자
-            {
-                if(indexs.Count >= 2)
-                {
-                    slots[i].gameObject.SetActive(true);
-                    index = Random.Range(1, indexs.Count);
-                    slots[i].SetChest(Inventory.Chests[indexs[index]].chest, count);
-                    indexs.Remove(indexs[index]);
-                }
-            }
+            index = Random.Range(0, indexs.Count);
+            slots[i].gameObject.SetActive(true);
+            slots[i].SetItem(items[indexs[index]].item, count);
+            indexs.Remove(indexs[index]);
         }
     }
 }

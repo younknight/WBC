@@ -78,9 +78,9 @@ public class AutoCrafter : MonoBehaviour
             autoCounter = new AutoCraftMaxCounter(autoCounter.currentCount - count, date);
             for (int j = 0; j < slot.Chest.recipes[0].items.Count; j++)
             {
-                inventoryManager.DropItems<Item>(slot.Chest.recipes[0].items[j], count);
+                inventoryManager.DropItems(slot.Chest.recipes[0].items[j], count);
             }
-            inventoryManager.AddItems<Chest>(slot.Chest, count);
+            inventoryManager.AddItems(slot.Chest, count);
             GetChestPopup.Instance.SetGetChest(slot.Chest);
             GetChestPopup.Instance.Open();
             FreshSelectedCount();

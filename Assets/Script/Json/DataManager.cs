@@ -7,26 +7,24 @@ using Newtonsoft.Json;
 #region 정보 목록
 public class HasItem
 {
-    public int itemId;
+    public int id;
     public int count;
 
     public HasItem(int id, int count)
     {
-        this.itemId = id;
+        this.id = id;
         this.count = count;
     }
 }
-public class HasWeaponWithLevel
+public class WeaponLevel
 {
-    public int weaponId;
-    public int count;
+    public int id;
     public int level;
     public int enforceGauge;
 
-    public HasWeaponWithLevel(int id, int count, int level, int enforceGauge)
+    public WeaponLevel(int id, int level, int enforceGauge)
     {
-        this.weaponId = id;
-        this.count = count;
+        this.id = id;
         this.level = level;
         this.enforceGauge = enforceGauge;
     }
@@ -71,7 +69,8 @@ public class SaveData
     //아이템들
     public List<HasItem> items = new List<HasItem>();
     public List<HasItem> chests = new List<HasItem>();
-    public List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
+    public List<HasItem> weapons = new List<HasItem>();
+    public List<WeaponLevel> weaponLevels = new List<WeaponLevel>();
     //플레이어 정보
     public OpeningChest[] openingChests = new OpeningChest[16];//열고 있는 상자 정보
     public List<List<int>> weirdRecipe = new List<List<int>>();//이상한 상자 레시피
@@ -87,9 +86,9 @@ public class DataManager : MonoBehaviour
     [SerializeField] CraftDatabase craftDatabase;
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] DayChecker dayChecker;
+    [SerializeField] GameManager gameManager;
     [SerializeField] StaminaGauge stamina;
     [SerializeField] Opener opener;
-    [SerializeField] GameManager gameManager;
     [SerializeField] Chest firstChest;
     public static DataManager instance;
     string path;
@@ -120,10 +119,11 @@ public class DataManager : MonoBehaviour
         SaveData saveData = new SaveData();
         if (!File.Exists(path))
         {
-            Inventory.Items = new List<itemInfo>();
-            Inventory.Chests = new List<chestInfo>();
-            Inventory.Chests.Add(new chestInfo(firstChest, 1));
-            Inventory.Weapons = new List<weaponInfo>();
+            ItemDatabaseManager.Ingrediants = new List<ItemInfo>();
+            ItemDatabaseManager.Chests = new List<ItemInfo>();
+            ItemDatabaseManager.Chests.Add(new ItemInfo(firstChest, 1));
+            ItemDatabaseManager.Weapons = new List<ItemInfo>();
+            ItemDatabaseManager.WeaponLevels = new List<WeaponInfo>();
             LockManager.LockInfo = new LockInfo(2, 20, 5);
             AutoCrafter.AutoCounter = new AutoCraftMaxCounter(5, DateTime.Now);
             Opener.OpeningChests = new OpeningChest[16];
@@ -138,16 +138,19 @@ public class DataManager : MonoBehaviour
                 saveData = JsonConvert.DeserializeObject<SaveData>(loadJson);
                 #region 로드
                 //불러오기
-                List<itemInfo> itemInfos = new List<itemInfo>();
-                for (int i = 0; i < saveData.items.Count; i++) { itemInfos.Add(new itemInfo(gameManager.ItemDatas[saveData.items[i].itemId], saveData.items[i].count)); }
-                List<chestInfo> chestInfos = new List<chestInfo>();
-                for (int i = 0; i < saveData.chests.Count; i++) { chestInfos.Add(new chestInfo(gameManager.ChestDatas[saveData.chests[i].itemId], saveData.chests[i].count)); }
-                List<weaponInfo> weaponInfos = new List<weaponInfo>();
-                for (int i = 0; i < saveData.weapons.Count; i++) { weaponInfos.Add(new weaponInfo(gameManager.WeaponDatas[saveData.weapons[i].weaponId], saveData.weapons[i].count, saveData.weapons[i].level, saveData.weapons[i].enforceGauge)); }
+                List<ItemInfo> itemInfos = new List<ItemInfo>();
+                for (int i = 0; i < saveData.items.Count; i++) { itemInfos.Add(new ItemInfo(gameManager.ItemDatas[saveData.items[i].id], saveData.items[i].count)); }
+                List<ItemInfo> chestInfos = new List<ItemInfo>();
+                for (int i = 0; i < saveData.chests.Count; i++) { chestInfos.Add(new ItemInfo(gameManager.ChestDatas[saveData.chests[i].id], saveData.chests[i].count)); }
+                List<ItemInfo> weaponInfos = new List<ItemInfo>();
+                for (int i = 0; i < saveData.weapons.Count; i++) { weaponInfos.Add(new ItemInfo(gameManager.WeaponDatas[saveData.weapons[i].id], saveData.weapons[i].count)); }
+                List<WeaponInfo> weaponLevelInfos = new List<WeaponInfo>();
+                for (int i = 0; i < saveData.weaponLevels.Count; i++) { weaponLevelInfos.Add(new WeaponInfo(gameManager.WeaponDatas[saveData.weaponLevels[i].id], saveData.weaponLevels[i].level, saveData.weaponLevels[i].enforceGauge)); }
                 Opener.OpeningChests = saveData.openingChests;
-                Inventory.Items = itemInfos;
-                Inventory.Chests = chestInfos;
-                Inventory.Weapons = weaponInfos;
+                ItemDatabaseManager.Ingrediants = itemInfos;
+                ItemDatabaseManager.Chests = chestInfos;
+                ItemDatabaseManager.Weapons = weaponInfos;
+                ItemDatabaseManager.WeaponLevels = weaponLevelInfos;
                 AutoCrafter.AutoCounter = saveData.autoCounter;
                 LockManager.LockInfo = saveData.lockInfo;
                 ResourseManager.Instance.Resource = saveData.resource;
@@ -168,15 +171,18 @@ public class DataManager : MonoBehaviour
     {
         SaveData saveData = new SaveData();
         #region json파일에 저장
-        List<HasItem> items = new List<HasItem>();
-        for (int i = 0; i < Inventory.Items.Count; i++) { items.Add(new HasItem(Inventory.Items[i].item.id, Inventory.Items[i].num)); }
+        List<HasItem> ingrediants = new List<HasItem>();
+        for (int i = 0; i < ItemDatabaseManager.Ingrediants.Count; i++) { ingrediants.Add(new HasItem(ItemDatabaseManager.Ingrediants[i].item.id, ItemDatabaseManager.Ingrediants[i].num)); }
         List<HasItem> chests = new List<HasItem>();
-        for (int i = 0; i < Inventory.Chests.Count; i++) { chests.Add(new HasItem(Inventory.Chests[i].chest.id, Inventory.Chests[i].num)); }
-        List<HasWeaponWithLevel> weapons = new List<HasWeaponWithLevel>();
-        for (int i = 0; i < Inventory.Weapons.Count; i++) { weapons.Add(new HasWeaponWithLevel(Inventory.Weapons[i].weapon.id, Inventory.Weapons[i].num, Inventory.Weapons[i].level, Inventory.Weapons[i].enforceGauge)); }
-        saveData.items = items;
+        for (int i = 0; i < ItemDatabaseManager.Chests.Count; i++) { chests.Add(new HasItem(ItemDatabaseManager.Chests[i].item.id, ItemDatabaseManager.Chests[i].num)); }
+        List<HasItem> weapons = new List<HasItem>();
+        for (int i = 0; i < ItemDatabaseManager.Weapons.Count; i++) { weapons.Add(new HasItem(ItemDatabaseManager.Weapons[i].item.id, ItemDatabaseManager.Weapons[i].num)); }
+        List<WeaponLevel> weaponLevelInfos = new List<WeaponLevel>();
+        for (int i = 0; i < ItemDatabaseManager.WeaponLevels.Count; i++) { weaponLevelInfos.Add(new WeaponLevel(ItemDatabaseManager.WeaponLevels[i].item.id, ItemDatabaseManager.WeaponLevels[i].level, ItemDatabaseManager.WeaponLevels[i].gauge)); }
+        saveData.items = ingrediants;
         saveData.chests = chests;
         saveData.weapons = weapons;
+        saveData.weaponLevels = weaponLevelInfos;
         saveData.resource = ResourseManager.Instance.Resource;
         int[] equip = new int[6];
         for (int i = 0; i < equip.Length; i++)

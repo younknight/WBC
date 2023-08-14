@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 334305142}
   m_Layer: 0
   m_Name: sceneMoveManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 1211746439}
   m_Layer: 0
   m_Name: StoryDataManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 1572531098}
   m_Layer: 0
   m_Name: StaminaDataManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

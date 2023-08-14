@@ -4,29 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct DropItem<T>
+public struct DropItem
 {
-    public T drop;
+    public Item drop;
     public int maxDrop;
     public int minDrop;
     public int percent;
 }
 
 [CreateAssetMenu]
-public class Chest : ScriptableObject, IInformation
-{
-    [Header ("Information")]
-    public int id;
-    public string chestName;
-    public int price;
-    [Multiline(5)]
-    public string chestExplain;
-    public string ranking;
-    public float openTime;
 
-    [Space(10f)]
-    [Header("Sprite")]
-    public Sprite chetImage;
+public class Chest : Item
+{
+    public float openTime;
     public Sprite chestOpenImage;
 
     [Space(10f)]
@@ -36,78 +26,35 @@ public class Chest : ScriptableObject, IInformation
     [Space(10f)]
     [Tooltip("각 확률은 독립적으로 계산")]
     [Header("DropItem")]
-    public List<DropItem<Item>> dropItems;
-    public List<DropItem<Weapon>> dropWeapons;
-    #region Getter
-    public int GetId() { return id; }
-    public string GetName() { return chestName; }
-    public string GetExplain() { return chestExplain; }
-    public string GetRanking() { return ranking; }
-    public Sprite GetSprite() { return chetImage; }
-    #endregion
-    List<DropItem<IInformation>> drops;
+    public List<DropItem> dropItems;
 
-    private void OnValidate()
+    public int GetRandomCount(Item item)
     {
-        string[] nameValue = name.Split('.');
-        chestName = nameValue[1] + " 상자";
-        id = Convert.ToInt32(nameValue[0]);
-    }
-    private void Setup()
-    {
-        drops = new List<DropItem<IInformation>>();
-        for (int i = 0; i < dropItems.Count; i++)
-        {
-            DropItem<IInformation> newInfo = new DropItem<IInformation>();
-            newInfo.drop = dropItems[i].drop;
-            newInfo.maxDrop = dropItems[i].maxDrop;
-            newInfo.minDrop = dropItems[i].minDrop;
-            newInfo.percent = dropItems[i].percent;
-            drops.Add(newInfo);
-        }
-        for (int i = 0; i < dropWeapons.Count; i++)
-        {
-            DropItem<IInformation> newInfo = new DropItem<IInformation>();
-            newInfo.drop = dropWeapons[i].drop;
-            newInfo.maxDrop = dropWeapons[i].maxDrop;
-            newInfo.minDrop = dropWeapons[i].minDrop;
-            newInfo.percent = dropWeapons[i].percent;
-            drops.Add(newInfo);
-        }
-    }
-    public int GetRandomCount(IInformation item)
-    {
-        DropItem<IInformation> drop = drops.Find(x => x.drop == item);
+        DropItem drop = dropItems.Find(x => x.drop == item);
         return UnityEngine.Random.Range(drop.minDrop, drop.maxDrop + 1);
     }
-    public List<IInformation> GetRandomDrop()
+    public List<Item> GetRandomDropItems()
     {
-        Setup();
-        List<IInformation> returnValue = new List<IInformation>();
-        for (int i=0; i < drops.Count; i++)
+        List<Item> returnValue = new List<Item>();
+        for (int i=0; i < dropItems.Count; i++)
         {
             int percent = UnityEngine.Random.Range(1, 100 + 1);
-            if (percent <= drops[i].percent)
+            if (percent <= dropItems[i].percent)
             {
-                returnValue.Add(drops[i].drop);
+                returnValue.Add(dropItems[i].drop);
             }
         }
         return returnValue;
     }
-    public Dictionary<IInformation, int> GetDropItem()
+    public Dictionary<Item, int> GetRandomDropItemsWithCount()
     {
-        List<IInformation> newItems = GetRandomDrop();
-        Dictionary<IInformation, int> drops = new Dictionary<IInformation, int>();
-        foreach (IInformation newItem in newItems)
+        List<Item> newItems = GetRandomDropItems();
+        Dictionary<Item, int> drops = new Dictionary<Item, int>();
+        foreach (Item newItem in newItems)
         {
             int count = GetRandomCount(newItem);
             drops.Add(newItem, count);
         }
-        return drops;
-    }
-    public List<DropItem<IInformation>> GetDropItemInfo()
-    {
-        Setup();
         return drops;
     }
 }

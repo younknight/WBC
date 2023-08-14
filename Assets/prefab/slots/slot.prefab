@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 7778407123872252542}
   - component: {fileID: 5283132898620648306}
   - component: {fileID: 4337037580092746222}
+  - component: {fileID: 5191978695114887335}
   m_Layer: 5
   m_Name: slot
   m_TagString: Untagged
@@ -195,10 +196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSet: 0
   id: 0
-  popupType: 0
   isShowCount: 1
+  popupType: 0
+  item: {fileID: 0}
   image: {fileID: 7429063088473291896}
-  numberFrame: {fileID: 6825543455023963086}
+  countFrame: {fileID: 6825543455023963086}
   numberText: {fileID: 8461264485291689342}
 --- !u!114 &4337037580092746222
 MonoBehaviour:
@@ -244,8 +246,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5283132898620648306}
-        m_TargetAssemblyTypeName: Slot, Assembly-CSharp
+      - m_Target: {fileID: 5191978695114887335}
+        m_TargetAssemblyTypeName: SlotActiver, Assembly-CSharp
         m_MethodName: ActivateSlot
         m_Mode: 1
         m_Arguments:
@@ -256,6 +258,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5191978695114887335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223337116432813893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57932becbbbd9974fbc848c8b474e8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5691222897909206169
 GameObject:
   m_ObjectHideFlags: 0

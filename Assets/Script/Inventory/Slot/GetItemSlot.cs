@@ -16,9 +16,9 @@ public class GetItemSlot : MonoBehaviour
         countText.text =  count;
         isNewFrame.SetActive(isNew);
     }
-    public void SetupDrop(DropItem<IInformation> dropItem)
+    public void SetupDrop(DropItem dropItem)
     {
-        itemImage.sprite = dropItem.drop.GetSprite();
+        itemImage.sprite = dropItem.drop.itemImage;
         countText.text = dropItem.percent + "%";
     }
 }

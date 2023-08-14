@@ -64,7 +64,7 @@ public class OpenSlot : MonoBehaviour
         this.chest = chest;
         button.interactable = true;
         image.color = new Color(1, 1, 1, 1);
-        image.sprite = chest.chetImage;
+        image.sprite = chest.itemImage;
         timer.gameObject.SetActive(true);
         timer.StartTimer(chest.openTime, current);
         AddOpenChest();

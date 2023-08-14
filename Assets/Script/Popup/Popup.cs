@@ -46,7 +46,7 @@ public abstract class Popup : MonoBehaviour
         if (EquipmentSlot.currentSelectedSlot != null)
         {
             EquipmentSlot.currentSelectedSlot = null;
-            EnforceManager.Instance.FreshSlot();
+            //EnforceManager.Instance.FreshSlot();
             EquipmentManager.instance.SetEquipManager();
             DataManager.instance.JsonSave();
         }

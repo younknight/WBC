@@ -12,10 +12,6 @@ public class AdManager : MonoBehaviour
 
     string adUnitId;
 
-    void Awake()
-    {
-
-    }
     void Start()
     {
         MobileAds.Initialize((InitializationStatus initStatus) =>

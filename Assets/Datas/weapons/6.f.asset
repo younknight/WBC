@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: 6.f
   m_EditorClassIdentifier: 
   id: 6
-  weaponName: f
-  weaponType: 1
-  weapomExplain: "\u3142\u3142\u3142\u3142"
+  itemName: f
+  price: 0
+  itemExplain: 
   ranking: SSR
-  weaponImage: {fileID: -2012628262, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  itemImage: {fileID: -2012628262, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  weaponType: 1
   status:
     hp: 1
     attack: 1
@@ -34,5 +35,4 @@ MonoBehaviour:
     defence: 0
     criDamage: 0
     criRate: 0
-  coolTime: 5
   skills: {fileID: 11400000, guid: b4b5034496186ce4194abd23dbe9c1a7, type: 2}

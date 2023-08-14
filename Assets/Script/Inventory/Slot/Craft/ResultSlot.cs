@@ -13,6 +13,7 @@ public class ResultSlot : MonoBehaviour
     [SerializeField] Chest chest;//
     [SerializeField] List<int> weirdRecipe = new List<int>();
     [SerializeField] InventoryManager inventoryManager;//
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
     public Chest Chest { get => chest; set => chest = value; }
     public List<int> WeirdRecipe { get => weirdRecipe; set => weirdRecipe = value; }
 
@@ -25,14 +26,14 @@ public class ResultSlot : MonoBehaviour
     {
         button.interactable = true;
         this.chest = chest;
-        if (Inventory.CheckNewChest(chest) || isNew)//만약 새로운 상자라면
+        if (itemDatabaseManager.CheckNew(chest) || isNew)//만약 새로운 상자라면
         {
             image.sprite = unknownChest;
             questioImage.color = new Color(1, 1, 1, 1);
         }
         else
         {
-            image.sprite = chest.chetImage;
+            image.sprite = chest.itemImage;
         }
         image.color = new Color(1, 1, 1, 1);
     }
@@ -53,7 +54,7 @@ public class ResultSlot : MonoBehaviour
         GetChestPopup.Instance.Open();
         //PopupManager.Instance.OpenGetItemPopup();-----------------------------------------------------
         //Debug.Log(chest.ToString() + "/메이크 체스트/" + 1);
-        inventoryManager.AddItems<Chest>(chest,1);
+        inventoryManager.AddItems(chest,1);
         ClearChest();
         crafter.FreshSlot();
 

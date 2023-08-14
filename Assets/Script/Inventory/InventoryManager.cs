@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] ItemDatabaseManager itemDatabase;
     [SerializeField] List<Inventory> inventories = new List<Inventory>();
+
+
+   
     public void Initalize()
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            inventories[i].FreshSlot();
+            inventories[i].FreshSlot(itemDatabase.GetItemListWithType(inventories[i].InventoryType));
         }
     }
     public void Setup()
@@ -21,42 +25,28 @@ public class InventoryManager : MonoBehaviour
 
     }
     #region 아이템 추가 및 사용
-    public void AddItems<T>(T item, int num) where T : IInformation
+    public void AddItems(Item item, int num)
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            if (inventories[i].InventoryType == GetInventoryType<T>(item))
+            if (inventories[i].InventoryType == itemDatabase.GetInventoryType(item))
             {
-                inventories[i].AddItems<T>(item, num);
+                inventories[i].AddItems(itemDatabase.GetItemListWithType(inventories[i].InventoryType), item, num);
                 Initalize();
                 return;
             }
         }
     }
-    public void DropItems<T>(T item, int num) where T : IInformation
+    public void DropItems(Item item, int num)
     {
         for (int i = 0; i < inventories.Count; i++)
         {
-            if (inventories[i].InventoryType == GetInventoryType<T>(item))
+            if (inventories[i].InventoryType == itemDatabase.GetInventoryType(item))
             {
-                inventories[i].DropItems<T>(item, num);
+                inventories[i].DropItems(itemDatabase.GetItemListWithType(inventories[i].InventoryType), item, num);
             }
         }
     }
-    inventoryType GetInventoryType<T>(T item) where T : IInformation
-    {
-        string type = InfoManager.GetClassName(item);
-        //Debug.Log(type);
-        switch (type)
-        {
-            case "Item":
-                return inventoryType.item;
-            case "Chest":
-                return inventoryType.chest;
-            case "Weapon":
-                return inventoryType.weapon;
-        }
-        return inventoryType.item;
-    }
+    
     #endregion
 }

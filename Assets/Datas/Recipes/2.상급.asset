@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipe: 01000000010000000200000002000000
   items:
-  - {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
-  - {fileID: 11400000, guid: 299925ddca12d904e885a6c5f282a17d, type: 2}
-  - {fileID: 11400000, guid: 75af4e559882b9b4bbdc80a450913f37, type: 2}
-  - {fileID: 11400000, guid: 75af4e559882b9b4bbdc80a450913f37, type: 2}
+  - {fileID: 11400000, guid: 58879e3674a05b6419c3e1e4398f9d7c, type: 2}
+  - {fileID: 11400000, guid: 58879e3674a05b6419c3e1e4398f9d7c, type: 2}
+  - {fileID: 11400000, guid: 760269786321aad45b2641a5fb7749c1, type: 2}
+  - {fileID: 11400000, guid: 760269786321aad45b2641a5fb7749c1, type: 2}
   dropChest: {fileID: 11400000, guid: fc62468800c2cfc42a9b3d382d396b98, type: 2}

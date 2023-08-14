@@ -24,7 +24,7 @@ public class WeaponPopup : Popup
 
         if (EquipmentSlot.currentSelectedSlot.Weapon != null)
         {
-            inventoryManager.AddItems<Weapon>(EquipmentSlot.currentSelectedSlot.Weapon, 1);
+            inventoryManager.AddItems(EquipmentSlot.currentSelectedSlot.Weapon, 1);
             EquipmentManager.instance.Unit.BuffStatusWithWeapon(false, EquipmentSlot.currentSelectedSlot.Weapon);
             EquipmentManager.EquipWeapon[EquipmentSlot.currentSelectedSlot.Id] = null;
             EquipmentSlot.currentSelectedSlot.FreashSlot();

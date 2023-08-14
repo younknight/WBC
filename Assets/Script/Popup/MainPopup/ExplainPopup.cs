@@ -22,39 +22,39 @@ public class ExplainPopup : Popup
     public static ExplainPopup Instance { get => instance; set => instance = value; }
     private void OnDestroy() { Instance = null; }
     void Awake() { if (Instance == null) Instance = this; }
-    public void SetExplain(IInformation item)
+    public void SetExplain(Item item)
     {
         ResetObj();
         CommonSet(item);
-        string type = InfoManager.CheckInterfaceType(item);
-        if (type == "weapon")
+        if (item is Weapon)
         {
-            levelText.transform.parent.gameObject.SetActive(true);
-            levelText.text = "Lv." + Inventory.Weapons.Find(x => x.weapon.id == item.GetId()).level;
             weaponBtn.gameObject.SetActive(true);
-            weaponInfoPopup.Setup(InfoManager.GetCharacter<Weapon>(item));
+            Weapon weapon = (Weapon)item;
+            weaponInfoPopup.Setup(weapon);
+            levelText.transform.parent.gameObject.SetActive(true);
+            levelText.text = "Lv." + ItemDatabaseManager.WeaponLevels.Find(x => x.item == item).level;
         }
-        if (type == "chest")
+        if (item is Chest)
         {
-            Chest chest = InfoManager.GetCharacter<Chest>(item);
             chestBtn.gameObject.SetActive(true);
-            chestPopup.Setup(chest.GetDropItemInfo());
+            Chest chest = (Chest)item;
+            chestPopup.Setup(chest.dropItems);
         }
-        if(type == "item")
+        if(item is Ingredient)
         {
-            Item targetItem = InfoManager.GetCharacter<Item>(item);
-            priceText.text = targetItem.sellPrice.ToString();
             itemBtn.gameObject.SetActive(true);
-            itemPopup.Setup(false, targetItem);
+            Ingredient ingredient = (Ingredient)item;
+            itemPopup.Setup(false, ingredient);
+            priceText.text = ingredient.sellPrice.ToString();
         }
     }
-    void CommonSet(IInformation item)
+    void CommonSet(Item item)
     {
-        idText.text = "No." + item.GetId();
-        nameText.text = item.GetName();
-        explainText.text = item.GetExplain();
-        image.sprite = item.GetSprite();
-        rankingText.text = item.GetRanking();
+        idText.text = "No." + item.id;
+        nameText.text = item.itemName;
+        explainText.text = item.itemExplain;
+        image.sprite = item.itemImage;
+        rankingText.text = item.ranking;
     }
     void ResetObj()
     {

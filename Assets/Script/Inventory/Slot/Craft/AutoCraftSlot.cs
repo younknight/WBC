@@ -4,32 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AutoCraftSlot : MonoBehaviour
+public class AutoCraftSlot : Slot
 {
-    [SerializeField] Chest chest;//
-    [Header("기본 이미지")]
-    [SerializeField] Image chestImage;
     [SerializeField] Sprite defaultImage;
     public static AutoCraftSlot currentSelectedSlot;
 
-    public Chest Chest { get => chest; set => chest = value; }
+    public Chest Chest { get => (Chest)Item;}
 
     public void OpenPopup()
     {
         ChestPopup.Instance.OpenPopup(true);
     }
-    public void FreashSlot()
+    public void FreshAutoCraftSlot()
     {
-        chest = null;
+        FreshSlot(false);
         currentSelectedSlot = null;
-        chestImage.sprite = defaultImage;
-        chestImage.color = new Color(1, 1, 1, 0.5f);
+        image.sprite = defaultImage;
+        image.color = new Color(1, 1, 1, 0);
     }
     public void SetChest(Chest chest)
     {
-        this.chest = chest;
-        chestImage.sprite = chest.chetImage;
-        chestImage.color = new Color(1, 1, 1, 1);
+        Item = chest;
+        image.sprite = chest.itemImage;
+        image.color = new Color(1, 1, 1, 1);
     }
     private void OnDestroy()
     {

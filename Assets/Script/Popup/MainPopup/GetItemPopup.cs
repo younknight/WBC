@@ -7,6 +7,7 @@ public class GetItemPopup : Popup
 {
     Chest chest;
     [SerializeField] InventoryManager inventoryManager;//
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
     [SerializeField] GameObject popup;
     [SerializeField] Image chestImage;
     [SerializeField] List<GetItemSlot> slots;
@@ -18,23 +19,15 @@ public class GetItemPopup : Popup
     {
         Open();
         this.chest = chest;
-        Dictionary<IInformation, int> drops = chest.GetDropItem();
+        Dictionary<Item, int> drops = chest.GetRandomDropItemsWithCount();
         int i = 0;
-        foreach(KeyValuePair<IInformation, int> entry in drops)
+        foreach(KeyValuePair<Item, int> entry in drops)
         {
             bool isNew = false;
-            if (InfoManager.CheckInterfaceType(entry.Key) == "item")
-            {
-                isNew = Inventory.CheckNewItem((Item)entry.Key);
-                inventoryManager.AddItems<Item>((Item)entry.Key, entry.Value);
-            }
-            if (InfoManager.CheckInterfaceType(entry.Key) == "weapon")
-            {
-                isNew = Inventory.CheckNewWeapon((Weapon)entry.Key);
-                inventoryManager.AddItems<Weapon>((Weapon)entry.Key, entry.Value);
-            }
+            isNew = itemDatabaseManager.CheckNew(entry.Key);
+            inventoryManager.AddItems(entry.Key, entry.Value);
             slots[i].gameObject.SetActive(true);
-            slots[i].Setup(isNew, entry.Key.GetSprite(), "x" + entry.Value.ToString()) ;
+            slots[i].Setup(isNew, entry.Key.itemImage, "x" + entry.Value.ToString()) ;
             i++;
         }
         for (; i < slots.Count; i++)
@@ -43,7 +36,7 @@ public class GetItemPopup : Popup
         }
         popup.SetActive(false);
         chestImage.gameObject.SetActive(true);
-        chestImage.sprite = chest.chetImage;
+        chestImage.sprite = chest.itemImage;
     }
     public void TurnOpenImage()
     {

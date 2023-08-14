@@ -8,23 +8,25 @@ public class ItemSellPopup : Popup
     [SerializeField] Toggle toggle;
     [SerializeField] SellSlider sellSlider;
     [SerializeField] InventoryManager inventoryManager;//
-    itemInfo itemInfo;
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
+    ItemInfo itemInfo;
     public void TogglePopup()
     {
         if (toggle.isOn) Open();
         else CloseStart();
     }
-    public void Setup(bool isReset, Item item)
+    public void Setup(bool isReset, Ingredient item)
     {
         toggle.isOn = isReset;
-        itemInfo = Inventory.Items.Find(x => x.item == item);
-        sellSlider.Setup(itemInfo.num, itemInfo.item.sellPrice);
+        itemInfo = itemDatabaseManager.FIndItemWithId(item.id, inventoryType.ingrediant);
+        sellSlider.Setup(itemInfo.num, item.sellPrice);
     }
     public void Sell()
     {
         ResourseManager.Instance.Purchase(false, sellSlider.GetTotalPrice());
-        inventoryManager.DropItems<Item>(itemInfo.item,sellSlider.CurrentCount);
-        Setup(true, itemInfo.item);
-        sellSlider.Setup(itemInfo.num,itemInfo.item.sellPrice);
+        inventoryManager.DropItems(itemInfo.item,sellSlider.CurrentCount);
+        Setup(true, (Ingredient)itemInfo.item);
+        Ingredient item = (Ingredient)itemInfo.item;
+        sellSlider.Setup(itemInfo.num,item.sellPrice);
     }
 }

@@ -17,9 +17,9 @@ public class RecipePopup : Popup
     void Awake() { if (Instance == null) Instance = this; }
     public void SetRecipe(Chest chest)
     {
-        nameText.text = chest.chestName;
+        nameText.text = chest.itemName;
         rankingText.text = chest.ranking;
-        image.sprite = chest.chetImage;
+        image.sprite = chest.itemImage;
         weirdRecipe.SetActive(false);
         if (chest.id == 0)
         {
@@ -33,7 +33,7 @@ public class RecipePopup : Popup
             {
                 resources[index].FreshSlot(false);
                 Debug.Log(chest.recipes[i].items[index]);
-                resources[index].NewAddItemInfo<Item>(chest.recipes[i].items[index], 0);
+                resources[index].AddItemInfo(chest.recipes[i].items[index], 0);
             }
             for (; index < resources.Count; index++)
             {

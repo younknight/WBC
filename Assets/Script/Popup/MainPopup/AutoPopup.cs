@@ -14,7 +14,7 @@ public class AutoPopup : Popup
 
     public void OpenPopup()
     {
-        slot.FreashSlot();
+        slot.FreshAutoCraftSlot();
         Open();
     }
 }

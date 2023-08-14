@@ -32,7 +32,7 @@ public class EquipmentSlot : MonoBehaviour
     public void SetWeapon(Weapon weapon)
     {
         this.weapon = weapon;
-        weaponImage.sprite = weapon.weaponImage;
+        weaponImage.sprite = weapon.itemImage;
         weaponImage.color = new Color(1, 1, 1, 1);
     }
     private void OnDestroy()

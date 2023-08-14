@@ -4,42 +4,27 @@ using UnityEngine;
 public enum inventoryType
 {
     chest,
-    item,
+    ingrediant,
     weapon
 }
 public class Inventory : MonoBehaviour
 {
+
     [SerializeField] GameObject slotPrefap;
     [SerializeField] inventoryType inventoryType;
-    [SerializeField] bool isDraggble = true;
     [SerializeField] popupType openPopupType;
+    [SerializeField] bool isDraggble = true;
     [SerializeField] bool isShowCount = true;
 
-
-    private static List<itemInfo> items = new List<itemInfo>();
-    private static List<chestInfo> chests = new List<chestInfo>();
-    private static List<weaponInfo> weapons = new List<weaponInfo>();
-
+    
     [SerializeField]
     private Transform slotParent;
     [SerializeField]
     private Slot[] slots;
-
     public inventoryType InventoryType { get => inventoryType; }
-    public static List<itemInfo> Items { get => items; set => items = value; }
-    public static List<chestInfo> Chests { get => chests; set => chests = value; }
-    public static List<weaponInfo> Weapons { get => weapons; set => weapons = value; }
-    private void OnDestroy()
-    {
-        items = null;
-        chests = null;
-    }
-    private void Awake()
-    {
-    }
     public void Setup()
     {
-        int count = GameManager.GetCount(inventoryType);
+        int count = GameManager.GetFullItemCount(inventoryType);
         Transform cavas = GameObject.Find("Canvas").transform;
         for (int i = 0; i < count; i++)
         {
@@ -49,7 +34,6 @@ public class Inventory : MonoBehaviour
         slots = slotParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].Inventory = this;
             slots[i].Id = i;
             slots[i].IsShowCount = isShowCount;
             slots[i].PopupType = openPopupType;
@@ -66,124 +50,59 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    #region 새로운아이템 확인
-    public static bool CheckNewChest(Chest chest)
-    {
-        for (int i = 0; i < Chests.Count; i++)
-        {
-            if (chest == Chests[i].chest) return false;
-        }
-        return true;
-    }
-    public static bool CheckNewItem(Item item)
-    {
-        for (int i = 0; i < Items.Count; i++)
-        {
-            if (item == Items[i].item) return false;
-        }
-        return true;
-    }
-    public static bool CheckNewWeapon(Weapon weapon)
-    {
-        for (int i = 0; i < Items.Count; i++)
-        {
-            if (weapon == weapons[i].weapon) return false;
-        }
-        return true;
-    }
-    #endregion
-    public void FreshSlot()
+    public void FreshSlot(List<ItemInfo> items)
     {
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].FreshSlot(true);
         }
-        if (inventoryType == inventoryType.item)//
+        for(int i= 0; i < items.Count; i++)
         {
-            for(int i=0; i < Items.Count; i++)
+            slots[items[i].item.id].isSet = true;
+            slots[items[i].item.id].gameObject.SetActive(true);
+            slots[items[i].item.id].AddItemInfo(items[i].item, items[i].num);
+            if(inventoryType == inventoryType.chest)//특수상자(이상한 상자, 시작의 상자) 예외처리
             {
-                slots[Items[i].item.id].isSet = true;
-                slots[Items[i].item.id].gameObject.SetActive(true);
-                slots[Items[i].item.id].NewAddItemInfo<Item>(Items[i].item, Items[i].num);
-            }
-        }
-        if (inventoryType == inventoryType.chest)
-        {
-            for (int i = 0; i < Chests.Count; i++)
-            {
-                slots[Chests[i].chest.id].isSet = true;
-                slots[Chests[i].chest.id].gameObject.SetActive(true);
-                if (openPopupType == popupType.recipe && Chests[i].chest.id == 1) slots[Chests[i].chest.id].gameObject.SetActive(false);
-                if (openPopupType == popupType.autoCraft && (Chests[i].chest.id == 0 || Chests[i].chest.id == 1)) slots[Chests[i].chest.id].gameObject.SetActive(false);
-                if (Chests[i].num <= 0 && Chests[i].chest.id == 1)
+                if (openPopupType == popupType.recipe && items[i].item.id == 1) slots[items[i].item.id].gameObject.SetActive(false);
+                if (openPopupType == popupType.autoCraft && (items[i].item.id == 0 || items[i].item.id == 1)) slots[items[i].item.id].gameObject.SetActive(false);
+                if (items[i].num <= 0 && items[i].item.id == 1)
                 {
-                    slots[Chests[i].chest.id].gameObject.SetActive(false);
+                    slots[items[i].item.id].gameObject.SetActive(false);
                     continue;
                 }
-                slots[Chests[i].chest.id].NewAddItemInfo<Chest>(Chests[i].chest, Chests[i].num);
-            }
-        }
-        if (inventoryType == inventoryType.weapon)
-        {
-            for (int i = 0; i < Weapons.Count; i++)//무기 초기화
-            {
-                slots[Weapons[i].weapon.id].isSet = true;
-                slots[Weapons[i].weapon.id].gameObject.SetActive(true);
-                slots[Weapons[i].weapon.id].NewAddItemInfo<Weapon>(Weapons[i].weapon, Weapons[i].num);
             }
         }
     }
     #region 아이템 추가 및 사용
-    public void AddItems<T>(T _item, int num) where T : IInformation
+    public void AddItems(List<ItemInfo> items , Item _item, int num)
     {
-        string type = InfoManager.GetClassName(_item);
-        if (slots[_item.GetId()].isSet)
+        if (slots[_item.id].isSet)
         {
-            slots[_item.GetId()].NewAddItemInfo(_item, num);
-            SetInfo(_item,false, 0);
+            slots[_item.id].AddItemInfo(_item, num);
+            ModifyItemInInventory(items, _item, false, 0);
             DataManager.instance.JsonSave();
             return;
         }
-        slots[_item.GetId()].isSet = true;
-        slots[_item.GetId()].gameObject.SetActive(true);
-        slots[_item.GetId()].NewAddItemInfo(_item, num);
-        SetInfo(_item, true, num);
+        slots[_item.id].isSet = true;
+        slots[_item.id].gameObject.SetActive(true);
+        slots[_item.id].AddItemInfo(_item, num);
+        ModifyItemInInventory(items, _item, true, num);
         DataManager.instance.JsonSave();
     }
-    public void DropItems<T>(T _item, int num) where T : IInformation
+    public void DropItems(List<ItemInfo> items , Item item, int num)
     {
-        if (slots[_item.GetId()].isSet)
+        if (slots[item.id].isSet)
         {
-            slots[_item.GetId()].NewDrop(num);
-            SetInfo(_item, false, 0);
+            slots[item.id].Drop(num);
+            ModifyItemInInventory(items, item, false, 0);
         }
         DataManager.instance.JsonSave();
     }
-    void SetInfo<T>(T _item, bool isNew, int num) where T : IInformation
+    void ModifyItemInInventory(List<ItemInfo> items, Item item, bool isNew, int num)
     {
-        string type = InfoManager.GetClassName(_item);
-        switch (type)
-        {
-            case "Item":
-                Item item = InfoManager.GetCharacter<Item>(_item);
-                if(isNew) Items.Add(new itemInfo(item, num));
-                else Items[Items.FindIndex(x => x.item == item)] = new itemInfo(item, slots[_item.GetId()].Number);
-                break;
-            case "Chest":
-                Chest chest = InfoManager.GetCharacter<Chest>(_item);
-                if (isNew) Chests.Add(new chestInfo(chest, num));
-                else Chests[Chests.FindIndex(x => x.chest == chest)] = new chestInfo(chest, slots[_item.GetId()].Number);
-                break;
-            case "Weapon":
-                Weapon weapon = InfoManager.GetCharacter<Weapon>(_item);
-                if (isNew) Weapons.Add(new weaponInfo(weapon, num, 1, 0));
-                else
-                {
-                    weaponInfo origin = Weapons[Weapons.FindIndex(x => x.weapon == weapon)];
-                    Weapons[Weapons.FindIndex(x => x.weapon == weapon)] = new weaponInfo(weapon, slots[_item.GetId()].Number, origin.level, origin.enforceGauge);
-                }
-                break;
-        }
+        if (isNew) items.Add(new ItemInfo(item, num));
+        else items[items.FindIndex(x => x.item == item)] = new ItemInfo(item, slots[item.id].Count);
+        if (item is Weapon && isNew) ItemDatabaseManager.WeaponLevels.Add(new WeaponInfo(item, 1, 0));
     }
     #endregion
 }

@@ -30,7 +30,7 @@ public class SkillManager : MonoBehaviour
         Skill skill = weapon.skills;
         if (!isNonTarget(weapon.skills.GetSkillType()))
         {
-            timer.TimerStart(weapon.coolTime);
+            timer.TimerStart(weapon.skills.coolTime);
         }
         switch (skill.GetSkillType())
         {
@@ -43,7 +43,7 @@ public class SkillManager : MonoBehaviour
                 break;
             case skillType.NonTargetAttack:
                 nonTargetArea.transform.parent.gameObject.SetActive(true);
-                nonTargetArea.Setup((NonTargetSkill)skill, timer, weapon.coolTime);
+                nonTargetArea.Setup((NonTargetSkill)skill, timer, weapon.skills.coolTime);
                 break;
         }
     }

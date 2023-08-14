@@ -18,10 +18,9 @@ public class Goods
 }
 public class GoodsSlot : MonoBehaviour
 {
-    [SerializeField] InventoryManager inventoryManager;//
+    InventoryManager inventoryManager;
     [SerializeField] bool isSpecialChest;
-    [SerializeField] Chest chest;
-    Item item;
+    [SerializeField] Item item;
     int count;
     int price;
     [SerializeField] Goods goods;
@@ -41,10 +40,11 @@ public class GoodsSlot : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+        inventoryManager = GameObject.FindWithTag("Manager").GetComponent<InventoryManager>();
     }
     public void Purchase()
     {
-        if (chest != null)
+        if (item != null)
         {
             if (isSpecialChest)//Æ¯¼ö»óÀÚ
             {
@@ -52,7 +52,7 @@ public class GoodsSlot : MonoBehaviour
                 {
                     PurchasePopup.Instance.Close();
                     ResourseManager.Instance.PurchaseWithPrimo(true, price);
-                    GetItemPopup.Instance.SetGetItem(chest);
+                    GetItemPopup.Instance.SetGetItem((Chest)item);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ public class GoodsSlot : MonoBehaviour
             {
                 if (ResourseManager.Instance.GetGold() >= price)
                 {
-                    inventoryManager.AddItems<Chest>(chest, count);
+                    inventoryManager.AddItems(item, count);
                     ResourseManager.Instance.Purchase(true, price);
                     button.interactable = false;
                 }
@@ -71,19 +71,6 @@ public class GoodsSlot : MonoBehaviour
                 {
                     //ÀÜ¾×ºÎÁ·
                 }
-            }
-        }
-        if (item != null)
-        {
-            if (ResourseManager.Instance.GetGold() >= price)
-            {
-                inventoryManager.AddItems<Item>(item, count);
-                ResourseManager.Instance.Purchase(true,price);
-                button.interactable = false;
-            }
-            else
-            {
-                //»à
             }
         }
         if(lockType != lockType.none)
@@ -124,14 +111,6 @@ public class GoodsSlot : MonoBehaviour
         Sprite sprite = defaultSprite; 
         int price = -1;
         string id = "";
-        if (chest != null)
-        {
-            name = chest.chestName;
-            ranking = chest.ranking;
-            sprite = chest.chetImage;
-            price = chest.price;
-            id = "No." + chest.id;
-        }
         if (item != null)
         {
             name = item.itemName;
@@ -152,7 +131,7 @@ public class GoodsSlot : MonoBehaviour
     }
     public void SetButton(bool interactive,int level)
     {
-        image.sprite = chest.GetSprite();
+        //image.sprite = item.itemImage;
         count = 1;
         countText.text = "LV." + (level + 1);
         priceText.text = "" + requestPrimoCost[level];
@@ -168,12 +147,12 @@ public class GoodsSlot : MonoBehaviour
     public void ClearSlot()
     {
         button.interactable = true;
-        chest = null;
         item = null;
         image.sprite = null;
         priceText.text = "none";
         countText.text = "none";
     }
+
     public void SetItem(Item item, int count)
     {
         this.item = item;
@@ -183,16 +162,6 @@ public class GoodsSlot : MonoBehaviour
         priceText.text = "" + (item.price * count);
         countText.text = "x" + count;
         goods = new Goods(item.id, count);
-    }
-    public void SetChest(Chest chest, int count)
-    {
-        this.chest = chest;
-        this.count = count;
-        price = chest.price;
-        image.sprite = chest.chetImage;
-        priceText.text = "" + (chest.price * count);
-        countText.text = "x" + count;
-        goods = new Goods(chest.id, count);
     }
     public void SetLock(int price, lockType lockType)
     {

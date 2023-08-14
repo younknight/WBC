@@ -6,7 +6,7 @@ using System;
 public class Recipe : ScriptableObject
 {
     public List<int> recipe;
-    public List<Item> items;
+    public List<Ingredient> items;
     public Chest dropChest;
     private void OnValidate()
     {

@@ -8,7 +8,7 @@ public class EnforceManager : MonoBehaviour
     static EnforceManager instance;
     [SerializeField] int resourceCount = 0;
     [SerializeField] Weapon weapon;//
-    [SerializeField] weaponInfo weaponInfo;
+    [SerializeField] WeaponInfo weaponInfo;
     [SerializeField] EquipmentSlot equipmentSlot;
     [SerializeField] int level;//
     [SerializeField] int gauge;//
@@ -18,6 +18,7 @@ public class EnforceManager : MonoBehaviour
     [SerializeField] Slider gaugeSlider;
     [SerializeField] Slider expectationSlider;
     [SerializeField] InventoryManager inventoryManager;//
+    [SerializeField] ItemDatabaseManager itemDatabaseManager;
 
     public static EnforceManager Instance { get => instance; set => instance = value; }
 
@@ -49,14 +50,14 @@ public class EnforceManager : MonoBehaviour
     {
         this.weapon = weapon;
         equipmentSlot.SetWeapon(weapon);
-        weaponInfo = Inventory.Weapons[Inventory.Weapons.FindIndex(x => x.weapon == weapon)];
-        SetGauge(weaponInfo.level,weaponInfo.enforceGauge);
+        weaponInfo = ItemDatabaseManager.WeaponLevels[ItemDatabaseManager.WeaponLevels.FindIndex(x => x.item == weapon)];
+        SetGauge(weaponInfo.level, weaponInfo.gauge);
     }
     public void SetGauge(int level, int gauge)
     {
-        int index = Inventory.Weapons.FindIndex(x => x.weapon == weapon);
-        Inventory.Weapons[index] = new weaponInfo(weapon, Inventory.Weapons[index].num, level, gauge);
-        weaponInfo = new weaponInfo(weapon, weaponInfo.num - resourceCount, level, gauge);
+        int index = ItemDatabaseManager.WeaponLevels.FindIndex(x => x.item == weapon);
+        ItemDatabaseManager.WeaponLevels[index] = new WeaponInfo(weapon, level, gauge);
+        weaponInfo = new WeaponInfo(weapon, level, gauge);
         this.level = level;
         this.gauge = gauge;
         levelText.text = "Lv." + this.level;
@@ -70,31 +71,31 @@ public class EnforceManager : MonoBehaviour
     public void TryEnforce()
     {
         gauge += resourceCount;
-        while(level * 2 <= gauge)
+        while (level * 2 <= gauge)
         {
             gauge -= level * 2;
             level++;
         }
-        inventoryManager.DropItems<Weapon>(weapon, resourceCount);
+        inventoryManager.DropItems(weapon, resourceCount);
         SetGauge(level, gauge);
         EquipmentManager.instance.SetEquipManager();
         DataManager.instance.JsonSave();
     }
     public void PlusResource(bool isPlus)
     {
-        if(weapon != null)
+        if (weapon != null)
         {
             if (isPlus)
             {
-                if (weaponInfo.num - 1 > resourceCount) resourceCount++;
+                if (itemDatabaseManager.FIndItemWithId(weapon.id, inventoryType.weapon).num - 1 > resourceCount) resourceCount++;
             }
             else
             {
                 if (resourceCount > 0) resourceCount--;
             }
-            if (level * 2 < gauge + resourceCount) gaugeText.text = this.gauge + "/" + this.level * 2 + "(+" + (gauge + resourceCount - level * 2) +")";
+            if (level * 2 < gauge + resourceCount) gaugeText.text = this.gauge + "/" + this.level * 2 + "(+" + (gauge + resourceCount - level * 2) + ")";
             else gaugeText.text = this.gauge + "/" + this.level * 2;
-            expectationSlider.value =  (float)(gauge + resourceCount)/(float)(level * 2);
+            expectationSlider.value = (float)(gauge + resourceCount) / (float)(level * 2);
         }
         resouceText.text = resourceCount.ToString();
     }

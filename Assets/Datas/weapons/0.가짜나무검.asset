@@ -13,17 +13,26 @@ MonoBehaviour:
   m_Name: "0.\uAC00\uC9DC\uB098\uBB34\uAC80"
   m_EditorClassIdentifier: 
   id: 0
-  weaponName: "\uAC00\uC9DC\uB098\uBB34\uAC80"
-  weaponType: 0
-  weapomExplain: "\u3141\u3141\u3141\u3141\u3141"
+  itemName: "\uAC00\uC9DC\uB098\uBB34\uAC80"
+  price: 0
+  itemExplain: 
   ranking: SSR
-  sellPrice: 0
-  weaponImage: {fileID: 1854118681, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  itemImage: {fileID: 1854118681, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  weaponType: 0
   status:
     hp: 1
     attack: 1
+    attackSpeed: 0
+    attackTarget: 0
     defence: 1
     criDamage: 1
     criRate: 1
-  coolTime: 5
+  levelUpStatus:
+    hp: 0
+    attack: 0
+    attackSpeed: 0
+    attackTarget: 0
+    defence: 0
+    criDamage: 0
+    criRate: 0
   skills: {fileID: 0}

@@ -12,11 +12,10 @@ public class DropPopup : Popup
         if (toggle.isOn) Open();
         else CloseStart();
     }
-    public void Setup(List<DropItem<IInformation>> drops)
+    public void Setup(List<DropItem> drops)
     {
         toggle.isOn = false;
         int i = 0;
-        GameManager.instance.SetTest(drops.Count + "");
         for (; i < drops.Count; i++)
         {
             slots[i].gameObject.SetActive(true);

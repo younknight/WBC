@@ -26,41 +26,16 @@ public struct status
 }
 
 [CreateAssetMenu]
-public class Weapon : ScriptableObject, IInformation
+public class Weapon : Item
 {
-    [Header("Information")]
-    public int id;
-    public string weaponName;
     public weaponType weaponType;
-    [Multiline(5)]
-    public string weapomExplain;
-    public string ranking;
-
-    [Space(10f)]
-    [Header("Sprite")]
-    public Sprite weaponImage;
-
     [Space(10f)]
     [Header("status")]
     public status status = new status(0, 0, 0, 0, 0, 0, 0);
     public status levelUpStatus = new status(0, 0, 0, 0, 0, 0, 0);
     [Space(10f)]
     [Header("skill")]
-    public float coolTime = 5f;
     public Skill skills;
-    #region Getter
-    public int GetId() { return id; }
-    public string GetName() { return weaponName; }
-    public string GetExplain() { return weapomExplain; }
-    public string GetRanking() { return ranking; }
-    public Sprite GetSprite() { return weaponImage; }
-    #endregion
-    private void OnValidate()
-    {
-        string[] nameValue = name.Split('.');
-        weaponName = nameValue[1];
-        id = Convert.ToInt32(nameValue[0]);
-    }
     public float GetStatus(statusType statusType, int level)
     {
         level -= 1;

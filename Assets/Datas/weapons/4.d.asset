@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: 4.d
   m_EditorClassIdentifier: 
   id: 4
-  weaponName: d
-  weaponType: 1
-  weapomExplain: "\u3141\u3141\u3141\u3141\u3141"
+  itemName: d
+  price: 0
+  itemExplain: 
   ranking: SSR
-  weaponImage: {fileID: 552685664, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  itemImage: {fileID: 552685664, guid: a7c46782897d0a9419c83874a47bbed1, type: 3}
+  weaponType: 1
   status:
     hp: 1
     attack: 1
     attackSpeed: 0
+    attackTarget: 0
     defence: 1
     criDamage: 1
     criRate: 5
@@ -29,8 +31,8 @@ MonoBehaviour:
     hp: 0
     attack: 0
     attackSpeed: 0
+    attackTarget: 0
     defence: 0
     criDamage: 0
     criRate: 0
-  coolTime: 5
   skills: {fileID: 11400000, guid: ddecacf09ec01b14ba989f3d0f91e786, type: 2}
