@@ -23,6 +23,7 @@ public class InfinityDungeonPopup : Popup
         if(StaminaManager.Instance.StaminaData.currentStamina > 0)
         {
             StaminaManager.Instance.UseStamina();
+            EnemySpawner.isInfinity = true;
             moveManager.MoveScene("InfinityDungeon");
         }
         else

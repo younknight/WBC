@@ -69,14 +69,14 @@ public class PlayerMovement : MonoBehaviour
             currentIndex++;
 
             //Vector3 direction = (wayPoints[currentIndex].position - transform.position).normalized;
-            movement2D.MoveTo(Vector3.right);
+            movement2D.MoveTo(Vector3.up);
         }
         else
         {
             if (isInfinity)
             {
                 currentIndex = 0;
-                movement2D.MoveTo(Vector3.right);
+                movement2D.MoveTo(Vector3.up);
             }
             else EndPopup.Instance.Setup(false, false, null);
         }

@@ -37,6 +37,7 @@ public class StagePopup : Popup
     }
     public void GoDungeon()
     {
-        sceneMoveManager.MoveScene("Dungeon");
+        EnemySpawner.isInfinity = false;
+        sceneMoveManager.MoveScene("InfinityDungeon");
     }
 }

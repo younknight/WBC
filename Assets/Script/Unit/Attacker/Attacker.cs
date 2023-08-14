@@ -8,7 +8,7 @@ public enum attackType { minDistance, random }
 
 public class Attacker : MonoBehaviour
 {
-    float attackRange = 5f;
+    float attackRange = 10f;
     public static bool CanAttack = true;
     [SerializeField] AnimationContol animator;
     [SerializeField] GameObject attackPrefap;

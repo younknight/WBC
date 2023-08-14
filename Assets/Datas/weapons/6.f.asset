@@ -22,6 +22,7 @@ MonoBehaviour:
     hp: 1
     attack: 1
     attackSpeed: 0
+    attackTarget: 0
     defence: 1
     criDamage: 1
     criRate: 7
@@ -29,8 +30,9 @@ MonoBehaviour:
     hp: 0
     attack: 0
     attackSpeed: 0
+    attackTarget: 0
     defence: 0
     criDamage: 0
     criRate: 0
   coolTime: 5
-  skills: {fileID: 11400000, guid: 3a1ac7df3ed25de429c26aa3c093a8e0, type: 2}
+  skills: {fileID: 11400000, guid: b4b5034496186ce4194abd23dbe9c1a7, type: 2}
